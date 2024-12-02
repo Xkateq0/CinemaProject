@@ -14,12 +14,28 @@ public class CShowing extends CBase {
     this.idMovie = idMovie;
     this.idHall = idHall;
   }
-  public LocalDate getDate() {return date;}
-  public LocalTime getTime() {return time;}
-  public int getIdMovie() {return idMovie;}
-  public int getIdHall() {return idHall;}
-  public void setDate(LocalDate date) {this.date = date;}
-  public void setTime(LocalTime time) {this.time = time;}
-  public void setIdMovie(int idMovie) {this.idMovie = idMovie;}
-  public void setIdHall(int idHall) {this.idHall = idHall;}
+  public LocalDate getDate() {
+    return date;
+  }
+  public LocalTime getTime() {
+    return time;
+  }
+  public int getIdMovie() {
+    return idMovie;
+  }
+  public int getIdHall() {
+    return idHall;
+  }
+  public void setDate(LocalDate date) {
+    this.date = date;
+  }
+  public void setTime(LocalTime time) {
+    this.time = time;
+  }
+  public void setIdMovie(int idMovie) {
+    this.idMovie = idMovie;
+  }
+  public void setIdHall(int idHall) {
+    this.idHall = idHall;
+  }
 }

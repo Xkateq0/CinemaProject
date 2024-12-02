@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class CTicket {
     private int idTicket;
     private double priceTicket;
