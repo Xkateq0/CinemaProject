@@ -38,4 +38,5 @@ public class CShowing extends CBase {
   public void setIdHall(int idHall) {
     this.idHall = idHall;
   }
+
 }

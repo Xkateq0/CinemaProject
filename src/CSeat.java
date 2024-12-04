@@ -22,4 +22,9 @@ public class CSeat {
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
+
+    public void setSeat(int idSeat,boolean occupied){
+        setIdSeat(idSeat);
+        setOccupied(occupied);
+    }
 }

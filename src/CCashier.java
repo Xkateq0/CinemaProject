@@ -7,4 +7,19 @@ class CCashier extends CUser{
         System.out.println("1. Add a reservation");
     }
 
+    public void setTicket(CTicket ticket, int idTicket,TypeTicket typeTicket){
+        ticket.setIdTicket(idTicket);
+        ticket.setTypeTicket(typeTicket);
+        ticket.setPriceByType();
+    }
+
+    public void setReservation(CReservation reservation, int idReservation , int idTicket,int idShowing, int idMovie, int idSeat){
+        reservation.setIdReservation(idReservation);
+        reservation.setIdTicket(idTicket);
+        reservation.setIdShowing(idShowing);
+        reservation.setIdMovie(idMovie);
+        reservation.setIdSeat(idSeat);
+    }
+
+
 }

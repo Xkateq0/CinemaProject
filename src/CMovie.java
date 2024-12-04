@@ -5,6 +5,13 @@ public class CMovie extends CBase {
     private String genre;
     private int duration;
 
+    public CMovie(String title,String cast,String genre,int duration){
+        this.title=title;
+        this.cast=cast;
+        this.genre=genre;
+        this.duration=duration;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -29,5 +36,6 @@ public class CMovie extends CBase {
     public String getGenre() {
         return this.genre;
     }
+
 
 }

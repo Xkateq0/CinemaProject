@@ -29,7 +29,7 @@ public class CTicket {
         this.typeTicket = typeTicket;
     }
 
-    private double setPriceByType() {
+    public double setPriceByType() {
         switch (typeTicket) {
             case STANDARD:
                 return 26.0;
@@ -43,6 +43,7 @@ public class CTicket {
                 return 0.0;
         }
     }
+
 }
 
 
