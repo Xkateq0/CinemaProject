@@ -1,20 +1,10 @@
-public class CTicket {
-    private int idTicket;
+public class CTicket extends CBase {
     private double priceTicket;
     private TypeTicket typeTicket;
 
     public CTicket(int idTicket, String nameTicket, double priceTicket, TypeTicket typeTicket) {
-        this.idTicket = idTicket;
         this.typeTicket = typeTicket;
         this.priceTicket = setPriceByType();
-    }
-
-    public int getIdTicket() {
-        return idTicket;
-    }
-
-    public void setIdTicket(int idTicket) {
-        this.idTicket = idTicket;
     }
 
     public double getPriceTicket() {
@@ -43,7 +33,17 @@ public class CTicket {
                 return 0.0;
         }
     }
-
+    @Override
+    public String serialize() {
+        return getId() + "," + typeTicket + "," + priceTicket;
+    }
+    @Override
+    public void deserialize(String data) {
+        String[] fields = data.split(",");
+        setId(Integer.parseInt(fields[0]));
+        this.typeTicket = TypeTicket.valueOf(fields[1]);
+        this.priceTicket = setPriceByType();
+    }
 }
 
 

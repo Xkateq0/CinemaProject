@@ -7,4 +7,8 @@ abstract public class CBase {
     protected void setId(int id) {
         this.id = id;
     }
+
+    public abstract String serialize();
+
+    public abstract void deserialize(String data);
 }

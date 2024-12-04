@@ -1,18 +1,8 @@
-public class CSeat {
-    private int idSeat;
+public class CSeat extends CBase {
     private boolean isOccupied;
 
     public CSeat(int idSeat, boolean isOccupied) {
-        this.idSeat = idSeat;
         this.isOccupied = isOccupied;
-    }
-
-    public int getIdSeat() {
-        return idSeat;
-    }
-
-    public void setIdSeat(int idSeat) {
-        this.idSeat = idSeat;
     }
 
     public boolean isOccupied() {
@@ -22,9 +12,14 @@ public class CSeat {
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
-
-    public void setSeat(int idSeat,boolean occupied){
-        setIdSeat(idSeat);
-        setOccupied(occupied);
+    @Override
+    public String serialize() {
+        return getId() + "," + isOccupied;
+    }
+    @Override
+    public void deserialize(String data) {
+        String[] fields = data.split(",");
+        setId(Integer.parseInt(fields[0]));
+        this.isOccupied = Boolean.parseBoolean(fields[1]);
     }
 }
