@@ -1,7 +1,3 @@
-/**
- *
- * @author yande
- */
 public class Main extends javax.swing.JFrame {
 
     /**
