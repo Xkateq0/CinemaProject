@@ -3,42 +3,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
-public class CManage <T extends CBase> {
+
+public class CManage<T extends CBase> {
 
     private Map<Integer, T> baza = new HashMap<>();
     private String fileName;
 
-    //Konstruktor wczytuje dane z pliku jesli istnieje
-    public CManage(Class<T> clazz) throws IOException {
-        if (!CBase.class.isAssignableFrom(clazz)) {
-            throw new IllegalArgumentException("Class is not a subclass of CBase");
+    // Konstruktor wczytuje dane z pliku, jeśli istnieje
+    public CManage(Class<T> clazz) {
+        this.fileName = clazz.getSimpleName() + ".txt"; // Nazwa pliku oparta na nazwie klasy
 
-        }
-        fileName = clazz.getSimpleName() + ".txt";
-        loadDatabase();
-    }
-
-    //Odczytywanie danych z pliku
-    private void loadDatabase() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.isEmpty()) {
-                    T entity = deserialize(line);
-                    save(entity);
+        File file = new File(fileName);
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        // Tworzymy instancję klasy T
+                        T entity = clazz.getDeclaredConstructor().newInstance();
+                        // Deserializujemy dane do obiektu
+                        entity.deserialize(line);
+                        // Dodajemy obiekt do bazy
+                        baza.put(entity.getId(), entity);
+                    } catch (Exception e) {
+                        System.err.println("Błąd podczas wczytywania obiektu: " + e.getMessage());
+                    }
                 }
+            } catch (IOException e) {
+                System.err.println("Błąd podczas odczytu pliku: " + e.getMessage());
             }
-        } catch (FileNotFoundException e) {
         }
     }
 
-
-    /**
-     * Pobiera obiekt na podstawie jego ID.
-     * @param id identyfikator obiektu
-     * @return obiekt o zadanym ID
-     * @throws IllegalArgumentException jeśli obiekt o podanym ID nie istnieje
-     */
+    // Pobiera obiekt na podstawie jego ID.
     public T getById(int id) {
         T entity = baza.get(id);
         if (entity != null) {
@@ -47,11 +44,8 @@ public class CManage <T extends CBase> {
             throw new IllegalArgumentException("Nie znaleziono obiektu w bazie o ID: " + id);
         }
     }
-    /**
-     * Zapisuje obiekt do bazy danych.
-     * Jeżeli obiekt nie ma przypisanego id, nadaje mu nowe unikalne id.
-     * @param entity obiekt do zapisania
-     */
+
+    // Zapisuje obiekt do bazy danych.
     public void save(T entity) {
         if (entity.getId() == -1) {
             // Jeśli ID nie zostało ustawione, przydzielamy nowe
@@ -61,26 +55,17 @@ public class CManage <T extends CBase> {
         baza.put(entity.getId(), entity);
     }
 
-    /**
-     * Usuwa obiekt z bazy danych.
-     * @param entity obiekt do usunięcia
-     */
+    // Usuwa obiekt z bazy danych.
     public void remove(T entity) {
         baza.remove(entity.getId());
     }
 
-    /**
-     * Zwraca wszystkie obiekty w bazie danych w postaci listy.
-     * @return lista wszystkich obiektów
-     */
+    // Zwraca wszystkie obiekty w bazie danych w postaci listy.
     public List<T> getAll() {
         return new ArrayList<>(baza.values());
     }
 
-    /**
-     * Zapisuje wszystkie obiekty w bazie danych do pliku.
-     * @throws IOException błąd związany z operacjami na pliku
-     */
+    // Zapisuje wszystkie obiekty w bazie danych do pliku.
     public void close() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (T entity : baza.values()) {
@@ -90,15 +75,5 @@ public class CManage <T extends CBase> {
         }
     }
 
-    /**
-     * Deserializuje obiekt z linii tekstu.
-     * @param data linia tekstu zawierająca dane do deserializacji
-     * @return obiekt typu T
-     */
-    private T deserialize(String data) {
-        // Załóżmy, że klasy dziedziczące po CBase implementują deserializację
-        // Przykład: wywołanie MojObiekt.deserialize(data) w przypadku obiektów typu MojObiekt
-        // W zależności od typu T, odpowiednia metoda deserialize będzie wywoływana
-        throw new UnsupportedOperationException("Metoda deserializacji powinna być zaimplementowana w klasach dziedziczących.");
-    }
+
 }

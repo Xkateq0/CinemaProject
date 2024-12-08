@@ -41,11 +41,12 @@ public class CShowing extends CBase {
 
   @Override
   public String serialize() {
-    return getId() + "," + date + "," + time + "," + idMovie + "," + idHall;
+    return getId() + ";" + date + ";" + time + ";" + idMovie + ";" + idHall;
   }
+
   @Override
   public void deserialize(String data) {
-    String[] fields = data.split(",");
+    String[] fields = data.split(";");
     setId(Integer.parseInt(fields[0]));
     this.date = LocalDate.parse(fields[1]);
     this.time = LocalTime.parse(fields[2]);

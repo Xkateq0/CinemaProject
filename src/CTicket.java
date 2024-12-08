@@ -37,6 +37,7 @@ public class CTicket extends CBase {
     public String serialize() {
         return getId() + "," + typeTicket + "," + priceTicket;
     }
+
     @Override
     public void deserialize(String data) {
         String[] fields = data.split(",");
