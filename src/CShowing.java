@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 public class CShowing extends CBase {
   private LocalDate date;
   private LocalTime time;

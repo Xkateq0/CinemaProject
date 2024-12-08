@@ -45,16 +45,16 @@ public class CReservation extends CBase{
 
     @Override
     public String serialize() {
-        return getId() + ";" + idTicket + ";" + idShowing + ";" + idMovie + ";" + idSeat;
+        return getId() + "," + idTicket + "," + idShowing + "," + idMovie + "," + idSeat;
     }
 
     @Override
-    public void deserialize (String data) {
-        String[] parts = data.split(";");
-        setId(Integer.parseInt(parts[0]));
-        idTicket = Integer.parseInt(parts[1]);
-        idShowing=Integer.parseInt(parts[2]);
-        idMovie = Integer.parseInt(parts[3]);
-        idSeat = Integer.parseInt(parts[4]);
+    public void deserialize(String data) {
+        String[] fields = data.split(",");
+        setId(Integer.parseInt(fields[0]));
+        this.idTicket = Integer.parseInt(fields[1]);
+        this.idShowing=Integer.parseInt(fields[2]);
+        this.idMovie = Integer.parseInt(fields[3]);
+        this.idSeat = Integer.parseInt(fields[4]);
     }
 }

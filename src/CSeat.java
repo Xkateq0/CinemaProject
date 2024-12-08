@@ -14,11 +14,11 @@ public class CSeat extends CBase {
     }
     @Override
     public String serialize() {
-        return getId() + ";" + isOccupied;
+        return getId() + "," + isOccupied;
     }
-
+    @Override
     public void deserialize(String data) {
-        String[] fields = data.split(";");
+        String[] fields = data.split(",");
         setId(Integer.parseInt(fields[0]));
         this.isOccupied = Boolean.parseBoolean(fields[1]);
     }
