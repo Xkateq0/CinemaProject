@@ -6,12 +6,17 @@ public class CShowing extends CBase {
   private LocalTime time;
   private int idMovie;
   private int idHall;
+  private CSeat [] seats;
 
   public CShowing(LocalDate date, LocalTime time, int idMovie, int idHall) {
     this.date = date;
     this.time = time;
     this.idMovie = idMovie;
     this.idHall = idHall;
+    this.seats = new CSeat[55];
+    for(int i=0;i<55;i++)
+      seats[i].setId(i+1);
+
   }
   public LocalDate getDate() {
     return date;

@@ -11,7 +11,8 @@ public class CManage<T extends CBase> {
 
     // Konstruktor wczytuje dane z pliku, jeśli istnieje
     public CManage(Class<T> clazz) {
-        this.fileName = clazz.getSimpleName() + ".txt"; // Nazwa pliku oparta na nazwie klasy
+        this.fileName ="src/BazaDannych/" + clazz.getSimpleName() + ".txt"; // Nazwa pliku oparta na nazwie klasy
+        //System.out.println(this.fileName);
 
         File file = new File(fileName);
         if (file.exists()) {

@@ -69,33 +69,36 @@ public class CMovie extends CBase {
 
     @Override
     public String serialize() {
-        return getId() + ";" + imagePath + ";" + title + ";" + cast + ";" + genre + ";" + duration;
+        // Return serialized string with all fields separated by semicolons
+        return getId() + ";" + imagePath + ";" + title + ";" + cast + ";" + genre + ";" + duration + ";" + movieDescription;
     }
 
+    // ToString method to display object info
     @Override
     public String toString() {
-        return
-                "id=" + getId() +
-                ", image= " +imagePath + '\'' +
+        return "id=" + getId() +
+                ", image=" + imagePath + '\'' +
                 ", title='" + title + '\'' +
                 ", cast='" + cast + '\'' +
                 ", genre='" + genre + '\'' +
-                ", duration=" + duration ;
+                ", duration=" + duration +
+                ", description='" + movieDescription + '\'';
     }
 
+    // Deserialize method - wczytuje dane z postaci tekstowej
     public void deserialize(String data) {
-        // Rozbijamy dane na części (za pomocą przecinków)
+        // Rozdzielamy dane na części, oddzielone średnikami
         String[] parts = data.split(";");
 
         // Ustawiamy ID
         setId(Integer.parseInt(parts[0]));
 
-        // Ustawiamy kolejne pola na podstawie rozdzielonych danych
+        // Ustawiamy pozostałe pola
         imagePath = parts[1];
         title = parts[2];
-        cast = parts[3];
-        genre = parts[4];
-        duration = Integer.parseInt(parts[5]);
+        movieDescription= parts[3];
+        cast = parts[4];
+        genre = parts[5];
+        duration = Integer.parseInt(parts[6]);
     }
-
 }

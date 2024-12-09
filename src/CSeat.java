@@ -4,7 +4,10 @@ public class CSeat extends CBase {
     public CSeat(int idSeat, boolean isOccupied) {
         this.isOccupied = isOccupied;
     }
-
+    public CSeat()
+    {
+        isOccupied = false;
+    }
     public boolean isOccupied() {
         return isOccupied;
     }
