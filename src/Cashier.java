@@ -1,9 +1,11 @@
-
-
-/**
- *
- * @author yande
- */
+import java.awt.Component;
+import java.awt.Image;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import javax.swing.*;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 public class Cashier extends javax.swing.JFrame {
 
     /**
@@ -12,8 +14,60 @@ public class Cashier extends javax.swing.JFrame {
     public Cashier() {
         initComponents();
         setTitle("Cinema Project");
+        setExtendedState(Cashier.MAXIMIZED_BOTH);
+        CManage<CMovie> movieManager= new CManage<> (CMovie.class);
+        List<CMovie> allMovies =movieManager.getAll();
+        updateTable(jTable1,allMovies);
     }
-    
+ 
+    public void updateTable(JTable jTable1, List<CMovie> allMovies) {
+    // Pobierz model tabeli
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    jTable1.setRowHeight(150);
+
+    // Ustaw nagłówki tabeli (ID, Obrazek, Tytuł)
+    model.setColumnIdentifiers(new String[]{
+            "ID", "Image", "Title"
+    });
+
+    // Usuń wszystkie istniejące wiersze (jeśli są)
+    model.setRowCount(0);
+
+    // Iteruj po wszystkich filmach i dodaj je do tabeli
+    for (CMovie movie : allMovies) {
+        Object[] row = new Object[]{
+                movie.getId(),  // ID filmu
+                new ImageIcon(movie.getImagePath()),  // Obrazek (ścieżka do obrazu)
+                movie.getTitle()  // Tytuł filmu
+        };
+
+        // Dodaj wiersz do modelu tabeli
+        model.addRow(row);
+    }
+
+    // Ustawienie renderera, by wyświetlać obrazki w tabeli
+    jTable1.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof ImageIcon) {
+                // Tworzymy etykietę, na której będziemy wyświetlać obraz
+                JLabel label = new JLabel((ImageIcon) value);
+                label.setText("");  // Ukryj tekst, tylko obrazek będzie widoczny
+                label.setHorizontalAlignment(JLabel.CENTER);  // Wyrównanie obrazu do środka
+
+                // Opcjonalnie: dopasuj rozmiar obrazu do rozmiaru komórki w tabeli
+                ImageIcon icon = (ImageIcon) value;
+                Image img = icon.getImage();
+                Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Zmieniamy rozmiar obrazu
+                label.setIcon(new ImageIcon(scaledImg));  // Ustawiamy zmniejszony obrazek na etykiecie
+                
+
+                return label;
+            }
+            return new JLabel();  // Zwróć pustą etykietę, jeśli wartość nie jest obrazkiem
+        }
+    });
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -23,17 +77,38 @@ public class Cashier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         bg = new javax.swing.JPanel();
         repertuar_p = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        movies = new javax.swing.JScrollPane();
         sidemenu = new javax.swing.JPanel();
         repertuar_m = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         seanse_m = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        jPanel3 = new javax.swing.JPanel();
+        panelS = new javax.swing.JPanel();
+        txtS = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        showings = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        panelR = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        txtR = new javax.swing.JLabel();
+        movies = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -44,38 +119,15 @@ public class Cashier extends javax.swing.JFrame {
 
         repertuar_p.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(106, 90, 205));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel3.setText("REPERTUAR");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(400, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        movies.setBackground(new java.awt.Color(255, 255, 255));
-        movies.setForeground(new java.awt.Color(255, 255, 255));
-
         sidemenu.setBackground(new java.awt.Color(75, 0, 130));
         sidemenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         sidemenu.setMaximumSize(new java.awt.Dimension(151, 428));
 
         repertuar_m.setBackground(new java.awt.Color(72, 61, 139));
         repertuar_m.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                repertuar_mMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 repertuar_mMouseEntered(evt);
             }
@@ -86,16 +138,14 @@ public class Cashier extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("REPERTUAR");
 
         javax.swing.GroupLayout repertuar_mLayout = new javax.swing.GroupLayout(repertuar_m);
         repertuar_m.setLayout(repertuar_mLayout);
         repertuar_mLayout.setHorizontalGroup(
             repertuar_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, repertuar_mLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(34, 34, 34))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
         );
         repertuar_mLayout.setVerticalGroup(
             repertuar_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,6 +157,9 @@ public class Cashier extends javax.swing.JFrame {
 
         seanse_m.setBackground(new java.awt.Color(72, 61, 139));
         seanse_m.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seanse_mMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 seanse_mMouseEntered(evt);
             }
@@ -117,16 +170,14 @@ public class Cashier extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("SEANSE");
 
         javax.swing.GroupLayout seanse_mLayout = new javax.swing.GroupLayout(seanse_m);
         seanse_m.setLayout(seanse_mLayout);
         seanse_mLayout.setHorizontalGroup(
             seanse_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seanse_mLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         seanse_mLayout.setVerticalGroup(
             seanse_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,6 +213,145 @@ public class Cashier extends javax.swing.JFrame {
                         .addGap(187, 187, 187))))
         );
 
+        jPanel3.setLayout(new java.awt.CardLayout());
+
+        txtS.setBackground(new java.awt.Color(106, 90, 205));
+        txtS.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel4.setText("SEANSE");
+
+        javax.swing.GroupLayout txtSLayout = new javax.swing.GroupLayout(txtS);
+        txtS.setLayout(txtSLayout);
+        txtSLayout.setHorizontalGroup(
+            txtSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txtSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(446, Short.MAX_VALUE))
+        );
+        txtSLayout.setVerticalGroup(
+            txtSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtSLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        showings.setBackground(new java.awt.Color(255, 255, 255));
+        showings.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        showings.setViewportView(jTable2);
+
+        javax.swing.GroupLayout panelSLayout = new javax.swing.GroupLayout(panelS);
+        panelS.setLayout(panelSLayout);
+        panelSLayout.setHorizontalGroup(
+            panelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showings, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelSLayout.setVerticalGroup(
+            panelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(showings, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(panelS, "card3");
+
+        jPanel2.setBackground(new java.awt.Color(106, 90, 205));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        txtR.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        txtR.setText("REPERTUAR");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtR, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(txtR, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        movies.setBackground(new java.awt.Color(255, 255, 255));
+        movies.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        movies.setViewportView(jTable1);
+
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelRLayout = new javax.swing.GroupLayout(panelR);
+        panelR.setLayout(panelRLayout);
+        panelRLayout.setHorizontalGroup(
+            panelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(movies, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+        );
+        panelRLayout.setVerticalGroup(
+            panelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(movies, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel3.add(panelR, "card3");
+
         javax.swing.GroupLayout repertuar_pLayout = new javax.swing.GroupLayout(repertuar_p);
         repertuar_p.setLayout(repertuar_pLayout);
         repertuar_pLayout.setHorizontalGroup(
@@ -170,20 +360,15 @@ public class Cashier extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(sidemenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(repertuar_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(movies))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         repertuar_pLayout.setVerticalGroup(
             repertuar_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(repertuar_pLayout.createSequentialGroup()
                 .addGroup(repertuar_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(repertuar_pLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(movies))
-                    .addComponent(sidemenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sidemenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -209,6 +394,27 @@ public class Cashier extends javax.swing.JFrame {
     private void seanse_mMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
        seanse_m.setBackground(new java.awt.Color(72,61,139));
     }//GEN-LAST:event_seanse_mMouseExited
+
+    private void repertuar_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
+        panelR.setVisible(true);
+        panelS.setVisible(false);
+    }//GEN-LAST:event_repertuar_mMouseClicked
+
+    private void seanse_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
+        panelS.setVisible(true);
+        panelR.setVisible(false);
+    }//GEN-LAST:event_seanse_mMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+       CShowing showing = new CShowing();
+        showing.setId(1); // Przykładowy ID
+        showing.setDate(LocalDate.of(2024, 12, 9)); // Ustawienie daty: 9 grudnia 2024
+        showing.setTime(LocalTime.of(18, 30)); // Ustawienie czasu: 18:30
+        showing.setIdMovie(1); // Przykładowy ID filmu
+        showing.setIdHall(5); // Przykładowy ID sali
+        SeatSelection selectionWindow = new SeatSelection(showing);
+        selectionWindow.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -249,14 +455,24 @@ public class Cashier extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JScrollPane movies;
+    private javax.swing.JPanel panelR;
+    private javax.swing.JPanel panelS;
     private javax.swing.JPanel repertuar_m;
     private javax.swing.JPanel repertuar_p;
     private javax.swing.JPanel seanse_m;
+    private javax.swing.JScrollPane showings;
     private javax.swing.JPanel sidemenu;
+    private javax.swing.JLabel txtR;
+    private javax.swing.JPanel txtS;
     // End of variables declaration//GEN-END:variables
 }

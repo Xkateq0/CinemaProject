@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +44,7 @@ public class Administrator extends javax.swing.JFrame {
         for (CMovie movie : allMovies) {
             Object[] row = new Object[]{
                     movie.getId(),  // ID filmu
-                    new ImageIcon(movie.getImagePath()),  // Obrazek (ścieżka do obrazu)
+                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),  // Obrazek (ścieżka do obrazu)
                     movie.getTitle()  // Tytuł filmu
             };
 
@@ -60,19 +61,38 @@ public class Administrator extends javax.swing.JFrame {
                     JLabel label = new JLabel((ImageIcon) value);
                     label.setText("");  // Ukryj tekst, tylko obrazek będzie widoczny
                     label.setHorizontalAlignment(JLabel.CENTER);  // Wyrównanie obrazu do środka
-
-                    // Opcjonalnie: dopasuj rozmiar obrazu do rozmiaru komórki w tabeli
-                    ImageIcon icon = (ImageIcon) value;
-                    Image img = icon.getImage();
-                    Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Zmieniamy rozmiar obrazu
-                    label.setIcon(new ImageIcon(scaledImg));  // Ustawiamy zmniejszony obrazek na etykiecie
-
-
                     return label;
                 }
                 return new JLabel();  // Zwróć pustą etykietę, jeśli wartość nie jest obrazkiem
             }
         });
+    }
+
+    // Metoda skalująca obraz za pomocą Graphics2D
+    private Image scaleImage(String imagePath, int width, int height) {
+        try {
+            // Ładujemy obraz
+            ImageIcon icon = new ImageIcon(imagePath);
+            Image img = icon.getImage();
+
+            // Tworzymy buforowany obraz o nowych rozmiarach
+            BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = scaledImage.createGraphics();
+
+            // Ustawiamy opcje renderowania dla wysokiej jakości
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);  // Interpolacja bicubiczna
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);  // Włączenie antyaliasingu
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);  // Wysoka jakość renderowania
+
+            // Rysujemy obraz na nowym obrazie
+            g2d.drawImage(img, 0, 0, width, height, null);
+            g2d.dispose();  // Zwalniamy zasoby
+
+            return scaledImage;  // Zwracamy przeskalowany obraz
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;  // Zwracamy null, jeśli coś pójdzie nie tak
+        }
     }
 
     public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
