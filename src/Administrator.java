@@ -1,4 +1,11 @@
-
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.util.List;
+import java.awt.*;
+import java.time.format.DateTimeFormatter;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 /**
  *
  * @author yande
@@ -11,8 +18,94 @@ public class Administrator extends javax.swing.JFrame {
     public Administrator() {
         initComponents();
         setTitle("Cinema Project");
+        CManage<CMovie> movieManager= new CManage<> (CMovie.class);
+        List<CMovie> allMovies =movieManager.getAll();
+        updateTable(jTable1,allMovies);
+        CManage<CShowing> showingMenager = new CManage<> (CShowing.class);
+        List<CShowing> allShowing =showingMenager.getAll();
+        updateTable2(jTable2,allShowing, allMovies);
     }
-    
+
+    public void updateTable(JTable jTable1, List<CMovie> allMovies) {
+        // Pobierz model tabeli
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(150);
+
+        // Ustaw nagłówki tabeli (ID, Obrazek, Tytuł)
+        model.setColumnIdentifiers(new String[]{
+                "ID", "Image", "Title"
+        });
+
+        // Usuń wszystkie istniejące wiersze (jeśli są)
+        model.setRowCount(0);
+
+        // Iteruj po wszystkich filmach i dodaj je do tabeli
+        for (CMovie movie : allMovies) {
+            Object[] row = new Object[]{
+                    movie.getId(),  // ID filmu
+                    new ImageIcon(movie.getImagePath()),  // Obrazek (ścieżka do obrazu)
+                    movie.getTitle()  // Tytuł filmu
+            };
+
+            // Dodaj wiersz do modelu tabeli
+            model.addRow(row);
+        }
+
+        // Ustawienie renderera, by wyświetlać obrazki w tabeli
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value instanceof ImageIcon) {
+                    // Tworzymy etykietę, na której będziemy wyświetlać obraz
+                    JLabel label = new JLabel((ImageIcon) value);
+                    label.setText("");  // Ukryj tekst, tylko obrazek będzie widoczny
+                    label.setHorizontalAlignment(JLabel.CENTER);  // Wyrównanie obrazu do środka
+
+                    // Opcjonalnie: dopasuj rozmiar obrazu do rozmiaru komórki w tabeli
+                    ImageIcon icon = (ImageIcon) value;
+                    Image img = icon.getImage();
+                    Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Zmieniamy rozmiar obrazu
+                    label.setIcon(new ImageIcon(scaledImg));  // Ustawiamy zmniejszony obrazek na etykiecie
+
+
+                    return label;
+                }
+                return new JLabel();  // Zwróć pustą etykietę, jeśli wartość nie jest obrazkiem
+            }
+        });
+    }
+
+    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
+        // Pobierz model tabeli
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        // Ustaw nagłówki tabeli (ID, Tytuł Filmu, Data, Godzina rozpoczęcia, Sala)
+        model.setColumnIdentifiers(new String[] {
+                "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala"
+        });
+
+        // Usuń wszystkie istniejące wiersze (jeśli są)
+        model.setRowCount(0);
+
+        // Iteruj po wszystkich pokazach i dodaj je do tabeli
+        for (CShowing showing : allShowing) {
+            // Pobierz tytuł filmu na podstawie ID
+            String movieTitle = showing.getMovieTitle(allMovies);
+
+            // Dodaj wiersz do tabeli
+            Object[] row = new Object[]{
+                    showing.getId(),  // ID pokazu
+                    movieTitle,        // Tytuł filmu
+                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), // Data
+                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),    // Godzina rozpoczęcia
+                    showing.getIdHall() // Sala
+            };
+
+            // Dodaj wiersz do modelu tabeli
+            model.addRow(row);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -607,41 +700,7 @@ public class Administrator extends javax.swing.JFrame {
         RepertuarLabel.setVisible(false);
     }//GEN-LAST:event_seanse_mMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Administrator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Administrator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Administrator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administrator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Administrator().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame AddMovie;
