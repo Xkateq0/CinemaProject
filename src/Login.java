@@ -192,6 +192,8 @@ public class Login extends javax.swing.JFrame {
 
                 if (validatePassword(userType, passwordText)) {
                     if (userType.equals("Admin")) {
+                        Administrator adminWindow = new Administrator();
+                        adminWindow.setVisible(true);
                         dispose();
                     } else if (userType.equals("Kasjer")) {
                         Cashier cashierWindow = new Cashier();
@@ -223,7 +225,6 @@ public class Login extends javax.swing.JFrame {
                     String password = parts[1].trim();
                     if (username.equals("Admin")) {
                         userDatabase.put(username, new CAdministrator(username, password));
-                        System.out.println(password);
                     } else if (username.equals("Kasjer")) {
                         userDatabase.put(username, new CCashier(username, password));
                     }

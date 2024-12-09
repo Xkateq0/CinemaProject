@@ -20,18 +20,13 @@ public class CTicket extends CBase {
     }
 
     public double setPriceByType() {
-        switch (typeTicket) {
-            case STANDARD:
-                return 26.0;
-            case REDUCED:
-                return 22.0;
-            case STUDENT:
-                return 21.0;
-            case SENIOR:
-                return 22.0;
-            default:
-                return 0.0;
-        }
+
+        return switch (typeTicket) {
+            case STANDARD -> 26.0;
+            case REDUCED -> 22.0;
+            case STUDENT -> 21.0;
+            case SENIOR -> 22.0;
+        };
     }
     @Override
     public String serialize() {

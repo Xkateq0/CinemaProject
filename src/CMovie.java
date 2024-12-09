@@ -1,12 +1,16 @@
 
 public class CMovie extends CBase {
+    private String imagePath ;
     private String title;
+    private String movieDescription;
     private String cast;
     private String genre;
     private int duration;
 
-    public CMovie(String title,String cast,String genre,int duration){
+    public CMovie(String title,String cast,String genre,int duration, String imagePath ,String movieDescription){
+        this.imagePath = imagePath;
         this.title=title;
+        this.movieDescription=movieDescription;
         this.cast=cast;
         this.genre=genre;
         this.duration=duration;
@@ -14,15 +18,25 @@ public class CMovie extends CBase {
 
     public CMovie()
     {
+        this.imagePath="";
         this.title="";
+        this.movieDescription="";
         this.cast="";
         this.genre="";
         this.duration=0;
+    }
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void setMovieDescription(String movieDescription) {
+        this.movieDescription = movieDescription;
+    }
+
     public void setCast(String cast) {
         this.cast = cast;
     }
@@ -32,9 +46,17 @@ public class CMovie extends CBase {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+    public String getImagePath() {
+        return this.imagePath;
+    }
     public String getTitle() {
         return this.title;
     }
+
+    public String getMovieDescription() {
+        return movieDescription;
+    }
+
     public String getCast() {
         return this.cast;
     }
@@ -44,14 +66,17 @@ public class CMovie extends CBase {
     public String getGenre() {
         return this.genre;
     }
+
     @Override
     public String serialize() {
-        return getId() + ";" + title + ";" + cast + ";" + genre + ";" + duration;
+        return getId() + ";" + imagePath + ";" + title + ";" + cast + ";" + genre + ";" + duration;
     }
 
+    @Override
     public String toString() {
         return
                 "id=" + getId() +
+                ", image= " +imagePath + '\'' +
                 ", title='" + title + '\'' +
                 ", cast='" + cast + '\'' +
                 ", genre='" + genre + '\'' +
@@ -66,10 +91,11 @@ public class CMovie extends CBase {
         setId(Integer.parseInt(parts[0]));
 
         // Ustawiamy kolejne pola na podstawie rozdzielonych danych
-        title = parts[1];
-        cast = parts[2];
-        genre = parts[3];
-        duration = Integer.parseInt(parts[4]);
+        imagePath = parts[1];
+        title = parts[2];
+        cast = parts[3];
+        genre = parts[4];
+        duration = Integer.parseInt(parts[5]);
     }
 
 }
