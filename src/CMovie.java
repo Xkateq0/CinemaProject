@@ -70,7 +70,7 @@ public class CMovie extends CBase {
     @Override
     public String serialize() {
         // Return serialized string with all fields separated by semicolons
-        return getId() + ";" + imagePath + ";" + title + ";" + cast + ";" + genre + ";" + duration + ";" + movieDescription;
+        return getId() + ";" + imagePath + ";" + title + ";" + movieDescription + ";" + cast + ";" + genre + ";" + duration;
     }
 
     // ToString method to display object info

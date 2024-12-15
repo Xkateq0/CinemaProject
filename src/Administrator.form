@@ -50,28 +50,35 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="Image" min="-2" pref="215" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="LabelCast" alignment="0" max="32767" attributes="0"/>
-                              <Component id="LabelTitle" alignment="1" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="Genre" pref="168" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Duration" min="-2" pref="162" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="LabelCast" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="LabelTitle" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="LabelGenre" min="-2" pref="168" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="LabelDuration" min="-2" pref="162" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="Title" alignment="0" min="-2" pref="334" max="-2" attributes="0"/>
+                                  <Component id="Cast" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="Genre" pref="168" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Duration" min="-2" pref="162" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="LabelMovieDescription" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="MovieDescription" alignment="0" pref="336" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="LabelGenre" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="LabelDuration" min="-2" pref="162" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="Title" alignment="0" min="-2" pref="334" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="Cast" alignment="0" pref="336" max="32767" attributes="0"/>
-                              <Component id="LabelMovieDescription" alignment="0" max="32767" attributes="0"/>
-                              <Component id="MovieDescription" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="FollowButton" min="-2" pref="336" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="65" max="32767" attributes="0"/>
@@ -80,14 +87,16 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="Image" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="LabelTitle" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="Title" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="LabelCast" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Cast" min="-2" max="-2" attributes="0"/>
@@ -97,21 +106,19 @@
                               <Component id="MovieDescription" min="-2" pref="95" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="LabelDuration" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="LabelGenre" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="LabelDuration" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="Genre" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="Duration" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="Image" min="-2" pref="306" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="FollowButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -222,20 +229,19 @@
                 <Property name="text" type="java.lang.String" value="Wpisz opis filmu"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="FollowButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Zapisz Film"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JFrame" name="AddShow">
       <Properties>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[570, 330]"/>
-        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[570, 330]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[560, 290]"/>
         </Property>
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
@@ -268,16 +274,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="LabelMovie" pref="479" max="32767" attributes="0"/>
-                              <Component id="LabelHall" max="32767" attributes="0"/>
-                              <Component id="LabelDate" max="32767" attributes="0"/>
-                              <Component id="LabelTime" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="LabelMovie" pref="505" max="32767" attributes="0"/>
+                          <Component id="LabelHall" max="32767" attributes="0"/>
+                          <Component id="LabelDate" max="32767" attributes="0"/>
+                          <Component id="LabelTime" max="32767" attributes="0"/>
                           <Component id="idMovie" pref="505" max="32767" attributes="0"/>
                           <Component id="idHall" alignment="0" max="32767" attributes="0"/>
                           <Component id="Date" alignment="0" max="32767" attributes="0"/>
                           <Component id="Time" alignment="0" max="32767" attributes="0"/>
+                          <Component id="FollowButton2" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
@@ -286,23 +291,25 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="LabelMovie" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="idMovie" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="LabelHall" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="idHall" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="LabelDate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Date" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="LabelTime" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="Time" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="FollowButton2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -394,6 +401,11 @@
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format subtype="1" type="2"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="FollowButton2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Zapisz Seans"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -716,7 +728,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="ButtonSearch" alignment="3" pref="22" max="32767" attributes="0"/>
+                                      <Component id="ButtonSearch" alignment="3" pref="0" max="32767" attributes="0"/>
                                       <Component id="FieldSerach" alignment="3" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="ButtonAddMovie" max="32767" attributes="0"/>
@@ -825,7 +837,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="ButtonSearch2" alignment="3" pref="22" max="32767" attributes="0"/>
+                                      <Component id="ButtonSearch2" alignment="3" pref="0" max="32767" attributes="0"/>
                                       <Component id="FieldSearch2" alignment="3" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="ButtonAddShow" alignment="0" max="32767" attributes="0"/>

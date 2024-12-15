@@ -1,7 +1,16 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -32,96 +41,78 @@ public class Administrator extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowHeight(150);
 
-        // Ustaw nagłówki tabeli (ID, Obrazek, Tytuł)
         model.setColumnIdentifiers(new String[]{
                 "ID", "Image", "Title"
         });
 
-        // Usuń wszystkie istniejące wiersze (jeśli są)
         model.setRowCount(0);
 
-        // Iteruj po wszystkich filmach i dodaj je do tabeli
         for (CMovie movie : allMovies) {
             Object[] row = new Object[]{
-                    movie.getId(),  // ID filmu
-                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),  // Obrazek (ścieżka do obrazu)
-                    movie.getTitle()  // Tytuł filmu
+                    movie.getId(),
+                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),
+                    movie.getTitle()
             };
 
-            // Dodaj wiersz do modelu tabeli
             model.addRow(row);
         }
 
-        // Ustawienie renderera, by wyświetlać obrazki w tabeli
         jTable1.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value instanceof ImageIcon) {
-                    // Tworzymy etykietę, na której będziemy wyświetlać obraz
                     JLabel label = new JLabel((ImageIcon) value);
-                    label.setText("");  // Ukryj tekst, tylko obrazek będzie widoczny
-                    label.setHorizontalAlignment(JLabel.CENTER);  // Wyrównanie obrazu do środka
+                    label.setText("");
+                    label.setHorizontalAlignment(JLabel.CENTER);
                     return label;
                 }
-                return new JLabel();  // Zwróć pustą etykietę, jeśli wartość nie jest obrazkiem
+                return new JLabel();
             }
         });
     }
 
-    // Metoda skalująca obraz za pomocą Graphics2D
     private Image scaleImage(String imagePath, int width, int height) {
         try {
-            // Ładujemy obraz
             ImageIcon icon = new ImageIcon(imagePath);
             Image img = icon.getImage();
 
-            // Tworzymy buforowany obraz o nowych rozmiarach
             BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = scaledImage.createGraphics();
 
-            // Ustawiamy opcje renderowania dla wysokiej jakości
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);  // Interpolacja bicubiczna
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);  // Włączenie antyaliasingu
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);  // Wysoka jakość renderowania
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-            // Rysujemy obraz na nowym obrazie
             g2d.drawImage(img, 0, 0, width, height, null);
-            g2d.dispose();  // Zwalniamy zasoby
+            g2d.dispose();
 
-            return scaledImage;  // Zwracamy przeskalowany obraz
+            return scaledImage;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;  // Zwracamy null, jeśli coś pójdzie nie tak
+            return null;
         }
     }
 
     public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
-        // Pobierz model tabeli
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-        // Ustaw nagłówki tabeli (ID, Tytuł Filmu, Data, Godzina rozpoczęcia, Sala)
         model.setColumnIdentifiers(new String[] {
                 "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala"
         });
 
-        // Usuń wszystkie istniejące wiersze (jeśli są)
         model.setRowCount(0);
 
-        // Iteruj po wszystkich pokazach i dodaj je do tabeli
         for (CShowing showing : allShowing) {
-            // Pobierz tytuł filmu na podstawie ID
             String movieTitle = showing.getMovieTitle(allMovies);
 
-            // Dodaj wiersz do tabeli
             Object[] row = new Object[]{
-                    showing.getId(),  // ID pokazu
-                    movieTitle,        // Tytuł filmu
-                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), // Data
-                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),    // Godzina rozpoczęcia
-                    showing.getIdHall() // Sala
+                    showing.getId(),
+                    movieTitle,
+                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
+                    showing.getIdHall()
             };
 
-            // Dodaj wiersz do modelu tabeli
             model.addRow(row);
         }
     }
@@ -148,6 +139,7 @@ public class Administrator extends javax.swing.JFrame {
         Duration = new javax.swing.JSpinner();
         LabelMovieDescription = new javax.swing.JLabel();
         MovieDescription = new javax.swing.JTextField();
+        FollowButton = new javax.swing.JButton();
         AddShow = new javax.swing.JFrame();
         Panel_AddShow = new javax.swing.JPanel();
         LabelMovie = new javax.swing.JLabel();
@@ -158,6 +150,7 @@ public class Administrator extends javax.swing.JFrame {
         Date = new javax.swing.JFormattedTextField();
         LabelTime = new javax.swing.JLabel();
         Time = new javax.swing.JFormattedTextField();
+        FollowButton2 = new javax.swing.JButton();
         bg = new javax.swing.JPanel();
         repertuar_p = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -211,28 +204,43 @@ public class Administrator extends javax.swing.JFrame {
 
         Title.setText("Wpisz tytuł filmu");
 
+
         LabelCast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelCast.setForeground(new java.awt.Color(0, 0, 0));
         LabelCast.setText("Obsada filmu");
 
         Cast.setText("Wpisz obsade filmu");
 
+
         LabelGenre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelGenre.setForeground(new java.awt.Color(0, 0, 0));
         LabelGenre.setText("Gatunek filmu");
 
-        Genre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Genre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Akcja", "Animacja", "Biograficzny", "Dokumentalny" , "Dramat", "Familijne", "Fantasy", "Horror" ,
+            "Komedia" , "Komedia romatyczna" , "Kryminał" , "Musical" , "Przygodowy" , "Romans" , "Science Fiction" , "Thriller" , "Wojenny" , "Western"}));
+
 
         LabelDuration.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelDuration.setForeground(new java.awt.Color(0, 0, 0));
         LabelDuration.setText("Czas filmu");
         LabelDuration.setToolTipText("");
 
+
+
         LabelMovieDescription.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelMovieDescription.setForeground(new java.awt.Color(0, 0, 0));
         LabelMovieDescription.setText("Opis Filmu");
 
         MovieDescription.setText("Wpisz opis filmu");
+
+
+        FollowButton.setText("Zapisz Film");
+        FollowButton.addActionListener(new java.awt.event.ActionListener(){
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FollowButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_AddMovieLayout = new javax.swing.GroupLayout(Panel_AddMovie);
         Panel_AddMovie.setLayout(Panel_AddMovieLayout);
@@ -241,37 +249,44 @@ public class Administrator extends javax.swing.JFrame {
             .addGroup(Panel_AddMovieLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(Image, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(LabelCast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LabelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AddMovieLayout.createSequentialGroup()
-                            .addComponent(Genre, 0, 168, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Duration, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6))
-                        .addGroup(Panel_AddMovieLayout.createSequentialGroup()
-                            .addComponent(LabelGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(LabelDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Cast, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                        .addComponent(LabelMovieDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MovieDescription, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(Panel_AddMovieLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(LabelCast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LabelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(Panel_AddMovieLayout.createSequentialGroup()
+                                .addComponent(LabelGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cast)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AddMovieLayout.createSequentialGroup()
+                                .addComponent(Genre, 0, 168, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Duration, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6))
+                            .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(LabelMovieDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MovieDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
+                    .addGroup(Panel_AddMovieLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FollowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         Panel_AddMovieLayout.setVerticalGroup(
             Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_AddMovieLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AddMovieLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AddMovieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Image, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Panel_AddMovieLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(LabelTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelCast)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Cast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -281,24 +296,21 @@ public class Administrator extends javax.swing.JFrame {
                         .addComponent(MovieDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelDuration)
-                            .addComponent(LabelGenre))
-                        .addGap(4, 4, 4)
+                            .addComponent(LabelGenre)
+                            .addComponent(LabelDuration))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Panel_AddMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_AddMovieLayout.createSequentialGroup()
-                        .addComponent(Image, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FollowButton)))
+                .addGap(60, 60, 60))
         );
 
         AddMovie.getContentPane().add(Panel_AddMovie);
         Panel_AddMovie.setBounds(0, 0, 610, 350);
 
-        AddShow.setMaximumSize(new java.awt.Dimension(570, 330));
         AddShow.setMinimumSize(new java.awt.Dimension(570, 330));
-        AddShow.setPreferredSize(new java.awt.Dimension(560, 290));
         AddShow.setResizable(false);
         AddShow.getContentPane().setLayout(null);
 
@@ -330,6 +342,8 @@ public class Administrator extends javax.swing.JFrame {
 
         Time.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
 
+        FollowButton2.setText("Zapisz Seans");
+
         javax.swing.GroupLayout Panel_AddShowLayout = new javax.swing.GroupLayout(Panel_AddShow);
         Panel_AddShow.setLayout(Panel_AddShowLayout);
         Panel_AddShowLayout.setHorizontalGroup(
@@ -337,37 +351,39 @@ public class Administrator extends javax.swing.JFrame {
             .addGroup(Panel_AddShowLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(Panel_AddShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Panel_AddShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(LabelMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                        .addComponent(LabelHall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LabelDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(LabelMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                    .addComponent(LabelHall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(idMovie, 0, 505, Short.MAX_VALUE)
                     .addComponent(idHall, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Date)
-                    .addComponent(Time))
+                    .addComponent(Time)
+                    .addComponent(FollowButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         Panel_AddShowLayout.setVerticalGroup(
             Panel_AddShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_AddShowLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(LabelMovie)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(idMovie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(LabelHall)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(idHall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LabelDate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(LabelTime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(FollowButton2)
+                .addGap(17, 17, 17))
         );
 
         AddShow.getContentPane().add(Panel_AddShow);
@@ -557,7 +573,7 @@ public class Administrator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(FieldSerach))
                     .addComponent(ButtonAddMovie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -627,7 +643,7 @@ public class Administrator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ButtonSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                        .addComponent(ButtonSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(FieldSearch2))
                     .addComponent(ButtonAddShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -685,12 +701,108 @@ public class Administrator extends javax.swing.JFrame {
     }//GEN-LAST:event_seanse_mMouseExited
 
     private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
-        // TODO add your handling code here:
+        String searchQuery = FieldSerach.getText().trim().toLowerCase();
+
+        if (searchQuery.isEmpty()) {
+            CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+            updateTable(jTable1, movieManager.getAll());
+        } else {
+            CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+            List<CMovie> filteredMovies = new ArrayList<>();
+
+            for (CMovie movie : movieManager.getAll()) {
+                if (movie.getTitle().toLowerCase().contains(searchQuery)) {
+                    filteredMovies.add(movie);
+                }
+            }
+
+            updateTable(jTable1, filteredMovies);
+        }
     }//GEN-LAST:event_ButtonSearchActionPerformed
 
+    private CMovie currentMovie = new CMovie();
+
     private void ImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImageActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg"));
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            String destinationPath = "src//Image/" + selectedFile.getName();
+
+            File destinationFolder = new File("images");
+            if (!destinationFolder.exists()) {
+                destinationFolder.mkdirs();
+            }
+
+            try {
+                Files.copy(selectedFile.toPath(), new File(destinationPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                currentMovie.setImagePath(destinationPath);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Failed to upload image!");
+            }
+        }
     }//GEN-LAST:event_ImageActionPerformed
+
+
+
+    private void FollowButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        String title = Title.getText().trim();
+        String cast = Cast.getText().trim();
+        String movieDescription = MovieDescription.getText().trim();
+        String genre = (String) Genre.getSelectedItem();
+        int duration = (int) Duration.getValue();
+
+        if (title.isEmpty() || cast.isEmpty() || movieDescription.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Uzupełnij Tytuł,Opis filmu oraz Obsade!");
+            return;
+        }
+
+        if (genre == null || genre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wprowadź gatunek");
+            return;
+        }
+
+        if(duration <=0){
+            JOptionPane.showMessageDialog(this, "Film musi potrwać dłużej");
+            return;
+        }
+        // Jeśli ścieżka obrazu jest pusta, użytkownik musi wybrać obraz
+        if (currentMovie.getImagePath() == null || currentMovie.getImagePath().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Dodaj zdjęcie!");
+            return;
+        }
+
+        // Ustawianie danych w obiekcie currentMovie
+        currentMovie.setTitle(title);
+        currentMovie.setMovieDescription(movieDescription);
+        currentMovie.setCast(cast);
+        currentMovie.setGenre(genre);
+        currentMovie.setDuration(duration);
+
+        // Zapisz film do bazy
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        movieManager.save(currentMovie);
+
+        // Zapisz dane do pliku
+        try {
+            movieManager.close();
+            JOptionPane.showMessageDialog(this, "Film domyślnie dodany");
+            updateTable(jTable1, movieManager.getAll());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Nie można dodać filmu");
+            e.printStackTrace();
+        }
+
+        AddMovie.dispose();
+    }
+
+
 
     private void ButtonSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
         // TODO add your handling code here:
@@ -698,7 +810,7 @@ public class Administrator extends javax.swing.JFrame {
 
     private void ButtonAddMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMovieActionPerformed
         setTitle("Dodaj Film");
-        AddMovie.setVisible(true);  // Pokazuje okno
+        AddMovie.setVisible(true);
     }//GEN-LAST:event_ButtonAddMovieActionPerformed
 
     private void ButtonAddShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddShowActionPerformed
@@ -720,7 +832,10 @@ public class Administrator extends javax.swing.JFrame {
         RepertuarLabel.setVisible(false);
     }//GEN-LAST:event_seanse_mMouseClicked
 
-
+    public static void main(String[] args) {
+        // Uruchomienie aplikacji Administrator
+        new Administrator();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame AddMovie;
@@ -734,6 +849,8 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JSpinner Duration;
     private javax.swing.JTextField FieldSearch2;
     private javax.swing.JTextField FieldSerach;
+    private javax.swing.JButton FollowButton;
+    private javax.swing.JButton FollowButton2;
     private javax.swing.JComboBox<String> Genre;
     private javax.swing.JButton Image;
     private javax.swing.JLabel LabelCast;
