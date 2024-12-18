@@ -1,12 +1,8 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -21,101 +17,23 @@ import java.awt.Image;
  * @author yande
  */
 public class Administrator extends javax.swing.JFrame {
-
     /**
      * Creates new form Main
      */
     public Administrator() {
         initComponents();
         setTitle("Cinema Project");
-        CManage<CMovie> movieManager= new CManage<> (CMovie.class);
-        List<CMovie> allMovies =movieManager.getAll();
-        updateTable(jTable1,allMovies);
-        CManage<CShowing> showingMenager = new CManage<> (CShowing.class);
-        List<CShowing> allShowing =showingMenager.getAll();
-        updateTable2(jTable2,allShowing, allMovies);
+        // Utworzenie managerów dla filmów i pokazów
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+        updateTable(jTable1, allMovies,movieManager);
+
+        CManage<CShowing> showingManager = new CManage<>(CShowing.class);
+        List<CShowing> allShowing = showingManager.getAll();
+        updateTable2(jTable2, allShowing, allMovies);
     }
 
-    public void updateTable(JTable jTable1, List<CMovie> allMovies) {
-        // Pobierz model tabeli
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        jTable1.setRowHeight(150);
 
-        model.setColumnIdentifiers(new String[]{
-                "ID", "Image", "Title"
-        });
-
-        model.setRowCount(0);
-
-        for (CMovie movie : allMovies) {
-            Object[] row = new Object[]{
-                    movie.getId(),
-                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),
-                    movie.getTitle()
-            };
-
-            model.addRow(row);
-        }
-
-        jTable1.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value instanceof ImageIcon) {
-                    JLabel label = new JLabel((ImageIcon) value);
-                    label.setText("");
-                    label.setHorizontalAlignment(JLabel.CENTER);
-                    return label;
-                }
-                return new JLabel();
-            }
-        });
-    }
-
-    private Image scaleImage(String imagePath, int width, int height) {
-        try {
-            ImageIcon icon = new ImageIcon(imagePath);
-            Image img = icon.getImage();
-
-            BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2d = scaledImage.createGraphics();
-
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-            g2d.drawImage(img, 0, 0, width, height, null);
-            g2d.dispose();
-
-            return scaledImage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-
-        model.setColumnIdentifiers(new String[] {
-                "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala"
-        });
-
-        model.setRowCount(0);
-
-        for (CShowing showing : allShowing) {
-            String movieTitle = showing.getMovieTitle(allMovies);
-
-            Object[] row = new Object[]{
-                    showing.getId(),
-                    movieTitle,
-                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
-                    showing.getIdHall()
-            };
-
-            model.addRow(row);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -404,7 +322,7 @@ public class Administrator extends javax.swing.JFrame {
 
         RepertuarLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         RepertuarLabel.setText("REPERTUAR");
-        jPanel2.add(RepertuarLabel, "card2");
+        jPanel2.add(RepertuarLabel, "card1");
 
         SeansLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         SeansLabel.setText("SEANS");
@@ -684,6 +602,144 @@ public class Administrator extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void updateTable(JTable jTable1, List<CMovie> allMovies, CManage<CMovie> movieManager) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(150);
+
+        model.setColumnIdentifiers(new String[]{
+                "ID", "Image", "Title", ""
+        });
+
+        model.setRowCount(0);
+
+        for (CMovie movie : allMovies) {
+            Object[] row = new Object[]{
+                    movie.getId(),
+                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),
+                    movie.getTitle(),
+                    " "
+            };
+            model.addRow(row);
+        }
+
+        jTable1.getColumnModel().getColumn(1).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            if (value instanceof ImageIcon) {
+                JLabel label = new JLabel((ImageIcon) value);
+                label.setText("");
+                label.setHorizontalAlignment(JLabel.CENTER);
+                return label;
+            }
+            return new JLabel();
+        });
+
+        JButton deleteButton = new JButton("Usuń Film");
+        deleteButton.setBackground(new Color(72, 61, 139));
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 12));
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deleteButton.setPreferredSize(new Dimension(100, 25));
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.add(deleteButton);
+
+        jTable1.getColumnModel().getColumn(3).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            return panel;
+        });
+
+        jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JTextField()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return panel;
+            }
+            {
+                deleteButton.addActionListener(e -> {
+                    JButton button = (JButton) e.getSource();
+                    Component parent = button.getParent();
+
+                    while (parent != null && !(parent instanceof JTable)) {
+                        parent = parent.getParent();
+                    }
+
+                    if (parent instanceof JTable) {
+                        JTable table = (JTable) parent;
+                        int row = table.convertRowIndexToModel(table.getSelectedRow());
+                        int movieId = (int) table.getModel().getValueAt(row, 0);
+
+                        int response = JOptionPane.showConfirmDialog(
+                                null,
+                                "Czy na pewno chcesz usunąć film o ID: " + movieId + "?",
+                                "Potwierdzenie usunięcia",
+                                JOptionPane.YES_NO_OPTION
+                        );
+
+                        if (response == JOptionPane.YES_OPTION) {
+                            System.out.println("Usunięcie filmu o ID: " + movieId);
+
+                            try {
+                                CMovie movieToRemove = movieManager.getById(movieId);
+                                movieManager.remove(movieToRemove);
+
+                                movieManager.close();
+                            } catch (Exception ex) {
+                                System.err.println("Błąd przy usuwaniu filmu: " + ex.getMessage());
+                            }
+
+                            updateTable(jTable1, movieManager.getAll(), movieManager);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private Image scaleImage(String imagePath, int width, int height) {
+        try {
+            ImageIcon icon = new ImageIcon(imagePath);
+            Image img = icon.getImage();
+
+            BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = scaledImage.createGraphics();
+
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+            g2d.drawImage(img, 0, 0, width, height, null);
+            g2d.dispose();
+
+            return scaledImage;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        model.setColumnIdentifiers(new String[] {
+                "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala"
+        });
+
+        model.setRowCount(0);
+
+        for (CShowing showing : allShowing) {
+            String movieTitle = showing.getMovieTitle(allMovies);
+
+            Object[] row = new Object[]{
+                    showing.getId(),
+                    movieTitle,
+                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
+                    showing.getIdHall()
+            };
+
+            model.addRow(row);
+        }
+    }
+
     private void repertuar_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
        repertuar_m.setBackground(new java.awt.Color(106,90,205));
     }//GEN-LAST:event_repertuar_mMouseEntered
@@ -705,7 +761,7 @@ public class Administrator extends javax.swing.JFrame {
 
         if (searchQuery.isEmpty()) {
             CManage<CMovie> movieManager = new CManage<>(CMovie.class);
-            updateTable(jTable1, movieManager.getAll());
+            updateTable(jTable1, movieManager.getAll(),movieManager);
         } else {
             CManage<CMovie> movieManager = new CManage<>(CMovie.class);
             List<CMovie> filteredMovies = new ArrayList<>();
@@ -716,7 +772,7 @@ public class Administrator extends javax.swing.JFrame {
                 }
             }
 
-            updateTable(jTable1, filteredMovies);
+            updateTable(jTable1, filteredMovies,movieManager);
         }
     }//GEN-LAST:event_ButtonSearchActionPerformed
 
@@ -752,48 +808,53 @@ public class Administrator extends javax.swing.JFrame {
 
 
     private void FollowButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+
         String title = Title.getText().trim();
         String cast = Cast.getText().trim();
         String movieDescription = MovieDescription.getText().trim();
         String genre = (String) Genre.getSelectedItem();
         int duration = (int) Duration.getValue();
 
-        if (title.isEmpty() || cast.isEmpty() || movieDescription.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Uzupełnij Tytuł,Opis filmu oraz Obsade!");
-            return;
+        List<CMovie> allMovies = movieManager.getAll();
+        for (CMovie movie : allMovies) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                JOptionPane.showMessageDialog(this, "Film o tym tytule już istnieje w bazie!");
+                return;
+            }
         }
-
-        if (genre == null || genre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Wprowadź gatunek");
+        if(title.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Uzupełnij Tytuł filmu!");
             return;
-        }
-
-        if(duration <=0){
+        }else if (cast.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Uzupełmij Obsade filmu!");
+            return;
+        }else if(movieDescription.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Uzupełmij Opis filmu!");
+            return;
+        } else if (genre == null || genre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wprowadź Gatunek filmu");
+            return;
+        } else if(duration <=0){
             JOptionPane.showMessageDialog(this, "Film musi potrwać dłużej");
             return;
-        }
-        // Jeśli ścieżka obrazu jest pusta, użytkownik musi wybrać obraz
-        if (currentMovie.getImagePath() == null || currentMovie.getImagePath().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Dodaj zdjęcie!");
+        } else if (currentMovie.getImagePath() == null || currentMovie.getImagePath().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Dodaj Okładkę Filmu!");
             return;
         }
 
-        // Ustawianie danych w obiekcie currentMovie
         currentMovie.setTitle(title);
         currentMovie.setMovieDescription(movieDescription);
         currentMovie.setCast(cast);
         currentMovie.setGenre(genre);
         currentMovie.setDuration(duration);
 
-        // Zapisz film do bazy
-        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         movieManager.save(currentMovie);
 
-        // Zapisz dane do pliku
         try {
             movieManager.close();
             JOptionPane.showMessageDialog(this, "Film domyślnie dodany");
-            updateTable(jTable1, movieManager.getAll());
+            updateTable(jTable1, movieManager.getAll(),movieManager);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Nie można dodać filmu");
             e.printStackTrace();
@@ -801,8 +862,6 @@ public class Administrator extends javax.swing.JFrame {
 
         AddMovie.dispose();
     }
-
-
 
     private void ButtonSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
         // TODO add your handling code here:
