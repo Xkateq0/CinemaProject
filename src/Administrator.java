@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.awt.Image;
  * @author yande
  */
 public class Administrator extends javax.swing.JFrame {
+    private boolean isEditing;
     /**
      * Creates new form Main
      */
@@ -143,19 +146,15 @@ public class Administrator extends javax.swing.JFrame {
         LabelDuration.setText("Czas filmu");
         LabelDuration.setToolTipText("");
 
-
-
         LabelMovieDescription.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelMovieDescription.setForeground(new java.awt.Color(0, 0, 0));
         LabelMovieDescription.setText("Opis Filmu");
-
         MovieDescription.setText("Wpisz opis filmu");
 
-
-        FollowButton.setText("Zapisz Film");
-        FollowButton.addActionListener(new java.awt.event.ActionListener(){
+        FollowButton.setText(isEditing ? "Zapisz Zmiany" : "Zapisz Film");
+        FollowButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 FollowButtonActionPerformed(evt);
             }
         });
@@ -617,7 +616,7 @@ public class Administrator extends javax.swing.JFrame {
                     movie.getId(),
                     new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),
                     movie.getTitle(),
-                    " "
+                    "Nie załadował się panel"
             };
             model.addRow(row);
         }
@@ -632,6 +631,7 @@ public class Administrator extends javax.swing.JFrame {
             return new JLabel();
         });
 
+        // Przyciski
         JButton deleteButton = new JButton("Usuń Film");
         deleteButton.setBackground(new Color(72, 61, 139));
         deleteButton.setForeground(Color.WHITE);
@@ -641,55 +641,102 @@ public class Administrator extends javax.swing.JFrame {
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         deleteButton.setPreferredSize(new Dimension(100, 25));
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.add(deleteButton);
+        JButton editButton = new JButton("Edytuj Film");
+        editButton.setBackground(new Color(72, 61, 139));
+        editButton.setForeground(Color.WHITE);
+        editButton.setFocusPainted(false);
+        editButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        editButton.setFont(new Font("Arial", Font.BOLD, 12));
+        editButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        editButton.setPreferredSize(new Dimension(100, 25));
 
+        // Panel przycisków
+        JPanel panelButton = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panelButton.add(deleteButton, gbc);
+        gbc.gridy++;
+        panelButton.add(editButton, gbc);
+
+        // Ustawienie rendererów komórek
         jTable1.getColumnModel().getColumn(3).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-            return panel;
+            return panelButton; // Zwracamy panel z przyciskami
         });
 
+        // Ustawienie edytora komórek
         jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JTextField()) {
             @Override
             public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-                return panel;
+                return panelButton;
             }
-            {
-                deleteButton.addActionListener(e -> {
-                    JButton button = (JButton) e.getSource();
-                    Component parent = button.getParent();
 
-                    while (parent != null && !(parent instanceof JTable)) {
-                        parent = parent.getParent();
+            @Override
+            public Object getCellEditorValue() {
+                return "Usuń";
+            }
+        });
+
+        // Obsługa akcji przycisków
+        deleteButton.addActionListener(e -> {
+            try {
+                JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, (Component) e.getSource());
+                if (table != null) {
+                    int row = table.getSelectedRow();
+                    if (row == -1) {
+                        JOptionPane.showMessageDialog(null, "Nie wybrano wiersza!", "Błąd", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
 
-                    if (parent instanceof JTable) {
-                        JTable table = (JTable) parent;
-                        int row = table.convertRowIndexToModel(table.getSelectedRow());
-                        int movieId = (int) table.getModel().getValueAt(row, 0);
+                    int movieId = (int) table.getModel().getValueAt(row, 0);
 
-                        int response = JOptionPane.showConfirmDialog(
-                                null,
-                                "Czy na pewno chcesz usunąć film o ID: " + movieId + "?",
-                                "Potwierdzenie usunięcia",
-                                JOptionPane.YES_NO_OPTION
-                        );
+                    int response = JOptionPane.showConfirmDialog(
+                            null,
+                            "Czy na pewno chcesz usunąć film o ID: " + movieId + "?",
+                            "Potwierdzenie usunięcia",
+                            JOptionPane.YES_NO_OPTION
+                    );
 
-                        if (response == JOptionPane.YES_OPTION) {
-                            System.out.println("Usunięcie filmu o ID: " + movieId);
+                    if (response == JOptionPane.YES_OPTION) {
+                        System.out.println("Usunięcie filmu o ID: " + movieId);
 
-                            try {
-                                CMovie movieToRemove = movieManager.getById(movieId);
-                                movieManager.remove(movieToRemove);
-
-                                movieManager.close();
-                            } catch (Exception ex) {
-                                System.err.println("Błąd przy usuwaniu filmu: " + ex.getMessage());
-                            }
-
+                        try {
+                            CMovie movieToRemove = movieManager.getById(movieId);
+                            movieManager.remove(movieToRemove);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Błąd przy usuwaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+                        } finally {
                             updateTable(jTable1, movieManager.getAll(), movieManager);
                         }
                     }
-                });
+                }
+            } catch (Exception ex) {
+                System.err.println("Błąd podczas akcji usuwania: " + ex.getMessage());
+            }
+        });
+
+        editButton.addActionListener(e -> {
+            try {
+                JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, (Component) e.getSource());
+                if (table != null) {
+                    int row = table.getSelectedRow();
+                    if (row == -1) {
+                        JOptionPane.showMessageDialog(null, "Nie wybrano wiersza!", "Błąd", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    int movieId = (int) table.getModel().getValueAt(row, 0);
+
+                    try {
+                        CMovie movieToEdit = movieManager.getById(movieId);
+                        openEditWindow(movieToEdit);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Błąd przy edytowaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (Exception ex) {
+                System.err.println("Błąd podczas akcji edycji: " + ex.getMessage());
             }
         });
     }
@@ -805,9 +852,8 @@ public class Administrator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ImageActionPerformed
 
-
-
     private void FollowButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        FollowButton.setText(isEditing ? "Zapisz Zmiany" : "Zapisz Film");
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
 
         String title = Title.getText().trim();
@@ -816,26 +862,19 @@ public class Administrator extends javax.swing.JFrame {
         String genre = (String) Genre.getSelectedItem();
         int duration = (int) Duration.getValue();
 
-        List<CMovie> allMovies = movieManager.getAll();
-        for (CMovie movie : allMovies) {
-            if (movie.getTitle().equalsIgnoreCase(title)) {
-                JOptionPane.showMessageDialog(this, "Film o tym tytule już istnieje w bazie!");
-                return;
-            }
-        }
-        if(title.isEmpty()){
+        if (title.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Uzupełnij Tytuł filmu!");
             return;
-        }else if (cast.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Uzupełmij Obsade filmu!");
+        } else if (cast.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Uzupełnij Obsade filmu!");
             return;
-        }else if(movieDescription.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Uzupełmij Opis filmu!");
+        } else if (movieDescription.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Uzupełnij Opis filmu!");
             return;
         } else if (genre == null || genre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Wprowadź Gatunek filmu");
             return;
-        } else if(duration <=0){
+        } else if (duration <= 0) {
             JOptionPane.showMessageDialog(this, "Film musi potrwać dłużej");
             return;
         } else if (currentMovie.getImagePath() == null || currentMovie.getImagePath().isEmpty()) {
@@ -843,24 +882,32 @@ public class Administrator extends javax.swing.JFrame {
             return;
         }
 
-        currentMovie.setTitle(title);
-        currentMovie.setMovieDescription(movieDescription);
-        currentMovie.setCast(cast);
-        currentMovie.setGenre(genre);
-        currentMovie.setDuration(duration);
+        // Jeśli edytujesz film
+        if (isEditing) {
+            currentMovie.setTitle(title);
+            currentMovie.setMovieDescription(movieDescription);
+            currentMovie.setCast(cast);
+            currentMovie.setGenre(genre);
+            currentMovie.setDuration(duration);
 
-        movieManager.save(currentMovie);
+            movieManager.save(currentMovie); // Zapisz zaktualizowany film
+            JOptionPane.showMessageDialog(this, "Film został zaktualizowany!");
+        } else {
+            String imagePath = currentMovie.getImagePath();
+            CMovie newMovie = new CMovie(title, cast, genre, duration,imagePath,movieDescription);
+            movieManager.save(newMovie);
+            JOptionPane.showMessageDialog(this, "Film został dodany!");
+        }
 
         try {
             movieManager.close();
-            JOptionPane.showMessageDialog(this, "Film domyślnie dodany");
-            updateTable(jTable1, movieManager.getAll(),movieManager);
+            updateTable(jTable1, movieManager.getAll(), movieManager);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Nie można dodać filmu");
+            JOptionPane.showMessageDialog(this, "Nie można zapisać filmu");
             e.printStackTrace();
         }
 
-        AddMovie.dispose();
+        AddMovie.dispose(); // Zamknij okno
     }
 
     private void ButtonSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
@@ -869,7 +916,7 @@ public class Administrator extends javax.swing.JFrame {
 
     private void ButtonAddMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMovieActionPerformed
         setTitle("Dodaj Film");
-        AddMovie.setVisible(true);
+        openAddMovieWindow();
     }//GEN-LAST:event_ButtonAddMovieActionPerformed
 
     private void ButtonAddShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddShowActionPerformed
@@ -891,10 +938,36 @@ public class Administrator extends javax.swing.JFrame {
         RepertuarLabel.setVisible(false);
     }//GEN-LAST:event_seanse_mMouseClicked
 
-    public static void main(String[] args) {
-        // Uruchomienie aplikacji Administrator
-        new Administrator();
+
+    public void openEditWindow(CMovie currentMovie) {
+        this.currentMovie = currentMovie;
+        Title.setText(currentMovie.getTitle());
+        Cast.setText(currentMovie.getCast());
+        MovieDescription.setText(currentMovie.getMovieDescription());
+        Genre.setSelectedItem(currentMovie.getGenre());
+        Duration.setValue(currentMovie.getDuration());
+
+        if (currentMovie.getImagePath() != null) {
+            Image.setIcon(new ImageIcon(scaleImage(currentMovie.getImagePath(), 100, 100)));
+        }
+        isEditing = true;
+        AddMovie.setVisible(true);
     }
+
+    public void openAddMovieWindow() {
+
+        currentMovie = new CMovie();
+        Title.setText("");
+        Cast.setText("");
+        MovieDescription.setText("");
+        Genre.setSelectedIndex(0);
+        Duration.setValue(0);
+        Image.setIcon(new ImageIcon(getClass().getResource("/Image/111_preview.png")));
+
+        isEditing = false;
+        AddMovie.setVisible(true);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame AddMovie;
