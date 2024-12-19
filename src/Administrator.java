@@ -25,7 +25,10 @@ public class Administrator extends javax.swing.JFrame {
      */
     public Administrator() {
         initComponents();
-        setTitle("Cinema Project");
+        setExtendedState(Administrator.MAXIMIZED_BOTH);
+        setTitle("Katana - Panel administratora");
+        ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
+        setIconImage(icona.getImage());
         // Utworzenie managerów dla filmów i pokazów
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         List<CMovie> allMovies = movieManager.getAll();

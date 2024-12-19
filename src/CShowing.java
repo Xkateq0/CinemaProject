@@ -9,6 +9,10 @@ public class CShowing extends CBase {
   private int idHall;
   private CSeat [] seats;
 
+  public CSeat[] getSeats() {
+    return seats;
+  }
+
   public CShowing()
   {
     this.seats= new CSeat[55];
@@ -55,7 +59,11 @@ public class CShowing extends CBase {
 
   @Override
   public String serialize() {
-    return getId() + ";" + date + ";" + time + ";" + idMovie + ";" + idHall;
+    StringBuilder seatsStatus = new StringBuilder();
+    for (CSeat seat : seats) {
+      seatsStatus.append(seat.isOccupied() ? "1" : "0");
+    }
+    return getId() + ";" + date + ";" + time + ";" + idMovie + ";" + idHall + ";" +seatsStatus;
   }
   @Override
   public String toString() {
@@ -75,6 +83,10 @@ public class CShowing extends CBase {
     this.time = LocalTime.parse(fields[2]);
     this.idMovie = Integer.parseInt(fields[3]);
     this.idHall = Integer.parseInt(fields[4]);
+    String seatsStatus = fields[5];
+    for (int i = 0; i < seatsStatus.length(); i++) {
+      seats[i].setOccupied(seatsStatus.charAt(i) == '1');
+    }
   }
 
   public String getMovieTitle(List<CMovie> allMovies) {
