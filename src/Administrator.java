@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +9,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
+import javax.swing.table.TableCellRenderer;
 import java.awt.Image;
 /**
  *
@@ -36,7 +43,7 @@ public class Administrator extends javax.swing.JFrame {
 
         CManage<CShowing> showingManager = new CManage<>(CShowing.class);
         List<CShowing> allShowing = showingManager.getAll();
-        updateTable2(jTable2, allShowing, allMovies);
+        updateTable2(jTable2, allShowing, allMovies,showingManager);
     }
 
 
@@ -242,27 +249,47 @@ public class Administrator extends javax.swing.JFrame {
         LabelMovie.setForeground(new java.awt.Color(0, 0, 0));
         LabelMovie.setText("Wybierz tytuł filmu");
 
-        idMovie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+        String[] movieTitles = new String[allMovies.size()];
+        for (int i = 0; i < allMovies.size(); i++) {
+            movieTitles[i] = allMovies.get(i).getTitle();
+        }
+        idMovie.setModel(new javax.swing.DefaultComboBoxModel<>(movieTitles));
 
         LabelHall.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelHall.setForeground(new java.awt.Color(0, 0, 0));
         LabelHall.setText("Wybierz sale");
 
-        idHall.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        idHall.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
         LabelDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelDate.setForeground(new java.awt.Color(0, 0, 0));
         LabelDate.setText("Wpisz date");
 
-        Date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        Date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(
+                new javax.swing.text.DateFormatter(
+                        new java.text.SimpleDateFormat("yyyy-MM-dd")
+                )
+        ));
 
         LabelTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelTime.setForeground(new java.awt.Color(0, 0, 0));
         LabelTime.setText("Wpisz godzine");
 
-        Time.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        Time.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(
+                new javax.swing.text.DateFormatter(
+                        new java.text.SimpleDateFormat("HH:mm")
+                )
+        ));
 
         FollowButton2.setText("Zapisz Seans");
+        FollowButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                FollowButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_AddShowLayout = new javax.swing.GroupLayout(Panel_AddShow);
         Panel_AddShow.setLayout(Panel_AddShowLayout);
@@ -605,144 +632,219 @@ public class Administrator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateTable(JTable jTable1, List<CMovie> allMovies, CManage<CMovie> movieManager) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        jTable1.setRowHeight(150);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Okładka", "Tytuł"," "}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 3;
+            }
+        };
+        jTable1.setModel(model);
+        jTable1.setFont(new Font("Arial", Font.PLAIN, 20)); // Czcionka Arial, zwykła, rozmiar 18
 
-        model.setColumnIdentifiers(new String[]{
-                "ID", "Image", "Title", ""
-        });
+        jTable1.setRowHeight(277);
 
         model.setRowCount(0);
 
+        // Wypełnianie tabeli danymi
         for (CMovie movie : allMovies) {
             Object[] row = new Object[]{
                     movie.getId(),
-                    new ImageIcon(scaleImage(movie.getImagePath(), 100, 100)),
+                    new ImageIcon(scaleImage(movie.getImagePath(), 190, 270)),
                     movie.getTitle(),
-                    "Nie załadował się panel"
+                    " ",
             };
             model.addRow(row);
         }
 
-        jTable1.getColumnModel().getColumn(1).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-            if (value instanceof ImageIcon) {
-                JLabel label = new JLabel((ImageIcon) value);
-                label.setText("");
-                label.setHorizontalAlignment(JLabel.CENTER);
-                return label;
+        // Renderer dla obrazów
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value instanceof ImageIcon) {
+                    JLabel label = new JLabel((ImageIcon) value);
+                    label.setText("");
+                    label.setHorizontalAlignment(JLabel.CENTER);
+                    label.setVerticalAlignment(JLabel.CENTER);
+                    return label;
+                }
+                return new JLabel();
             }
-            return new JLabel();
         });
 
-        // Przyciski
+        // Renderer dla panelu przycisków
+        jTable1.getColumnModel().getColumn(3).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            JPanel panel = createButtonPanel(jTable1, row, movieManager);
+            if (isSelected) {
+                panel.setBackground(table.getSelectionBackground());
+            } else {
+                panel.setBackground(table.getBackground());
+            }
+            return panel;
+        });
+
+        // Edytor komórek
+        jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JTextField()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return createButtonPanel(table, row, movieManager);
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return null; // Wartość edytora nie jest używana
+            }
+        });
+        DefaultTableCellRenderer wrappingAndCenterRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                // Wywołujemy standardową funkcję renderera, żeby otrzymać standardowy komponent (np. JLabel)
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Jeżeli to jest JTextArea
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+
+                    // Ustawiamy wyśrodkowanie tekstu poziome i pionowe
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    label.setVerticalAlignment(SwingConstants.CENTER);
+                } else if (comp instanceof JTextArea) { // Jeśli to jest JTextArea
+                    JTextArea textArea = (JTextArea) comp;
+                    textArea.setLineWrap(true); // Włączenie zawijania tekstu
+                    textArea.setWrapStyleWord(true); // Zawijanie całych słów
+                    textArea.setOpaque(true);
+                    textArea.setBorder(null);
+                    textArea.setFont(new Font("Arial", Font.PLAIN, 30)); // Czcionka i rozmiar tekstu
+                    textArea.setAlignmentX(Component.CENTER_ALIGNMENT); // Wyrównanie poziome
+                    textArea.setAlignmentY(Component.CENTER_ALIGNMENT); // Wyrównanie pionowe
+
+                    // Jeśli komórka jest wybrana, ustawiamy tło na kolor selekcji
+                    if (isSelected) {
+                        textArea.setBackground(table.getSelectionBackground());
+                        textArea.setForeground(table.getSelectionForeground());
+                    } else {
+                        textArea.setBackground(table.getBackground());
+                        textArea.setForeground(table.getForeground());
+                    }
+                }
+
+                return comp;
+            }
+
+        };
+        // Ustawienie rendererów dla kolumn "Tytuł", "Obsada", "Opis" i "Gatunek"
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(wrappingAndCenterRenderer); // "ID"
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(wrappingAndCenterRenderer); // "Tytuł"
+
+
+        // Ustawienie szerokości kolumn i zablokowanie ich zmiany rozmiaru
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(199);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(800);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    }
+
+    // Metoda pomocnicza do tworzenia panelu z przyciskami
+    private JPanel createButtonPanel(JTable table, int row, CManage<CMovie> movieManager) {
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
         JButton deleteButton = new JButton("Usuń Film");
         deleteButton.setBackground(new Color(72, 61, 139));
         deleteButton.setForeground(Color.WHITE);
         deleteButton.setFocusPainted(false);
         deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        deleteButton.setFont(new Font("Arial", Font.BOLD, 12));
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 16)); // Większa czcionka
+        deleteButton.setPreferredSize(new Dimension(150, 40)); // Ustawienie rozmiaru przycisku
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        deleteButton.setPreferredSize(new Dimension(100, 25));
+        deleteButton.addActionListener(e -> handleDeleteAction(table, row, movieManager,showManager));
 
         JButton editButton = new JButton("Edytuj Film");
         editButton.setBackground(new Color(72, 61, 139));
         editButton.setForeground(Color.WHITE);
         editButton.setFocusPainted(false);
         editButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        editButton.setFont(new Font("Arial", Font.BOLD, 12));
+        editButton.setFont(new Font("Arial", Font.BOLD, 16)); // Większa czcionka
+        editButton.setPreferredSize(new Dimension(150, 40)); // Ustawienie rozmiaru przycisku
         editButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        editButton.setPreferredSize(new Dimension(100, 25));
+        editButton.addActionListener(e -> handleEditAction(table, row, movieManager));
 
-        // Panel przycisków
-        JPanel panelButton = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.insets = new Insets(5, 0, 5, 0); // Marginesy między przyciskami
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panelButton.add(deleteButton, gbc);
+        panel.add(deleteButton, gbc);
         gbc.gridy++;
-        panelButton.add(editButton, gbc);
+        panel.add(editButton, gbc);
 
-        // Ustawienie rendererów komórek
-        jTable1.getColumnModel().getColumn(3).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-            return panelButton; // Zwracamy panel z przyciskami
-        });
+        return panel;
+    }
 
-        // Ustawienie edytora komórek
-        jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JTextField()) {
-            @Override
-            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-                return panelButton;
-            }
+    // Obsługa akcji usuwania filmu
+    private void handleDeleteAction(JTable table, int row, CManage<CMovie> movieManager, CManage<CShowing> showManager) {
+        int movieId = (int) table.getModel().getValueAt(row, 0);
+        int response = JOptionPane.showConfirmDialog(
+                null,
+                "Czy na pewno chcesz usunąć film o ID: " + movieId + "?",
+                "Potwierdzenie usunięcia",
+                JOptionPane.YES_NO_OPTION
+        );
 
-            @Override
-            public Object getCellEditorValue() {
-                return "Usuń";
-            }
-        });
-
-        // Obsługa akcji przycisków
-        deleteButton.addActionListener(e -> {
+        if (response == JOptionPane.YES_OPTION) {
             try {
-                JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, (Component) e.getSource());
-                if (table != null) {
-                    int row = table.getSelectedRow();
-                    if (row == -1) {
-                        JOptionPane.showMessageDialog(null, "Nie wybrano wiersza!", "Błąd", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
+                // Pobierz film do usunięcia
+                CMovie movieToRemove = movieManager.getById(movieId);
 
-                    int movieId = (int) table.getModel().getValueAt(row, 0);
+                // Znajdź wszystkie seanse powiązane z tym filmem
+                List<CShowing> allShows = showManager.getAll();
+                List<CShowing> showsToRemove = new ArrayList<>();
 
-                    int response = JOptionPane.showConfirmDialog(
-                            null,
-                            "Czy na pewno chcesz usunąć film o ID: " + movieId + "?",
-                            "Potwierdzenie usunięcia",
-                            JOptionPane.YES_NO_OPTION
-                    );
-
-                    if (response == JOptionPane.YES_OPTION) {
-                        System.out.println("Usunięcie filmu o ID: " + movieId);
-
-                        try {
-                            CMovie movieToRemove = movieManager.getById(movieId);
-                            movieManager.remove(movieToRemove);
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Błąd przy usuwaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
-                        } finally {
-                            updateTable(jTable1, movieManager.getAll(), movieManager);
+                for (CShowing show : allShows) {
+                    if (show.getIdMovie() == movieId) {
+                        // Sprawdź, czy seans ma zarezerwowane miejsca
+                        if (show.isReserved()) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Nie można usunąć seansu o ID: " + show.getId() + " z powodu zarezerwowanych miejsc.",
+                                    "Błąd", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        } else {
+                            // Dodaj seans do listy do usunięcia
+                            showsToRemove.add(show);
                         }
                     }
                 }
-            } catch (Exception ex) {
-                System.err.println("Błąd podczas akcji usuwania: " + ex.getMessage());
-            }
-        });
 
-        editButton.addActionListener(e -> {
-            try {
-                JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, (Component) e.getSource());
-                if (table != null) {
-                    int row = table.getSelectedRow();
-                    if (row == -1) {
-                        JOptionPane.showMessageDialog(null, "Nie wybrano wiersza!", "Błąd", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    int movieId = (int) table.getModel().getValueAt(row, 0);
-
-                    try {
-                        CMovie movieToEdit = movieManager.getById(movieId);
-                        openEditWindow(movieToEdit);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Błąd przy edytowaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
-                    }
+                // Usuń seanse, które nie mają zarezerwowanych miejsc
+                for (CShowing showToRemove : showsToRemove) {
+                    showManager.remove(showToRemove);
+                    showManager.close();
+                    movieManager.remove(movieToRemove);
+                    movieManager.close();
+                    updateTable(table, movieManager.getAll(), movieManager);
                 }
+
+
             } catch (Exception ex) {
-                System.err.println("Błąd podczas akcji edycji: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Błąd przy usuwaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
             }
-        });
+        }
     }
+
+    // Obsługa akcji edytowania filmu
+    private void handleEditAction(JTable table, int row, CManage<CMovie> movieManager) {
+        int movieId = (int) table.getModel().getValueAt(row, 0);
+        try {
+            CMovie movieToEdit = movieManager.getById(movieId);
+            openEditWindow(movieToEdit);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Błąd przy edytowaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private Image scaleImage(String imagePath, int width, int height) {
         try {
@@ -766,29 +868,158 @@ public class Administrator extends javax.swing.JFrame {
         }
     }
 
-    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies, CManage<CShowing> showManager) {
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala", " "}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5; // Tylko kolumna z przyciskami będzie edytowalna
+            }
+        };
+        jTable2.setModel(model);
 
-        model.setColumnIdentifiers(new String[] {
-                "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala"
-        });
-
+        jTable2.setRowHeight(277);
         model.setRowCount(0);
 
         for (CShowing showing : allShowing) {
             String movieTitle = showing.getMovieTitle(allMovies);
-
             Object[] row = new Object[]{
                     showing.getId(),
                     movieTitle,
                     showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
-                    showing.getIdHall()
+                    showing.getTime().format(DateTimeFormatter.ofPattern("HH:mm")),
+                    showing.getIdHall(),
+                    " " // Pusta kolumna na przyciski
             };
-
             model.addRow(row);
         }
+
+        // Renderer dla panelu przycisków w ostatniej kolumnie
+        jTable2.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            JPanel panel2 = createButtonPanel2(jTable2, row, showManager);
+            if (isSelected) {
+                panel2.setBackground(table.getSelectionBackground());
+            } else {
+                panel2.setBackground(table.getBackground());
+            }
+            return panel2;
+        });
+
+        jTable2.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JTextField()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return createButtonPanel2(table, row, showManager);
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return null; // Wartość edytora nie jest używana
+            }
+        });
+
+        // Centrowanie tekstu w kolumnach
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < jTable2.getColumnCount()-1; i++) {
+            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Ustawienie szerokości kolumn
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(120); // Godzina
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);  // Sala
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
     }
+
+    // Metoda pomocnicza do tworzenia panelu z przyciskami
+                private JPanel createButtonPanel2(JTable table, int row, CManage<CShowing> showManager) {
+                    JButton deleteButton = new JButton("Usuń Seans");
+                    deleteButton.setBackground(new Color(72, 61, 139));
+                    deleteButton.setForeground(Color.WHITE);
+                    deleteButton.setFocusPainted(false);
+                    deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                    deleteButton.setFont(new Font("Arial", Font.BOLD, 16));
+                    deleteButton.setPreferredSize(new Dimension(150, 40));
+                    deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    deleteButton.addActionListener(e -> handle2DeleteAction(table, row, showManager));
+
+                    /*
+                    JButton editButton = new JButton("Edytuj Seans");
+                    editButton.setBackground(new Color(72, 61, 139));
+                    editButton.setForeground(Color.WHITE);
+                    editButton.setFocusPainted(false);
+                    editButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                    editButton.setFont(new Font("Arial", Font.BOLD, 16));
+                    editButton.setPreferredSize(new Dimension(150, 40));
+                    editButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    editButton.addActionListener(e -> handle2EditAction(table, row, showManager));
+                    */
+                    JPanel panel2 = new JPanel(new GridBagLayout());
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.insets = new Insets(5, 0, 5, 0);
+                    gbc.gridx = 0;
+                    gbc.gridy = 0;
+                    panel2.add(deleteButton, gbc);
+
+                    return panel2;
+
+
+                }
+    private void handle2DeleteAction(JTable table, int row, CManage<CShowing> showManager) {
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        int showId = (int) table.getModel().getValueAt(row, 0);
+
+        try {
+            // Pobierz seans do usunięcia
+            CShowing showToRemove = showManager.getById(showId);
+
+            LocalDateTime showingDateTime = LocalDateTime.of(showToRemove.getDate(), showToRemove.getTime());
+
+            // Sprawdź, czy seans już się odbył
+            if (showingDateTime.isBefore(LocalDateTime.now())) {
+                // Jeśli seans już się odbył, wyświetl komunikat i zakończ operację
+                JOptionPane.showMessageDialog(null, "Nie można usunąć seansu, który już się odbył.", "Błąd", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Sprawdź, czy seans jest zarezerwowany
+            if (showToRemove.isReserved()) {
+                // Jeśli przynajmniej jedno miejsce jest zarezerwowane, wyświetl komunikat i nie usuwaj seansu
+                JOptionPane.showMessageDialog(null, "Nie można usunąć seansu, ponieważ są zarezerwowane miejsca.", "Błąd", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Jeśli nie ma zarezerwowanych miejsc, zapytaj użytkownika o potwierdzenie
+            int response = JOptionPane.showConfirmDialog(
+                    null,
+                    "Czy na pewno chcesz usunąć seans o ID: " + showId + "?",
+                    "Potwierdzenie usunięcia",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                // Usuń seans
+                showManager.remove(showToRemove);
+                showManager.close();
+                updateTable2(table, showManager.getAll(), movieManager.getAll(), showManager);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Błąd przy usuwaniu seansu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    /*
+    // Obsługa akcji edytowania filmu
+    private void handle2EditAction(JTable table, int row, CManage<CShowing> showManager) {
+        int showId = (int) table.getModel().getValueAt(row, 0);
+        try {
+            CShowing showToEdit = showManager.getById(showId);
+            openEditShowWindow(showToEdit);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Błąd przy edytowaniu filmu: " + ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     */
 
     private void repertuar_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
        repertuar_m.setBackground(new java.awt.Color(106,90,205));
@@ -826,7 +1057,9 @@ public class Administrator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonSearchActionPerformed
 
+
     private CMovie currentMovie = new CMovie();
+    private CShowing currentShow = new CShowing();
 
     private void ImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImageActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -913,8 +1146,122 @@ public class Administrator extends javax.swing.JFrame {
         AddMovie.dispose(); // Zamknij okno
     }
 
+    private void FollowButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+
+        String selectedMovieTitle = (String) idMovie.getSelectedItem();
+        String selectedHall = (String) idHall.getSelectedItem();
+        String showDateString = Date.getText();
+        String showTimeString = Time.getText();
+
+        if (selectedMovieTitle == null || selectedMovieTitle.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wybierz Film!");
+            return;
+        } else if (selectedHall == null || selectedHall.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wybierz Salę!");
+            return;
+        } else if (showDateString == null || showDateString.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wybierz Datę seansu!");
+            return;
+        } else if (showTimeString == null || showTimeString.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Wybierz Czas seansu!");
+            return;
+        }
+        LocalDate showDate = null;
+        if (!showDateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Niepoprawny format daty! Format powinien być: yyyy-MM-dd");
+            return;
+        } else {
+            showDate = LocalDate.parse(showDateString);
+        }
+
+        LocalTime showTime = null;
+        if (!showTimeString.matches("\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Niepoprawny format godziny! Format powinien być: HH:mm");
+            return;
+        } else {
+            showTime = LocalTime.parse(showTimeString);
+        }
+
+        int movieId = -1;
+        List<CMovie> allMovies = movieManager.getAll();
+        for (CMovie movie : allMovies) {
+            if (movie.getTitle().equals(selectedMovieTitle)) {
+                movieId = movie.getId();
+                break;
+            }
+        }
+
+        if (movieId == -1) {
+            JOptionPane.showMessageDialog(this, "Film nie został znaleziony!");
+            return;
+        }
+
+        // Pobranie długości filmu
+        int movieDuration = 0;
+        for (CMovie movie : allMovies) {
+            if (movie.getId() == movieId) {
+                movieDuration = movie.getDuration();
+                break;
+            }
+        }
+
+        List<CShowing> allShows = showManager.getAll();
+        for (CShowing existingShow : allShows) {
+            if (existingShow.getIdHall() == Integer.parseInt(selectedHall) && existingShow.getDate().equals(showDate)) {
+                // Obliczamy czas zakończenia istniejącego seansu
+                LocalTime existingShowEndTime = existingShow.getTime().plusMinutes(movieDuration);
+
+                // Sprawdzamy, czy czasy się nakładają
+                if (showTime.isBefore(existingShowEndTime) && showTime.plusMinutes(movieDuration).isAfter(existingShow.getTime())) {
+                    JOptionPane.showMessageDialog(this, "W tym czasie w tej sali już trwa inny seans!");
+                    return;
+                }
+            }
+        }
+
+        int hallId = Integer.parseInt(selectedHall);
+        CShowing newShow = new CShowing(showDate, showTime, movieId, hallId);
+        showManager.save(newShow);
+        JOptionPane.showMessageDialog(this, "Seans został dodany!");
+
+        try {
+            showManager.close();
+            updateTable2(jTable2, showManager.getAll(), movieManager.getAll(), showManager);  // Aktualizacja tabeli
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Nie można zapisać seansu");
+            e.printStackTrace();
+        }
+
+        AddShow.dispose();
+    }
+
+
     private void ButtonSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
-        // TODO add your handling code here:
+        String searchQuery = FieldSearch2.getText().trim().toLowerCase();
+
+        // Pobierz listę filmów (allMovies) przed rozpoczęciem filtracji
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+
+        if (searchQuery.isEmpty()) {
+            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+            updateTable2(jTable2, showManager.getAll(), allMovies,showManager); // Przekazujemy wszystkie filmy
+        } else {
+            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+            List<CShowing> filteredShows = new ArrayList<>();
+
+            // Wyszukiwanie po tytule filmu wśród pokazów
+            for (CShowing showing : showManager.getAll()) {
+                String movieTitle = showing.getMovieTitle(allMovies); // Pobierz tytuł filmu
+                if (movieTitle.toLowerCase().contains(searchQuery)) {
+                    filteredShows.add(showing);
+                }
+            }
+
+            updateTable2(jTable2, filteredShows, allMovies,showManager); // Przekazujemy przefiltrowane pokazy i listę filmów
+        }
     }//GEN-LAST:event_ButtonSearch2ActionPerformed
 
     private void ButtonAddMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMovieActionPerformed
@@ -924,21 +1271,26 @@ public class Administrator extends javax.swing.JFrame {
 
     private void ButtonAddShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddShowActionPerformed
         setTitle("Dodaj Seans");
-        AddShow.setVisible(true);
+        openAddShowWindow();
     }//GEN-LAST:event_ButtonAddShowActionPerformed
 
     private void repertuar_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         PanelS.setVisible(false);
         PanelR.setVisible(true);
         SeansLabel.setVisible(false);
         RepertuarLabel.setVisible(true);
+        updateTable(jTable1, movieManager.getAll(), movieManager);
     }//GEN-LAST:event_repertuar_mMouseClicked
 
     private void seanse_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         PanelR.setVisible(false);
         PanelS.setVisible(true);
         SeansLabel.setVisible(true);
         RepertuarLabel.setVisible(false);
+        updateTable2(jTable2, showManager.getAll(), movieManager.getAll(), showManager);
     }//GEN-LAST:event_seanse_mMouseClicked
 
 
@@ -969,6 +1321,73 @@ public class Administrator extends javax.swing.JFrame {
 
         isEditing = false;
         AddMovie.setVisible(true);
+    }
+    /*
+    public void openEditShowWindow(CShowing currentShow) {
+        this.currentShow = currentShow;
+
+        // Wybór filmu
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+
+        // Jeżeli lista filmów jest pusta, wyświetl odpowiednią wiadomość
+        if (allMovies.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Brak dostępnych filmów w bazie!", "Błąd", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] movieTitles = new String[allMovies.size()];
+        for (int i = 0; i < allMovies.size(); i++) {
+            movieTitles[i] = allMovies.get(i).getTitle();
+        }
+        idMovie.setModel(new DefaultComboBoxModel<>(movieTitles));
+
+        // Przypisanie wybranego filmu
+        String selectedMovieTitle = currentShow.getMovieTitle(allMovies);
+        idMovie.setSelectedItem(selectedMovieTitle);
+
+        // Ustawienie sali
+        idHall.setSelectedItem(currentShow.getIdHall());
+
+        // Poprawka dla daty i godziny
+        LocalDate date = currentShow.getDate(); // Załóżmy, że currentShow ma metodę getDate() typu LocalDate
+        LocalTime time = currentShow.getTime(); // Załóżmy, że currentShow ma metodę getTime() typu LocalTime
+
+        // Konwertowanie LocalDate na String w formacie 'yyyy-MM-dd'
+        String dateString = date.toString(); // "yyyy-MM-dd"
+        Date.setValue(dateString); // Ustawienie sformatowanej daty jako String
+
+        // Konwertowanie LocalTime na String w formacie 'HH:mm'
+        String timeString = time.toString(); // "HH:mm"
+        Time.setValue(timeString); // Ustawienie sformatowanej godziny jako String
+
+        isEditing = true;
+        AddShow.setVisible(true);
+    }
+     */
+
+    public void openAddShowWindow() {
+        currentShow = new CShowing(); // Tworzymy nowy obiekt seansu
+
+        // Wybór filmu
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+        String[] movieTitles = new String[allMovies.size()];
+        for (int i = 0; i < allMovies.size(); i++) {
+            movieTitles[i] = allMovies.get(i).getTitle();
+        }
+        idMovie.setModel(new javax.swing.DefaultComboBoxModel<>(movieTitles));
+
+        // Inicjalizacja sali
+        idHall.setSelectedIndex(0); // Domyślnie ustawiamy pierwszą salę
+
+        // Inicjalizacja daty
+        Date.setValue(null); // Pole daty jest puste
+
+        // Inicjalizacja godziny
+        Time.setValue(null); // Pole godziny jest puste
+
+        AddShow.setVisible(true);
     }
 
 

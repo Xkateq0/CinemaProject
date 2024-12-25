@@ -2,5 +2,4 @@
 2;src/Image/gladiator.jpg;Interstellar;A journey beyond our galaxy to save humanity.;Matthew McConaughey, Anne Hathaway, Jessica Chastain;Akcja;169
 3;src/Image/gladiator.jpg;Gladiator;A former Roman general seeks revenge.;Russell Crowe, Joaquin Phoenix, Connie Nielsen;Akcja;155
 4;src//Image/gladiator.jpg;dafgtrytuyr;qewarstdyfugjihj;arwetsrydtfugkihl;Akcja;1
-5;src//Image/download.jpg;swertgar;dsFzghd;eartesg;Akcja;1
 6;src//Image/download.jpg;fagsdhfjhm;zfxgch;sdfzgxhcn;Akcja;1

@@ -7,12 +7,17 @@ public class Main {
 
     public static void main(String args[]) {
         CManage<CShowing> showingManager = new CManage<>(CShowing.class);
-
+        CManage<CMovie>showingMovie=new CManage<>(CMovie.class);
 
         List<CShowing> allShows = showingManager.getAll();
+        List<CMovie>allMovie =showingMovie.getAll();
+
 
         // Wyświetlamy dane o wszystkich pokazach
         for (CShowing showing : allShows) {
+            System.out.println(showing);  // Wywołuje metodę toString() dla każdego obiektu
+        }
+        for (CMovie showing : allMovie) {
             System.out.println(showing);  // Wywołuje metodę toString() dla każdego obiektu
         }
 

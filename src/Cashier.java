@@ -43,19 +43,15 @@ public class Cashier extends JFrame {
 
     public void updateTable(JTable jTable1, List<CMovie> allMovies) {
         DefaultTableModel model = new DefaultTableModel(new String[]{" ", "Tytuł","Obsada","Opis","Gatunek"}, 0) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false; // Blokuje edycję wszystkich komórek
-        }
-    };
-    jTable1.setModel(model);
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Blokuje edycję wszystkich komórek
+            }
+        };
+        jTable1.setModel(model);
 
         
         jTable1.setRowHeight(277);
-
-        model.setColumnIdentifiers(new String[]{
-                 " ", "Tytuł","Obsada","Opis","Gatunek"
-        });
 
         model.setRowCount(0);
 
@@ -107,7 +103,7 @@ public class Cashier extends JFrame {
             textArea.setWrapStyleWord(true); // Zawijanie całych słów
             textArea.setOpaque(true);
             textArea.setBorder(null);
-            textArea.setFont(new Font("Arial", Font.PLAIN, 18)); // Czcionka i rozmiar tekstu
+            textArea.setFont(new Font("Arial", Font.PLAIN, 30)); // Czcionka i rozmiar tekstu
             textArea.setAlignmentX(Component.CENTER_ALIGNMENT); // Wyrównanie poziome
             textArea.setAlignmentY(Component.CENTER_ALIGNMENT); // Wyrównanie pionowe
 

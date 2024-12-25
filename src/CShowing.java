@@ -7,18 +7,18 @@ public class CShowing extends CBase {
   private LocalTime time;
   private int idMovie;
   private int idHall;
-  private CSeat [] seats;
+  private CSeat[] seats;
 
   public CSeat[] getSeats() {
     return seats;
   }
 
-  public CShowing()
-  {
-    this.seats= new CSeat[55];
+  public CShowing() {
+    this.seats = new CSeat[55];
     for (int i = 0; i < 55; i++) {
       seats[i] = new CSeat();
-      seats[i].setId(i + 1);}
+      seats[i].setId(i + 1);
+    }
   }
 
   public CShowing(LocalDate date, LocalTime time, int idMovie, int idHall) {
@@ -29,30 +29,39 @@ public class CShowing extends CBase {
     this.seats = new CSeat[55];
     for (int i = 0; i < 55; i++) {
       seats[i] = new CSeat();
-      seats[i].setId(i + 1);}
+      seats[i].setId(i + 1);
+    }
 
   }
+
   public LocalDate getDate() {
     return date;
   }
+
   public LocalTime getTime() {
     return time;
   }
+
   public int getIdMovie() {
     return idMovie;
   }
+
   public int getIdHall() {
     return idHall;
   }
+
   public void setDate(LocalDate date) {
     this.date = date;
   }
+
   public void setTime(LocalTime time) {
     this.time = time;
   }
+
   public void setIdMovie(int idMovie) {
     this.idMovie = idMovie;
   }
+
   public void setIdHall(int idHall) {
     this.idHall = idHall;
   }
@@ -63,8 +72,9 @@ public class CShowing extends CBase {
     for (CSeat seat : seats) {
       seatsStatus.append(seat.isOccupied() ? "1" : "0");
     }
-    return getId() + ";" + date + ";" + time + ";" + idMovie + ";" + idHall + ";" +seatsStatus;
+    return getId() + ";" + date + ";" + time + ";" + idMovie + ";" + idHall + ";" + seatsStatus;
   }
+
   @Override
   public String toString() {
     return "Showing {" +
@@ -96,5 +106,14 @@ public class CShowing extends CBase {
       }
     }
     return "Unknown";
+  }
+
+  public boolean isReserved() {
+    for (CSeat seat : seats) {
+      if (seat.isOccupied()) {
+        return true;
+      }
+    }
+    return false;
   }
 }
