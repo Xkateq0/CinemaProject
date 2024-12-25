@@ -826,6 +826,9 @@ public class Administrator extends javax.swing.JFrame {
                     movieManager.close();
                     updateTable(table, movieManager.getAll(), movieManager);
                 }
+                movieManager.remove(movieToRemove);
+                movieManager.close();
+                updateTable(table, movieManager.getAll(), movieManager);
 
 
             } catch (Exception ex) {
