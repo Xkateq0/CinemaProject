@@ -1,22 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class CReservation extends CBase{
-    private int idTicket;
     private int idShowing;
-    private int idMovie;
-    private int idSeat;
+    private List<CTicket> tickets;
 
-    public CReservation(int idReservation,int idTicket,int idShowing,int idMovie,int idSeat){
-        this.idTicket=idTicket;
-        this.idShowing=idShowing;
-        this.idMovie=idMovie;
-        this.idSeat=idSeat;
+    public CReservation(int idShowing){
+        this.idShowing = idShowing;
+        this.tickets = new ArrayList<>();
     }
 
-    public int getIdTicket() {
-        return idTicket;
+    public CReservation() {
+        this.tickets = new ArrayList<>();
     }
 
-    public void setIdTicket(int idTicket) {
-        this.idTicket = idTicket;
+
+    public List<CTicket> getTickets(){return this.tickets;}
+    public void addTicket(CTicket ticket) {
+        tickets.add(ticket);
     }
 
     public int getIdShowing() {
@@ -27,34 +28,36 @@ public class CReservation extends CBase{
         this.idShowing = idShowing;
     }
 
-    public int getIdMovie() {
-        return idMovie;
-    }
-
-    public void setIdMovie(int idMovie) {
-        this.idMovie = idMovie;
-    }
-
-    public int getIdSeat() {
-        return idSeat;
-    }
-
-    public void setIdSeat(int idSeat) {
-        this.idSeat = idSeat;
+    public double calculateTotalPrice() {
+        return tickets.stream().mapToDouble(CTicket::getPriceTicket).sum();
     }
 
     @Override
     public String serialize() {
-        return getId() + "," + idTicket + "," + idShowing + "," + idMovie + "," + idSeat;
+       StringBuilder result = new StringBuilder();
+       result.append(getId()).append(";").append(idShowing).append(";");
+
+       for(CTicket ticket : tickets) {
+           result.append(ticket.serialize()).append(";");
+       }
+       if(!tickets.isEmpty()) {
+           result.deleteCharAt(result.length()-1);
+       }
+       return result.toString();
     }
 
     @Override
     public void deserialize(String data) {
-        String[] fields = data.split(",");
+        String[] fields = data.split(";");
         setId(Integer.parseInt(fields[0]));
-        this.idTicket = Integer.parseInt(fields[1]);
-        this.idShowing=Integer.parseInt(fields[2]);
-        this.idMovie = Integer.parseInt(fields[3]);
-        this.idSeat = Integer.parseInt(fields[4]);
-    }
+        this.idShowing=Integer.parseInt(fields[1]);
+
+        this.tickets = new ArrayList<>();
+        for (int i = 2; i < fields.length; i++) { // Pola od indeksu 2 zawierają dane biletów
+            if (!fields[i].isEmpty()) {
+                CTicket ticket = new CTicket();
+                ticket.deserialize(fields[i]); // Deserializacja biletu
+                tickets.add(ticket); // Dodanie biletu do listy
+            }
+    }}
 }

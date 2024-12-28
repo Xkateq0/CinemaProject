@@ -1,17 +1,34 @@
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 public class SeatSelection extends JFrame {
 
 private final CShowing seans;
 private JToggleButton[] seatButtons;
+private Map<String, CTicket> ticketsMap = new HashMap<>();
+
     public SeatSelection(CShowing seans) {
         this.seans=seans;
         initComponents();
+        seatButtons = new JToggleButton[] {
+                seatA1, seatA2, seatA3, seatA4, seatA5, seatA6, seatA7, seatA8, seatA9, seatA10,
+                seatA11, seatB1, seatB2, seatB3, seatB4, seatB5, seatB6, seatB7, seatB8, seatB9,
+                seatB10, seatB11, seatC1, seatC2, seatC3, seatC4, seatC5, seatC6, seatC7, seatC8,
+                seatC9, seatC10, seatC11, seatD1, seatD2, seatD3, seatD4, seatD5, seatD6, seatD7,
+                seatD8, seatD9, seatD10, seatD11, seatE1, seatE2, seatE3, seatE4, seatE5, seatE6,
+                seatE7, seatE8, seatE9, seatE10, seatE11
+        };
         customComponents();
         updateSeats();
+        jPanel2.setVisible(true);
+        ticket_op.setVisible(false);
+        ImageIcon icona = new ImageIcon(getClass().getResource("Image/sofa.png"));
+        setIconImage(icona.getImage());
+        
     }
 
     private void customComponents()
@@ -20,12 +37,12 @@ private JToggleButton[] seatButtons;
         CMovie movie = (CMovie) movieManager.getById(seans.getIdMovie());
         if(movie!=null)
         {titleTxt.setText(movie.getTitle());}
-        dateTxt.setText(seans.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) 
+        dateTxt.setText(seans.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
     + " " + seans.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         ImageIcon cover = new ImageIcon(scaleImage(movie.getImagePath(),190,300));
         cover_l.setIcon(cover);
+        confirmBtn.addActionListener(e -> finalizeReservation());
 
-       
     }
 
     private Image scaleImage(String imagePath, int width, int height) {
@@ -52,22 +69,221 @@ private JToggleButton[] seatButtons;
 
     private void updateSeats()
     {
-        seatButtons = new JToggleButton[] {
-                seatA1, seatA3, seatA2, seatA4, seatA6, seatA5, seatA7, seatA9, seatA8, seatA10,
-                seatA11, seatB1, seatB3, seatB2, seatB4, seatB6, seatB5, seatB7, seatB9, seatB8,
-                seatB10, seatB11, seatC3, seatC2, seatC6, seatC5, seatC4, seatC1, seatC9, seatC8,
-                seatC7, seatC10, seatC11, seatD9, seatD5, seatD11, seatD2, seatD3, seatD1, seatD8,
-                seatD10, seatD6, seatD4, seatD7, seatE1, seatE8, seatE6, seatE9, seatE4, seatE5,
-                seatE2, seatE11, seatE10, seatE3, seatE7
-        };
-        CSeat[] seats= seans.getSeats();
+        next_btn.setEnabled(false);
+        CShowing.CSeat[] seats= seans.getSeats();
         for (int i = 0; i < seats.length && i < seatButtons.length; i++) {
             if(seats[i].isOccupied())
             {
                 seatButtons[i].setEnabled(false);
                 seatButtons[i].setBackground(new Color(99,99,99));
-            }}
+            }
+            
+        
         }
+        
+      for (JToggleButton button : seatButtons) {
+        button.addActionListener(e -> {
+            String seat = button.getText(); // Pobierz tekst przycisku (np. "A1")
+            if (button.isSelected()) {
+                // Dodaj bilet, jeśli przycisk został zaznaczony
+                addTicket(seat, "STANDARD");
+            } else {
+                // Usuń bilet, jeśli przycisk został odkliknięty
+                removeTicket(seat);
+            }
+
+            // Zaktualizuj stan przycisku "Dalej"
+            updateNextButtonState();
+        });
+    }
+}
+    
+    private boolean isAnySeatSelected() {
+    for (JToggleButton button : seatButtons) {
+        if (button.isSelected()) {
+            return true;
+        }
+    }
+    return false;
+}
+    
+    private void updateNextButtonState() {
+    next_btn.setEnabled(isAnySeatSelected());
+}
+//WYBOR BILETOW
+private void addTicket(String seat, String ticketType) {
+    // Tworzenie obiektu CTicket z typu ticketType
+    TypeTicket type = TypeTicket.valueOf(ticketType.toUpperCase());
+    CTicket ticket = new CTicket(type);
+    ticket.setSeat(seat); // Ustawiamy numer miejsca dla biletu
+
+    ticketsMap.put(seat, ticket);
+
+    // Utwórz panel dla biletu
+    JPanel ticketPanel = new JPanel();
+    ticketPanel.setName(seat); // Ustawiamy nazwę panelu, żeby łatwo go znaleźć później
+    ticketPanel.setLayout(new GridBagLayout());
+    ticketPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    ticketPanel.setBackground(new Color(245, 245, 245));
+
+    int panelWidth = 350;
+    int panelHeight = 70;
+
+    ticketPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+    ticketPanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
+    ticketPanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 5, 5, 5);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    // Ikona biletu
+    JLabel iconLabel = new JLabel(new ImageIcon(getClass().getResource("Image/ticket.png")));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridheight = 2;
+    gbc.weightx = 0;
+    ticketPanel.add(iconLabel, gbc);
+
+    // Opis biletu
+    JLabel ticketLabel = new JLabel("<html><b>" + ticket.getTypeTicket().name() + "</b><br>SALA: " + seans.getIdHall() + "<br>SEAT: " + seat + "</html>");
+    ticketLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.gridheight = 1;
+    gbc.weightx = 1;
+    ticketPanel.add(ticketLabel, gbc);
+
+    // Cena
+    JLabel priceLabel = new JLabel(String.format("%.2f zł", ticket.getPriceTicket()));
+    priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.gridheight = 1;
+    gbc.weightx = 1;
+    ticketPanel.add(priceLabel, gbc);
+
+    // Przyciski
+    JButton changeTypeButton = new JButton("Zmień rodzaj");
+    JButton removeButton = new JButton("X");
+    removeButton.setForeground(Color.RED);
+
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+    buttonPanel.setOpaque(false);
+    buttonPanel.add(changeTypeButton);
+    buttonPanel.add(removeButton);
+
+    gbc.gridx = 2;
+    gbc.gridy = 0;
+    gbc.gridheight = 2;
+    gbc.weightx = 0;
+    ticketPanel.add(buttonPanel, gbc);
+
+    // Obsługa zmiany typu biletu
+    changeTypeButton.addActionListener(e -> {
+        String[] options = {"STANDARD", "REDUCED", "STUDENT", "SENIOR"};
+        String newType = (String) JOptionPane.showInputDialog(
+                this,
+                "Wybierz typ biletu:",
+                "Zmiana typu biletu",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                ticket.getTypeTicket().name());
+
+        if (newType != null) {
+            ticket.setTypeTicket(TypeTicket.valueOf(newType));
+            ticketLabel.setText("<html><b>" + ticket.getTypeTicket().name() + "</b><br>SALA: " + seans.getIdHall() + "<br>SEAT: " + seat + "</html>");
+            priceLabel.setText(String.format("%.2f zł", ticket.getPriceTicket()));
+            updateSummary(); // Odśwież podsumowanie
+        }
+    });
+
+    removeButton.addActionListener(e -> {
+        ticketsMap.remove(seat); // Usunięcie biletu z mapy
+        ticketsPanel.remove(ticketPanel);
+        ticketsPanel.revalidate();
+        ticketsPanel.repaint();
+        updateSummary(); // Odśwież podsumowanie
+    });
+
+    // Dodaj panel biletu do głównego kontenera
+    ticketsPanel.add(ticketPanel);
+    ticketsPanel.revalidate();
+    ticketsPanel.repaint();
+
+    updateSummary(); // Odśwież podsumowanie
+}
+
+private void updateSummary() {
+    int ticketCount = ticketsMap.size();
+    double totalPrice = ticketsMap.values().stream()
+            .mapToDouble(CTicket::getPriceTicket)
+            .sum();
+
+    totalTicketsLabel.setText("Liczba biletów: " + ticketCount);
+    totalPriceLabel.setText("Razem: " + String.format("%.2f zł", totalPrice));
+    confirmBtn.setEnabled(ticketCount > 0); // Aktywuj przycisk tylko, gdy są bilety
+}
+
+private void removeTicket(String seat) {
+        ticketsMap.remove(seat); // Usuwamy bilet z mapy
+
+        for (Component component : ticketsPanel.getComponents()) {
+            if (component instanceof JPanel && seat.equals(component.getName())) {
+                ticketsPanel.remove(component); // Usuwamy panel z GUI
+                ticketsPanel.revalidate();
+                ticketsPanel.repaint();
+                break;
+            }
+        }
+
+        updateSummary(); // Odśwież podsumowanie
+    }
+
+    private void finalizeReservation() {
+        // Tworzymy obiekt CReservation dla danego seansu
+        CReservation reservation = new CReservation(seans.getId());
+
+        // Dodajemy wszystkie wybrane bilety do rezerwacji
+        for (Map.Entry<String, CTicket> entry : ticketsMap.entrySet()) {
+            CTicket ticket = entry.getValue();
+            reservation.addTicket(ticket);
+
+            String seat = ticket.getSeat();
+            for (int i = 0; i < seans.getSeats().length; i++) {
+                if (seatButtons[i].getText().equals(seat)) {
+                    seans.getSeats()[i].setOccupied(true);
+                    break;
+                }
+            }
+        }
+
+        // Zapisujemy rezerwację w bazie danych
+        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
+        reservationManager.save(reservation);
+
+        CManage<CShowing> showingManager = new CManage<>(CShowing.class);
+        showingManager.save(seans);
+
+        try {
+            reservationManager.close(); // Zapisujemy zmiany w pliku
+            showingManager.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas zapisywania rezerwacji.", "Błąd", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+        // Informacja o sukcesie
+        JOptionPane.showMessageDialog(this, "Rezerwacja została pomyślnie zapisana!", "Sukces", JOptionPane.INFORMATION_MESSAGE);
+
+        // Zamykamy okno wyboru miejsc
+        this.dispose();
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,6 +301,14 @@ private JToggleButton[] seatButtons;
         titleTxt = new JLabel();
         dateLabel = new JLabel();
         dateTxt = new JLabel();
+        ticket_op = new JPanel();
+        jLabel1 = new JLabel();
+        ticketScrlPane = new JScrollPane();
+        ticketsPanel = new JPanel();
+        confirmBtn = new JButton();
+        backBtn = new JButton();
+        totalTicketsLabel = new JLabel();
+        totalPriceLabel = new JLabel();
         jPanel2 = new JPanel();
         jPanel3 = new JPanel();
         seatsPanel = new JPanel();
@@ -162,6 +386,7 @@ private JToggleButton[] seatButtons;
         jLabel17 = new JLabel();
         jLabel18 = new JLabel();
         jLabel19 = new JLabel();
+        next_btn = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -173,7 +398,6 @@ private JToggleButton[] seatButtons;
 
         cover_l.setBackground(new Color(204, 204, 255));
         cover_l.setHorizontalAlignment(SwingConstants.CENTER);
-        cover_l.setText("COVER");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,15 +405,14 @@ private JToggleButton[] seatButtons;
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cover_l, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+                .addComponent(cover_l, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cover_l, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cover_l, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
         );
 
         titleLabel.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
@@ -214,23 +437,21 @@ private JToggleButton[] seatButtons;
             sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(sideInfoLayout.createSequentialGroup()
                 .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(sideInfoLayout.createSequentialGroup()
-                        .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(sideInfoLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(sideInfoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(titleLabel)))
-                        .addGap(0, 34, Short.MAX_VALUE))
                     .addComponent(titleTxt, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sideInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(dateTxt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(sideInfoLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addComponent(dateLabel)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(dateTxt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(sideInfoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(titleLabel)
+                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         sideInfoLayout.setVerticalGroup(
@@ -238,7 +459,7 @@ private JToggleButton[] seatButtons;
             .addGroup(sideInfoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(118, 118, 118)
                 .addComponent(titleLabel)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleTxt, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
@@ -247,6 +468,71 @@ private JToggleButton[] seatButtons;
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateTxt, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ticket_op.setBackground(new Color(255, 255, 255));
+
+        jLabel1.setFont(new Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setText("WYBÓR BILETÓW");
+
+        ticketScrlPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ticketScrlPane.setToolTipText("");
+
+        ticketsPanel.setLayout(new BoxLayout(ticketsPanel, BoxLayout.Y_AXIS));
+        ticketScrlPane.setViewportView(ticketsPanel);
+
+        confirmBtn.setText("ZATWIERDŹ");
+
+        backBtn.setText("WRÓĆ");
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
+
+        totalTicketsLabel.setText("0");
+
+        totalPriceLabel.setText("0,00 zł");
+
+        GroupLayout ticket_opLayout = new GroupLayout(ticket_op);
+        ticket_op.setLayout(ticket_opLayout);
+        ticket_opLayout.setHorizontalGroup(
+            ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                .addContainerGap(566, Short.MAX_VALUE)
+                .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+                        .addGap(388, 388, 388))
+                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+                        .addGap(440, 440, 440))
+                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(totalTicketsLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                                .addComponent(totalPriceLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)))
+                        .addGap(355, 355, 355))))
+        );
+        ticket_opLayout.setVerticalGroup(
+            ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(ticket_opLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalTicketsLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalPriceLabel)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         jPanel2.setBackground(new Color(255, 255, 255));
@@ -825,7 +1111,7 @@ private JToggleButton[] seatButtons;
                     .addComponent(seatE8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                     .addComponent(seatE11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                     .addComponent(seatE10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
@@ -1000,23 +1286,42 @@ private JToggleButton[] seatButtons;
 
         jLabel19.setIcon(new ImageIcon(getClass().getResource("/Image/ekran1.png"))); // NOI18N
 
+        next_btn.setBackground(new Color(72, 61, 139));
+        next_btn.setFont(new Font("Arial", 1, 14)); // NOI18N
+        next_btn.setForeground(new Color(255, 255, 255));
+        next_btn.setText("DALEJ");
+        next_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next_btnMouseClicked(evt);
+            }
+        });
+
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jLabel19))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(139, 139, 139)
+                        .addComponent(next_btn, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel19)
-                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(next_btn, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel19)
+                        .addGap(10, 10, 10)))
                 .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1026,14 +1331,20 @@ private JToggleButton[] seatButtons;
             bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sideInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(ticket_op, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(sideInfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(bgLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(ticket_op, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -1274,16 +1585,29 @@ private JToggleButton[] seatButtons;
         // TODO add your handling code here:
     }//GEN-LAST:event_seatE7ActionPerformed
 
+    private void next_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next_btnMouseClicked
+        ticket_op.setVisible(true);
+        jPanel2.setVisible(false);
+    }//GEN-LAST:event_next_btnMouseClicked
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        jPanel2.setVisible(true);
+        ticket_op.setVisible(false);
+    }//GEN-LAST:event_backBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton backBtn;
     private JPanel bg;
+    private JButton confirmBtn;
     private JLabel cover_l;
     private JLabel dateLabel;
     private JLabel dateTxt;
+    private JLabel jLabel1;
     private JLabel jLabel10;
     private JLabel jLabel11;
     private JLabel jLabel12;
@@ -1304,6 +1628,7 @@ private JToggleButton[] seatButtons;
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
+    private JButton next_btn;
     private JToggleButton seatA1;
     private JToggleButton seatA10;
     private JToggleButton seatA11;
@@ -1363,7 +1688,12 @@ private JToggleButton[] seatButtons;
     private JPanel seatNumber2;
     private JPanel seatsPanel;
     private JPanel sideInfo;
+    private JScrollPane ticketScrlPane;
+    private JPanel ticket_op;
+    private JPanel ticketsPanel;
     private JLabel titleLabel;
     private JLabel titleTxt;
+    private JLabel totalPriceLabel;
+    private JLabel totalTicketsLabel;
     // End of variables declaration//GEN-END:variables
 }

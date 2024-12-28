@@ -1,14 +1,14 @@
-public class CTicket extends CBase {
-    private double priceTicket;
+public class CTicket{
     private TypeTicket typeTicket;
+    String seat;
 
-    public CTicket(int idTicket, String nameTicket, double priceTicket, TypeTicket typeTicket) {
+    public CTicket(){};
+    public CTicket(TypeTicket typeTicket) {
         this.typeTicket = typeTicket;
-        this.priceTicket = setPriceByType();
     }
 
     public double getPriceTicket() {
-        return priceTicket;
+        return typeTicket.getPrice();
     }
 
     public TypeTicket getTypeTicket() {
@@ -19,26 +19,23 @@ public class CTicket extends CBase {
         this.typeTicket = typeTicket;
     }
 
-    public double setPriceByType() {
-
-        return switch (typeTicket) {
-            case STANDARD -> 26.0;
-            case REDUCED -> 22.0;
-            case STUDENT -> 21.0;
-            case SENIOR -> 22.0;
-        };
+    public String getSeat() {
+        return seat;
     }
-    @Override
+
+    public void setSeat(String seat) {
+        this.seat = seat;
+    }
+
     public String serialize() {
-        return getId() + "," + typeTicket + "," + priceTicket;
+        return typeTicket.name() + "," + seat;
     }
 
-    @Override
     public void deserialize(String data) {
         String[] fields = data.split(",");
-        setId(Integer.parseInt(fields[0]));
-        this.typeTicket = TypeTicket.valueOf(fields[1]);
-        this.priceTicket = setPriceByType();
+        this.typeTicket = TypeTicket.valueOf(fields[0]);
+        this.seat = fields[1];
+
     }
 }
 

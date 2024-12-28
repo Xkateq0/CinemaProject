@@ -1,5 +1,0 @@
-1;images/inception.jpg;Inception;A mind-bending thriller where dreams are real.;Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page;Sci-Fi;148
-2;images/interstellar.jpg;Interstellar;A journey beyond our galaxy to save humanity.;Matthew McConaughey, Anne Hathaway, Jessica Chastain;Sci-Fi;169
-3;images/gladiator.jpg;Gladiator;A former Roman general seeks revenge.;Russell Crowe, Joaquin Phoenix, Connie Nielsen;Action;155
-4;images/joker.jpg;Joker;The origin story of the infamous DC villain.;Joaquin Phoenix, Robert De Niro, Zazie Beetz;Drama;122
-5;images/frozen.jpg;Frozen;A magical journey of two sisters in a winter wonderland.;Idina Menzel, Kristen Bell, Josh Gad;Animation;102

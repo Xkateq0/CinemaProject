@@ -21,9 +21,7 @@ import java.awt.event.MouseEvent;
 public class Login extends javax.swing.JFrame {
 
     private Map<String, CUser> userDatabase;
-    /**
-     * Creates new form Login
-     */
+
     public Login() {
         initComponents();
         setTitle("Cinema Project");

@@ -1,45 +1,71 @@
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import javax.swing.text.MaskFormatter;
 /**
  *
  * @author yande
  */
 public class Cashier extends JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    private  CManage<CMovie> movieManager;
+    private List<CMovie> allMovies;
+    private CManage<CShowing> showingMenager;
+    private List<CShowing> allShowing;
     public Cashier() {
-        initComponents();
+        initComponents();    
+     //Wczytanie baz danych
+        movieManager= new CManage<> (CMovie.class);
+        allMovies =movieManager.getAll();
+        showingMenager = new CManage<> (CShowing.class);
+        allShowing =showingMenager.getAll();
+        
+     customComponents();
+        
+    }
+    
+    private void customComponents()
+    {
         setExtendedState(Cashier.MAXIMIZED_BOTH);
         setTitle("Katana - Panel kasjera");
         ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
         setIconImage(icona.getImage());
         
-        CManage<CMovie> movieManager= new CManage<> (CMovie.class);
-        List<CMovie> allMovies =movieManager.getAll();
+         logL.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                JOptionPane.showMessageDialog(null, "Wylogowano");
+                new Login().setVisible(true);
+            }
+        });
         updateTable(jTable1,allMovies);
-        CManage<CShowing> showingMenager = new CManage<> (CShowing.class);
-        List<CShowing> allShowing =showingMenager.getAll();
         updateTable2(jTable2,allShowing, allMovies);
+        
+         try {
+        MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
+        dateFormatter.setPlaceholderCharacter(' ');
+        dateSearch.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(dateFormatter));
+    } catch (ParseException e) {
+        e.printStackTrace();
     }
+    }
+    
 
     public void updateTable(JTable jTable1, List<CMovie> allMovies) {
         DefaultTableModel model = new DefaultTableModel(new String[]{" ", "Tytuł","Obsada","Opis","Gatunek"}, 0) {
@@ -185,6 +211,13 @@ public class Cashier extends JFrame {
         for (CShowing showing : allShowing) {
             String movieTitle = showing.getMovieTitle(allMovies);
 
+            LocalDateTime showingDateTime = LocalDateTime.of(showing.getDate(), showing.getTime());
+
+
+            if (showingDateTime.isBefore(LocalDateTime.now())) {
+                continue; // Pominięcie seansu, jeśli data i godzina już minęły
+            }
+
             Object[] row = new Object[]{
                     showing.getId(),
                     movieTitle,
@@ -194,10 +227,13 @@ public class Cashier extends JFrame {
                     "WYBIERZ" // Placeholder tekstowy dla przycisku
             };
 
+
+
             model.addRow(row);
         }
 
         jTable2.setModel(model);
+        jTable2.setRowHeight(50);
 
         // Centrowanie tekstu w kolumnach
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -307,6 +343,7 @@ public class Cashier extends JFrame {
         seanse_m = new JPanel();
         TextSeanse = new JLabel();
         filler1 = new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(0, 32767));
+        logL = new JLabel();
         PanelSR = new JPanel();
         PanelR = new JPanel();
         FieldSerach = new JTextField();
@@ -318,6 +355,8 @@ public class Cashier extends JFrame {
         ButtonSearch2 = new JButton();
         show = new JScrollPane();
         jTable2 = new JTable();
+        dateSearch = new JFormattedTextField();
+        DateSeatchBtn = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(255, 255, 255));
@@ -345,14 +384,14 @@ public class Cashier extends JFrame {
         sidemenu.setMaximumSize(new Dimension(151, 428));
 
         repertuar_m.setBackground(new Color(72, 61, 139));
-        repertuar_m.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        repertuar_m.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 repertuar_mMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 repertuar_mMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 repertuar_mMouseExited(evt);
             }
         });
@@ -379,14 +418,14 @@ public class Cashier extends JFrame {
         );
 
         seanse_m.setBackground(new Color(72, 61, 139));
-        seanse_m.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        seanse_m.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 seanse_mMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            public void mouseEntered(MouseEvent evt) {
                 seanse_mMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 seanse_mMouseExited(evt);
             }
         });
@@ -412,13 +451,17 @@ public class Cashier extends JFrame {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        logL.setIcon(new ImageIcon(getClass().getResource("/Image/logO.png"))); // NOI18N
+
         GroupLayout sidemenuLayout = new GroupLayout(sidemenu);
         sidemenu.setLayout(sidemenuLayout);
         sidemenuLayout.setHorizontalGroup(
             sidemenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(repertuar_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(seanse_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(GroupLayout.Alignment.TRAILING, sidemenuLayout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.CENTER, sidemenuLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+            .addGroup(sidemenuLayout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
@@ -428,15 +471,14 @@ public class Cashier extends JFrame {
             .addGroup(sidemenuLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(sidemenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, sidemenuLayout.createSequentialGroup()
-                        .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))
+                    .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidemenuLayout.createSequentialGroup()
                         .addComponent(repertuar_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(187, 187, 187)))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 664, Short.MAX_VALUE)
+                .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         PanelSR.setLayout(new CardLayout());
@@ -526,6 +568,15 @@ public class Cashier extends JFrame {
         jTable2.setToolTipText("");
         show.setViewportView(jTable2);
 
+        dateSearch.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
+
+        DateSeatchBtn.setText("Szukaj");
+        DateSeatchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                DateSeatchBtnActionPerformed(evt);
+            }
+        });
+
         GroupLayout PanelSLayout = new GroupLayout(PanelS);
         PanelS.setLayout(PanelSLayout);
         PanelSLayout.setHorizontalGroup(
@@ -534,7 +585,11 @@ public class Cashier extends JFrame {
                 .addContainerGap()
                 .addGroup(PanelSLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(PanelSLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 549, Short.MAX_VALUE)
+                        .addComponent(dateSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DateSeatchBtn)
+                        .addGap(20, 20, 20)
                         .addComponent(FieldSearch2, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtonSearch2)
@@ -549,9 +604,11 @@ public class Cashier extends JFrame {
                 .addContainerGap()
                 .addGroup(PanelSLayout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
                     .addComponent(ButtonSearch2, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(FieldSearch2))
+                    .addComponent(FieldSearch2)
+                    .addComponent(dateSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DateSeatchBtn, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(show, GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+                .addComponent(show, GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -588,19 +645,19 @@ public class Cashier extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void repertuar_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
+    private void repertuar_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
        repertuar_m.setBackground(new Color(106,90,205));
     }//GEN-LAST:event_repertuar_mMouseEntered
 
-    private void repertuar_mMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseExited
+    private void repertuar_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseExited
         repertuar_m.setBackground(new Color(72,61,139));
     }//GEN-LAST:event_repertuar_mMouseExited
 
-    private void seanse_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseEntered
+    private void seanse_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseEntered
         seanse_m.setBackground(new Color(106,90,205));
     }//GEN-LAST:event_seanse_mMouseEntered
 
-    private void seanse_mMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
+    private void seanse_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
        seanse_m.setBackground(new Color(72,61,139));
     }//GEN-LAST:event_seanse_mMouseExited
 
@@ -608,10 +665,8 @@ public class Cashier extends JFrame {
         String searchQuery = FieldSerach.getText().trim().toLowerCase();
 
         if (searchQuery.isEmpty()) {
-            CManage<CMovie> movieManager = new CManage<>(CMovie.class);
             updateTable(jTable1, movieManager.getAll());
         } else {
-            CManage<CMovie> movieManager = new CManage<>(CMovie.class);
             List<CMovie> filteredMovies = new ArrayList<>();
 
             for (CMovie movie : movieManager.getAll()) {
@@ -624,107 +679,54 @@ public class Cashier extends JFrame {
         }
     }//GEN-LAST:event_ButtonSearchActionPerformed
 
-    private CMovie currentMovie = new CMovie();
-
-    private void ImageActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ImageActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg"));
-
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-
-            String destinationPath = "src//Image/" + selectedFile.getName();
-
-            File destinationFolder = new File("images");
-            if (!destinationFolder.exists()) {
-                destinationFolder.mkdirs();
-            }
-
-            try {
-                Files.copy(selectedFile.toPath(), new File(destinationPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                currentMovie.setImagePath(destinationPath);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Failed to upload image!");
-            }
-        }
-    }//GEN-LAST:event_ImageActionPerformed
-
-
-
-    private void FollowButtonActionPerformed(ActionEvent evt) {
-        String title = Title.getText().trim();
-        String cast = Cast.getText().trim();
-        String movieDescription = MovieDescription.getText().trim();
-        String genre = (String) Genre.getSelectedItem();
-        int duration = (int) Duration.getValue();
-
-        if (title.isEmpty() || cast.isEmpty() || movieDescription.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Uzupełnij Tytuł,Opis filmu oraz Obsade!");
-            return;
-        }
-
-        if (genre == null || genre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Wprowadź gatunek");
-            return;
-        }
-
-        if(duration <=0){
-            JOptionPane.showMessageDialog(this, "Film musi potrwać dłużej");
-            return;
-        }
-        // Jeśli ścieżka obrazu jest pusta, użytkownik musi wybrać obraz
-        if (currentMovie.getImagePath() == null || currentMovie.getImagePath().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Dodaj zdjęcie!");
-            return;
-        }
-
-        // Ustawianie danych w obiekcie currentMovie
-        currentMovie.setTitle(title);
-        currentMovie.setMovieDescription(movieDescription);
-        currentMovie.setCast(cast);
-        currentMovie.setGenre(genre);
-        currentMovie.setDuration(duration);
-
-        // Zapisz film do bazy
-        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
-        movieManager.save(currentMovie);
-
-        // Zapisz dane do pliku
-        try {
-            movieManager.close();
-            JOptionPane.showMessageDialog(this, "Film domyślnie dodany");
-            updateTable(jTable1, movieManager.getAll());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Nie można dodać filmu");
-            e.printStackTrace();
-        }
-
-        AddMovie.dispose();
-    }
-
-
 
     private void ButtonSearch2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonSearch2ActionPerformed
 
-    private void repertuar_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
+    private void repertuar_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
         PanelS.setVisible(false);
         PanelR.setVisible(true);
+        updateTable(jTable1,allMovies);
         SeansLabel.setVisible(false);
         RepertuarLabel.setVisible(true);
     }//GEN-LAST:event_repertuar_mMouseClicked
 
-    private void seanse_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
+    private void seanse_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
         PanelR.setVisible(false);
         PanelS.setVisible(true);
+        updateTable2(jTable2,allShowing, allMovies);
         SeansLabel.setVisible(true);
         RepertuarLabel.setVisible(false);
     }//GEN-LAST:event_seanse_mMouseClicked
+
+    private void DateSeatchBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_DateSeatchBtnActionPerformed
+       String searchDate = dateSearch.getText();
+       
+        if (searchDate.isEmpty()) {
+        updateTable2(jTable2, showingMenager.getAll(), allMovies); // Odśwież tabelę z wszystkimi wynikami
+    } else {
+        try {
+            // Używamy DateTimeFormatter do parsowania i formatowania daty
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate searchLocalDate = LocalDate.parse(searchDate, formatter);
+
+            // Filtrujemy listę `allShowing` według daty
+            List<CShowing> filteredShowings = new ArrayList<>();
+
+            for (CShowing showing : allShowing) {
+                if (showing.getDate().equals(searchLocalDate)) {
+                    filteredShowings.add(showing);
+                }
+            }
+
+            // Aktualizujemy tabelę `jTable2` przefiltrowanymi danymi
+            updateTable2(jTable2, filteredShowings, allMovies);
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Nieprawidłowy format daty! Użyj formatu: yyyy-MM-dd", "Błąd", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_DateSeatchBtnActionPerformed
 
     public static void main(String[] args) {
         // Uruchomienie aplikacji Cashier1
@@ -735,47 +737,25 @@ public class Cashier extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JFrame AddMovie;
-    private JFrame AddShow;
     private JButton ButtonSearch;
     private JButton ButtonSearch2;
-    private JTextField Cast;
-    private JFormattedTextField Date;
-    private JSpinner Duration;
+    private JButton DateSeatchBtn;
     private JTextField FieldSearch2;
     private JTextField FieldSerach;
-    private JButton FollowButton;
-    private JButton FollowButton2;
-    private JComboBox<String> Genre;
-    private JButton Image;
-    private JLabel LabelCast;
-    private JLabel LabelDate;
-    private JLabel LabelDuration;
-    private JLabel LabelGenre;
-    private JLabel LabelHall;
-    private JLabel LabelMovie;
-    private JLabel LabelMovieDescription;
-    private JLabel LabelTime;
-    private JLabel LabelTitle;
-    private JTextField MovieDescription;
     private JPanel PanelR;
     private JPanel PanelS;
     private JPanel PanelSR;
-    private JPanel Panel_AddMovie;
-    private JPanel Panel_AddShow;
     private JLabel RepertuarLabel;
     private JLabel SeansLabel;
     private JLabel TextRepertuar;
     private JLabel TextSeanse;
-    private JFormattedTextField Time;
-    private JTextField Title;
     private JPanel bg;
+    private JFormattedTextField dateSearch;
     private Box.Filler filler1;
-    private JComboBox<String> idHall;
-    private JComboBox<String> idMovie;
     private JPanel jPanel2;
     private JTable jTable1;
     private JTable jTable2;
+    private JLabel logL;
     private JScrollPane movie;
     private JPanel repertuar_m;
     private JPanel repertuar_p;

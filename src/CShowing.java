@@ -17,7 +17,6 @@ public class CShowing extends CBase {
     this.seats = new CSeat[55];
     for (int i = 0; i < 55; i++) {
       seats[i] = new CSeat();
-      seats[i].setId(i + 1);
     }
   }
 
@@ -29,9 +28,23 @@ public class CShowing extends CBase {
     this.seats = new CSeat[55];
     for (int i = 0; i < 55; i++) {
       seats[i] = new CSeat();
-      seats[i].setId(i + 1);
     }
 
+  }
+
+  public class CSeat {
+    private boolean isOccupied;
+
+    public CSeat()
+    {
+      isOccupied = false;
+    }
+    public boolean isOccupied() {
+      return isOccupied;
+    }
+    public void setOccupied(boolean occupied) {
+      isOccupied = occupied;
+    }
   }
 
   public LocalDate getDate() {
