@@ -50,8 +50,8 @@ public class Cashier extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                JOptionPane.showMessageDialog(null, "Wylogowano");
                 new Login().setVisible(true);
+                JOptionPane.showMessageDialog(null, "Wylogowano");
             }
         });
         updateTable(jTable1,allMovies);

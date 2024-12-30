@@ -15,12 +15,11 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
         this.seans=seans;
         initComponents();
         seatButtons = new JToggleButton[] {
-                seatA1, seatA2, seatA3, seatA4, seatA5, seatA6, seatA7, seatA8, seatA9, seatA10,
-                seatA11, seatB1, seatB2, seatB3, seatB4, seatB5, seatB6, seatB7, seatB8, seatB9,
-                seatB10, seatB11, seatC1, seatC2, seatC3, seatC4, seatC5, seatC6, seatC7, seatC8,
-                seatC9, seatC10, seatC11, seatD1, seatD2, seatD3, seatD4, seatD5, seatD6, seatD7,
-                seatD8, seatD9, seatD10, seatD11, seatE1, seatE2, seatE3, seatE4, seatE5, seatE6,
-                seatE7, seatE8, seatE9, seatE10, seatE11
+                seatA1, seatA2, seatA3, seatA4, seatA5, seatA6, seatA7, seatA8, seatA9, seatA10,seatA11, 
+                seatB1, seatB2, seatB3, seatB4, seatB5, seatB6, seatB7, seatB8, seatB9,seatB10, seatB11, 
+                seatC1, seatC2, seatC3, seatC4, seatC5, seatC6, seatC7, seatC8,seatC9, seatC10, seatC11, 
+                seatD1, seatD2, seatD3, seatD4, seatD5, seatD6, seatD7, seatD8, seatD9, seatD10, seatD11, 
+                seatE1, seatE2, seatE3, seatE4, seatE5, seatE6, seatE7, seatE8, seatE9, seatE10, seatE11
         };
         customComponents();
         updateSeats();
@@ -492,14 +491,15 @@ private void removeTicket(String seat) {
 
         totalTicketsLabel.setText("0");
 
+        totalPriceLabel.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
         totalPriceLabel.setText("0,00 zł");
 
         GroupLayout ticket_opLayout = new GroupLayout(ticket_op);
         ticket_op.setLayout(ticket_opLayout);
         ticket_opLayout.setHorizontalGroup(
             ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                .addContainerGap(566, Short.MAX_VALUE)
+            .addGroup(ticket_opLayout.createSequentialGroup()
+                .addContainerGap(541, Short.MAX_VALUE)
                 .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
                         .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
@@ -510,25 +510,26 @@ private void removeTicket(String seat) {
                             .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
                         .addGap(440, 440, 440))
                     .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
-                            .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(totalTicketsLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                .addComponent(totalPriceLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)))
-                        .addGap(355, 355, 355))))
+                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(totalTicketsLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(totalPriceLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                        .addGap(475, 475, 475))
+                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+                        .addGap(326, 326, 326))))
         );
         ticket_opLayout.setVerticalGroup(
             ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(ticket_opLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalTicketsLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalPriceLabel)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
@@ -540,6 +541,8 @@ private void removeTicket(String seat) {
         seatsPanel.setBackground(new Color(255, 255, 255));
 
         seatA1.setBackground(new Color(186, 216, 153));
+        seatA1.setForeground(new Color(186, 216, 153));
+        seatA1.setText("A1");
         seatA1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA1ActionPerformed(evt);
@@ -547,6 +550,8 @@ private void removeTicket(String seat) {
         });
 
         seatA2.setBackground(new Color(186, 216, 153));
+        seatA2.setForeground(new Color(186, 216, 153));
+        seatA2.setText("A2");
         seatA2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA2ActionPerformed(evt);
@@ -554,6 +559,8 @@ private void removeTicket(String seat) {
         });
 
         seatA3.setBackground(new Color(186, 216, 153));
+        seatA3.setForeground(new Color(186, 216, 153));
+        seatA3.setText("A3");
         seatA3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA3ActionPerformed(evt);
@@ -561,6 +568,8 @@ private void removeTicket(String seat) {
         });
 
         seatA4.setBackground(new Color(186, 216, 153));
+        seatA4.setForeground(new Color(186, 216, 153));
+        seatA4.setText("A4");
         seatA4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA4ActionPerformed(evt);
@@ -568,6 +577,8 @@ private void removeTicket(String seat) {
         });
 
         seatA5.setBackground(new Color(186, 216, 153));
+        seatA5.setForeground(new Color(186, 216, 153));
+        seatA5.setText("A5");
         seatA5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA5ActionPerformed(evt);
@@ -575,6 +586,8 @@ private void removeTicket(String seat) {
         });
 
         seatA6.setBackground(new Color(186, 216, 153));
+        seatA6.setForeground(new Color(186, 216, 153));
+        seatA6.setText("A6");
         seatA6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA6ActionPerformed(evt);
@@ -582,6 +595,8 @@ private void removeTicket(String seat) {
         });
 
         seatA7.setBackground(new Color(186, 216, 153));
+        seatA7.setForeground(new Color(186, 216, 153));
+        seatA7.setText("A7");
         seatA7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA7ActionPerformed(evt);
@@ -589,6 +604,8 @@ private void removeTicket(String seat) {
         });
 
         seatA9.setBackground(new Color(186, 216, 153));
+        seatA9.setForeground(new Color(186, 216, 153));
+        seatA9.setText("A9");
         seatA9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA9ActionPerformed(evt);
@@ -596,6 +613,8 @@ private void removeTicket(String seat) {
         });
 
         seatA8.setBackground(new Color(186, 216, 153));
+        seatA8.setForeground(new Color(186, 216, 153));
+        seatA8.setText("A8");
         seatA8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA8ActionPerformed(evt);
@@ -603,6 +622,8 @@ private void removeTicket(String seat) {
         });
 
         seatA10.setBackground(new Color(186, 216, 153));
+        seatA10.setForeground(new Color(186, 216, 153));
+        seatA10.setText("A10");
         seatA10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA10ActionPerformed(evt);
@@ -610,6 +631,8 @@ private void removeTicket(String seat) {
         });
 
         seatA11.setBackground(new Color(186, 216, 153));
+        seatA11.setForeground(new Color(186, 216, 153));
+        seatA11.setText("A11");
         seatA11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatA11ActionPerformed(evt);
@@ -617,6 +640,8 @@ private void removeTicket(String seat) {
         });
 
         seatB1.setBackground(new Color(186, 216, 153));
+        seatB1.setForeground(new Color(186, 216, 153));
+        seatB1.setText("B1");
         seatB1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB1ActionPerformed(evt);
@@ -624,6 +649,8 @@ private void removeTicket(String seat) {
         });
 
         seatB2.setBackground(new Color(186, 216, 153));
+        seatB2.setForeground(new Color(186, 216, 153));
+        seatB2.setText("B2");
         seatB2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB2ActionPerformed(evt);
@@ -631,6 +658,8 @@ private void removeTicket(String seat) {
         });
 
         seatB3.setBackground(new Color(186, 216, 153));
+        seatB3.setForeground(new Color(186, 216, 153));
+        seatB3.setText("B3");
         seatB3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB3ActionPerformed(evt);
@@ -638,6 +667,8 @@ private void removeTicket(String seat) {
         });
 
         seatB4.setBackground(new Color(186, 216, 153));
+        seatB4.setForeground(new Color(186, 216, 153));
+        seatB4.setText("B4");
         seatB4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB4ActionPerformed(evt);
@@ -645,6 +676,8 @@ private void removeTicket(String seat) {
         });
 
         seatB6.setBackground(new Color(186, 216, 153));
+        seatB6.setForeground(new Color(186, 216, 153));
+        seatB6.setText("B6");
         seatB6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB6ActionPerformed(evt);
@@ -652,6 +685,8 @@ private void removeTicket(String seat) {
         });
 
         seatB5.setBackground(new Color(186, 216, 153));
+        seatB5.setForeground(new Color(186, 216, 153));
+        seatB5.setText("B5");
         seatB5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB5ActionPerformed(evt);
@@ -659,6 +694,8 @@ private void removeTicket(String seat) {
         });
 
         seatB7.setBackground(new Color(186, 216, 153));
+        seatB7.setForeground(new Color(186, 216, 153));
+        seatB7.setText("B7");
         seatB7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB7ActionPerformed(evt);
@@ -666,6 +703,8 @@ private void removeTicket(String seat) {
         });
 
         seatB9.setBackground(new Color(186, 216, 153));
+        seatB9.setForeground(new Color(186, 216, 153));
+        seatB9.setText("B9");
         seatB9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB9ActionPerformed(evt);
@@ -673,6 +712,8 @@ private void removeTicket(String seat) {
         });
 
         seatB8.setBackground(new Color(186, 216, 153));
+        seatB8.setForeground(new Color(186, 216, 153));
+        seatB8.setText("B8");
         seatB8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB8ActionPerformed(evt);
@@ -680,6 +721,8 @@ private void removeTicket(String seat) {
         });
 
         seatB10.setBackground(new Color(186, 216, 153));
+        seatB10.setForeground(new Color(186, 216, 153));
+        seatB10.setText("B10");
         seatB10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB10ActionPerformed(evt);
@@ -687,6 +730,8 @@ private void removeTicket(String seat) {
         });
 
         seatB11.setBackground(new Color(186, 216, 153));
+        seatB11.setForeground(new Color(186, 216, 153));
+        seatB11.setText("B11");
         seatB11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatB11ActionPerformed(evt);
@@ -694,6 +739,8 @@ private void removeTicket(String seat) {
         });
 
         seatC1.setBackground(new Color(186, 216, 153));
+        seatC1.setForeground(new Color(186, 216, 153));
+        seatC1.setText("C1");
         seatC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC1ActionPerformed(evt);
@@ -701,6 +748,8 @@ private void removeTicket(String seat) {
         });
 
         seatC2.setBackground(new Color(186, 216, 153));
+        seatC2.setForeground(new Color(186, 216, 153));
+        seatC2.setText("C2");
         seatC2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC2ActionPerformed(evt);
@@ -708,6 +757,8 @@ private void removeTicket(String seat) {
         });
 
         seatC3.setBackground(new Color(186, 216, 153));
+        seatC3.setForeground(new Color(186, 216, 153));
+        seatC3.setText("C3");
         seatC3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC3ActionPerformed(evt);
@@ -715,6 +766,8 @@ private void removeTicket(String seat) {
         });
 
         seatC4.setBackground(new Color(186, 216, 153));
+        seatC4.setForeground(new Color(186, 216, 153));
+        seatC4.setText("C4");
         seatC4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC4ActionPerformed(evt);
@@ -722,6 +775,8 @@ private void removeTicket(String seat) {
         });
 
         seatC5.setBackground(new Color(186, 216, 153));
+        seatC5.setForeground(new Color(186, 216, 153));
+        seatC5.setText("C5");
         seatC5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC5ActionPerformed(evt);
@@ -729,6 +784,8 @@ private void removeTicket(String seat) {
         });
 
         seatC6.setBackground(new Color(186, 216, 153));
+        seatC6.setForeground(new Color(186, 216, 153));
+        seatC6.setText("C6");
         seatC6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC6ActionPerformed(evt);
@@ -736,6 +793,8 @@ private void removeTicket(String seat) {
         });
 
         seatC7.setBackground(new Color(186, 216, 153));
+        seatC7.setForeground(new Color(186, 216, 153));
+        seatC7.setText("C7");
         seatC7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC7ActionPerformed(evt);
@@ -743,6 +802,8 @@ private void removeTicket(String seat) {
         });
 
         seatC8.setBackground(new Color(186, 216, 153));
+        seatC8.setForeground(new Color(186, 216, 153));
+        seatC8.setText("C8");
         seatC8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC8ActionPerformed(evt);
@@ -750,6 +811,8 @@ private void removeTicket(String seat) {
         });
 
         seatC9.setBackground(new Color(186, 216, 153));
+        seatC9.setForeground(new Color(186, 216, 153));
+        seatC9.setText("C9");
         seatC9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC9ActionPerformed(evt);
@@ -757,6 +820,8 @@ private void removeTicket(String seat) {
         });
 
         seatC10.setBackground(new Color(186, 216, 153));
+        seatC10.setForeground(new Color(186, 216, 153));
+        seatC10.setText("C10");
         seatC10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC10ActionPerformed(evt);
@@ -764,6 +829,8 @@ private void removeTicket(String seat) {
         });
 
         seatC11.setBackground(new Color(186, 216, 153));
+        seatC11.setForeground(new Color(186, 216, 153));
+        seatC11.setText("C11");
         seatC11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatC11ActionPerformed(evt);
@@ -771,6 +838,8 @@ private void removeTicket(String seat) {
         });
 
         seatD1.setBackground(new Color(186, 216, 153));
+        seatD1.setForeground(new Color(186, 216, 153));
+        seatD1.setText("D1");
         seatD1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD1ActionPerformed(evt);
@@ -778,6 +847,8 @@ private void removeTicket(String seat) {
         });
 
         seatD2.setBackground(new Color(186, 216, 153));
+        seatD2.setForeground(new Color(186, 216, 153));
+        seatD2.setText("D2");
         seatD2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD2ActionPerformed(evt);
@@ -785,6 +856,8 @@ private void removeTicket(String seat) {
         });
 
         seatD3.setBackground(new Color(186, 216, 153));
+        seatD3.setForeground(new Color(186, 216, 153));
+        seatD3.setText("D3");
         seatD3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD3ActionPerformed(evt);
@@ -792,6 +865,8 @@ private void removeTicket(String seat) {
         });
 
         seatD4.setBackground(new Color(186, 216, 153));
+        seatD4.setForeground(new Color(186, 216, 153));
+        seatD4.setText("D4");
         seatD4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD4ActionPerformed(evt);
@@ -799,6 +874,8 @@ private void removeTicket(String seat) {
         });
 
         seatD5.setBackground(new Color(186, 216, 153));
+        seatD5.setForeground(new Color(186, 216, 153));
+        seatD5.setText("D5");
         seatD5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD5ActionPerformed(evt);
@@ -806,6 +883,8 @@ private void removeTicket(String seat) {
         });
 
         seatD6.setBackground(new Color(186, 216, 153));
+        seatD6.setForeground(new Color(186, 216, 153));
+        seatD6.setText("D6");
         seatD6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD6ActionPerformed(evt);
@@ -813,6 +892,8 @@ private void removeTicket(String seat) {
         });
 
         seatD7.setBackground(new Color(186, 216, 153));
+        seatD7.setForeground(new Color(186, 216, 153));
+        seatD7.setText("D7");
         seatD7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD7ActionPerformed(evt);
@@ -820,6 +901,8 @@ private void removeTicket(String seat) {
         });
 
         seatD8.setBackground(new Color(186, 216, 153));
+        seatD8.setForeground(new Color(186, 216, 153));
+        seatD8.setText("D8");
         seatD8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD8ActionPerformed(evt);
@@ -827,6 +910,8 @@ private void removeTicket(String seat) {
         });
 
         seatD9.setBackground(new Color(186, 216, 153));
+        seatD9.setForeground(new Color(186, 216, 153));
+        seatD9.setText("D9");
         seatD9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD9ActionPerformed(evt);
@@ -834,6 +919,8 @@ private void removeTicket(String seat) {
         });
 
         seatD10.setBackground(new Color(186, 216, 153));
+        seatD10.setForeground(new Color(186, 216, 153));
+        seatD10.setText("D10");
         seatD10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD10ActionPerformed(evt);
@@ -841,6 +928,8 @@ private void removeTicket(String seat) {
         });
 
         seatD11.setBackground(new Color(186, 216, 153));
+        seatD11.setForeground(new Color(186, 216, 153));
+        seatD11.setText("D11");
         seatD11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatD11ActionPerformed(evt);
@@ -848,6 +937,8 @@ private void removeTicket(String seat) {
         });
 
         seatE1.setBackground(new Color(186, 216, 153));
+        seatE1.setForeground(new Color(186, 216, 153));
+        seatE1.setText("E1");
         seatE1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE1ActionPerformed(evt);
@@ -855,6 +946,8 @@ private void removeTicket(String seat) {
         });
 
         seatE2.setBackground(new Color(186, 216, 153));
+        seatE2.setForeground(new Color(186, 216, 153));
+        seatE2.setText("E2");
         seatE2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE2ActionPerformed(evt);
@@ -862,6 +955,8 @@ private void removeTicket(String seat) {
         });
 
         seatE3.setBackground(new Color(186, 216, 153));
+        seatE3.setForeground(new Color(186, 216, 153));
+        seatE3.setText("E3");
         seatE3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE3ActionPerformed(evt);
@@ -869,6 +964,8 @@ private void removeTicket(String seat) {
         });
 
         seatE4.setBackground(new Color(186, 216, 153));
+        seatE4.setForeground(new Color(186, 216, 153));
+        seatE4.setText("E4");
         seatE4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE4ActionPerformed(evt);
@@ -876,6 +973,8 @@ private void removeTicket(String seat) {
         });
 
         seatE5.setBackground(new Color(186, 216, 153));
+        seatE5.setForeground(new Color(186, 216, 153));
+        seatE5.setText("E5");
         seatE5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE5ActionPerformed(evt);
@@ -883,6 +982,8 @@ private void removeTicket(String seat) {
         });
 
         seatE6.setBackground(new Color(186, 216, 153));
+        seatE6.setForeground(new Color(186, 216, 153));
+        seatE6.setText("E6");
         seatE6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE6ActionPerformed(evt);
@@ -890,6 +991,8 @@ private void removeTicket(String seat) {
         });
 
         seatE7.setBackground(new Color(186, 216, 153));
+        seatE7.setForeground(new Color(186, 216, 153));
+        seatE7.setText("E7");
         seatE7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE7ActionPerformed(evt);
@@ -897,6 +1000,8 @@ private void removeTicket(String seat) {
         });
 
         seatE8.setBackground(new Color(186, 216, 153));
+        seatE8.setForeground(new Color(186, 216, 153));
+        seatE8.setText("E8");
         seatE8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE8ActionPerformed(evt);
@@ -904,6 +1009,8 @@ private void removeTicket(String seat) {
         });
 
         seatE9.setBackground(new Color(186, 216, 153));
+        seatE9.setForeground(new Color(186, 216, 153));
+        seatE9.setText("E9");
         seatE9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE9ActionPerformed(evt);
@@ -911,6 +1018,8 @@ private void removeTicket(String seat) {
         });
 
         seatE10.setBackground(new Color(186, 216, 153));
+        seatE10.setForeground(new Color(186, 216, 153));
+        seatE10.setText("E10");
         seatE10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE10ActionPerformed(evt);
@@ -918,6 +1027,8 @@ private void removeTicket(String seat) {
         });
 
         seatE11.setBackground(new Color(186, 216, 153));
+        seatE11.setForeground(new Color(186, 216, 153));
+        seatE11.setText("E11");
         seatE11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seatE11ActionPerformed(evt);

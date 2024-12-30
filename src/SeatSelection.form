@@ -217,8 +217,8 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="566" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="541" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" pref="219" max="-2" attributes="0"/>
@@ -232,14 +232,15 @@
                               <EmptySpace min="-2" pref="440" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ticketScrlPane" min="-2" pref="296" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="totalTicketsLabel" alignment="0" pref="176" max="32767" attributes="0"/>
-                                      <Component id="totalPriceLabel" alignment="0" pref="176" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="totalTicketsLabel" alignment="0" pref="176" max="32767" attributes="0"/>
+                                  <Component id="totalPriceLabel" alignment="0" pref="176" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="475" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="ticketScrlPane" min="-2" pref="350" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -250,13 +251,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="52" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="ticketScrlPane" min="-2" pref="293" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="totalTicketsLabel" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="totalPriceLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                       <Component id="confirmBtn" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="backBtn" min="-2" pref="46" max="-2" attributes="0"/>
@@ -310,6 +311,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="totalPriceLabel">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="0,00 z&#x142;"/>
               </Properties>
             </Component>
@@ -613,6 +617,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA1ActionPerformed"/>
@@ -623,6 +631,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA2ActionPerformed"/>
@@ -633,6 +645,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A3"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA3ActionPerformed"/>
@@ -643,6 +659,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A4"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA4ActionPerformed"/>
@@ -653,6 +673,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A5"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA5ActionPerformed"/>
@@ -663,6 +687,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A6"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA6ActionPerformed"/>
@@ -673,6 +701,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A7"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA7ActionPerformed"/>
@@ -683,6 +715,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A9"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA9ActionPerformed"/>
@@ -693,6 +729,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A8"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA8ActionPerformed"/>
@@ -703,6 +743,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A10"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA10ActionPerformed"/>
@@ -713,6 +757,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="A11"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatA11ActionPerformed"/>
@@ -723,6 +771,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB1ActionPerformed"/>
@@ -733,6 +785,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB2ActionPerformed"/>
@@ -743,6 +799,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B3"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB3ActionPerformed"/>
@@ -753,6 +813,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B4"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB4ActionPerformed"/>
@@ -763,6 +827,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B6"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB6ActionPerformed"/>
@@ -773,6 +841,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B5"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB5ActionPerformed"/>
@@ -783,6 +855,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B7"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB7ActionPerformed"/>
@@ -793,6 +869,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B9"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB9ActionPerformed"/>
@@ -803,6 +883,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B8"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB8ActionPerformed"/>
@@ -813,6 +897,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B10"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB10ActionPerformed"/>
@@ -823,6 +911,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B11"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatB11ActionPerformed"/>
@@ -833,6 +925,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC1ActionPerformed"/>
@@ -843,6 +939,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC2ActionPerformed"/>
@@ -853,6 +953,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C3"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC3ActionPerformed"/>
@@ -863,6 +967,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C4"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC4ActionPerformed"/>
@@ -873,6 +981,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C5"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC5ActionPerformed"/>
@@ -883,6 +995,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C6"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC6ActionPerformed"/>
@@ -893,6 +1009,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C7"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC7ActionPerformed"/>
@@ -903,6 +1023,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C8"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC8ActionPerformed"/>
@@ -913,6 +1037,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C9"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC9ActionPerformed"/>
@@ -923,6 +1051,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C10"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC10ActionPerformed"/>
@@ -933,6 +1065,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="C11"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatC11ActionPerformed"/>
@@ -943,6 +1079,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD1ActionPerformed"/>
@@ -953,6 +1093,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD2ActionPerformed"/>
@@ -963,6 +1107,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D3"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD3ActionPerformed"/>
@@ -973,6 +1121,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D4"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD4ActionPerformed"/>
@@ -983,6 +1135,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D5"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD5ActionPerformed"/>
@@ -993,6 +1149,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D6"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD6ActionPerformed"/>
@@ -1003,6 +1163,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D7"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD7ActionPerformed"/>
@@ -1013,6 +1177,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D8"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD8ActionPerformed"/>
@@ -1023,6 +1191,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D9"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD9ActionPerformed"/>
@@ -1033,6 +1205,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D10"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD10ActionPerformed"/>
@@ -1043,6 +1219,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="D11"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatD11ActionPerformed"/>
@@ -1053,6 +1233,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE1ActionPerformed"/>
@@ -1063,6 +1247,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E2"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE2ActionPerformed"/>
@@ -1073,6 +1261,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E3"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE3ActionPerformed"/>
@@ -1083,6 +1275,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E4"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE4ActionPerformed"/>
@@ -1093,6 +1289,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E5"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE5ActionPerformed"/>
@@ -1103,6 +1303,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E6"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE6ActionPerformed"/>
@@ -1113,6 +1317,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E7"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE7ActionPerformed"/>
@@ -1123,6 +1331,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E8"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE8ActionPerformed"/>
@@ -1133,6 +1345,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E9"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE9ActionPerformed"/>
@@ -1143,6 +1359,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E10"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE10ActionPerformed"/>
@@ -1153,6 +1373,10 @@
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="d8" red="ba" type="rgb"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="d8" red="ba" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="E11"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seatE11ActionPerformed"/>
