@@ -1,0 +1,378 @@
+
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+
+public class resFrame extends javax.swing.JFrame {
+private final CReservation reservation;
+   
+    public resFrame(CReservation reservation) {
+        initComponents();
+        this.reservation=reservation;
+        
+        customComponents();
+        menuOp();
+    }
+    
+    private void menuOp()
+    {
+        saveM.addActionListener(e -> takeScreenshot());
+    }
+   public void takeScreenshot() {
+    try {
+        // Ensure the content is fully rendered before capturing
+        this.paint(this.getGraphics());
+
+        // Get GraphicsConfiguration to handle high DPI scaling
+        GraphicsConfiguration gc = this.getGraphicsConfiguration();
+        double scaleX = gc.getDefaultTransform().getScaleX();
+        double scaleY = gc.getDefaultTransform().getScaleY();
+
+        // Get the bounds of the JFrame content (excluding window decorations)
+        Rectangle contentBounds = SwingUtilities.convertRectangle(
+            this.getContentPane(),
+            this.getContentPane().getBounds(),
+            this
+        );
+
+        // Adjust bounds for scaling if needed
+        contentBounds.setBounds(
+            (int) (contentBounds.x * scaleX),
+            (int) (contentBounds.y * scaleY),
+            (int) (contentBounds.width * scaleX),
+            (int) (contentBounds.height * scaleY)
+        );
+
+        // Create a Robot and capture the specified area
+        Robot robot = new Robot();
+        BufferedImage screenshot = robot.createScreenCapture(contentBounds);
+
+        // Ensure the output directory exists
+        File directory = new File("src/Image/Reservation");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Generate a unique filename using timestamp
+        String filename = "src/Image/Reservation/reservation_" + System.currentTimeMillis() + ".png";
+        File screenshotFile = new File(filename);
+
+        // Save the screenshot as a PNG file
+        ImageIO.write(screenshot, "PNG", screenshotFile);
+
+        // Inform the user
+        JOptionPane.showMessageDialog(this, "Zrzut ekranu zapisany: " + filename);
+
+    } catch (AWTException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas tworzenia zrzutu ekranu.", "Błąd", JOptionPane.ERROR_MESSAGE);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas zapisywania zrzutu ekranu.", "Błąd", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    private void customComponents()
+    {
+      // Podstawowe informacje
+    resLabel.setText("REZERWACJA : " +  String.valueOf(reservation.getId()));
+    CShowing seans = new CShowing();
+
+    CManage<CShowing> showingManager = new CManage<>(CShowing.class);
+    CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+    List<CMovie> allMovies = movieManager.getAll();
+    seans = showingManager.getById(reservation.getIdShowing());
+
+    if(seans != null) {
+        titleLabel.setText(seans.getMovieTitle(allMovies));
+        dateLabel.setText(seans.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +
+                " | " + seans.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        hallLabel.setText("Sala:" + seans.getIdHall());
+    }
+
+    // Bilety
+    ticketsPanel.removeAll(); // Czyszczenie panelu
+    ticketsPanel.setLayout(new javax.swing.BoxLayout(ticketsPanel, javax.swing.BoxLayout.Y_AXIS));  // BoxLayout w pionie
+
+    for(CTicket ticket : reservation.getTickets()) {
+        JPanel ticketPanel = new JPanel();
+        ticketPanel.setLayout(new GridBagLayout());
+        ticketPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        ticketPanel.setBackground(new Color(245, 245, 245));
+
+        int panelWidth = 350;
+        int panelHeight = 70;
+
+        ticketPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        ticketPanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
+        ticketPanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Ikona biletu
+        JLabel iconLabel = new JLabel(new ImageIcon(getClass().getResource("Image/ticket.png")));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.weightx = 0;
+        ticketPanel.add(iconLabel, gbc);
+
+        // Opis biletu
+        JLabel ticketLabel = new JLabel("<html><b>" + ticket.getTypeTicket().name() + "<br>SEAT: " + ticket.getSeat() + "</html>");
+        ticketLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.weightx = 1;
+        ticketPanel.add(ticketLabel, gbc);
+
+        // Cena
+        JLabel priceLabel = new JLabel(String.format("%.2f zł", ticket.getPriceTicket()));
+        priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1;
+        ticketPanel.add(priceLabel, gbc);
+
+        // Dodaj panel biletu do głównego kontenera
+        ticketsPanel.add(ticketPanel);
+    }
+
+    // Odśwież panel biletów
+    ticketsPanel.revalidate();
+    ticketsPanel.repaint();
+
+    // Podsumowanie
+    tpriceLabel.setText(String.valueOf(reservation.calculateTotalPrice()));
+
+    // Dopasowanie wysokości JFrame do zawartości
+    this.pack(); // Automatycznie dopasowuje rozmiar okna
+}
+
+    
+    public static void main(String[] args) {
+    // Tworzymy rezerwację dla seansu o id 1
+    int idShowing = 2;
+    CReservation reservation = new CReservation(idShowing);
+
+    // Tworzymy dwa bilety
+    CTicket ticket1 = new CTicket(TypeTicket.STANDARD);
+    ticket1.setSeat("A1"); // Ustawiamy miejsce na A1
+
+    CTicket ticket2 = new CTicket(TypeTicket.STUDENT);
+    ticket2.setSeat("B2"); // Ustawiamy miejsce na B2
+
+    // Dodajemy bilety do rezerwacji
+    reservation.addTicket(ticket1);
+    reservation.addTicket(ticket2);
+
+
+    // Wyświetlenie podstawowych informacji o rezerwacji
+    System.out.println("ID seansu: " + reservation.getIdShowing());
+    System.out.println("Bilety:");
+    for (CTicket ticket : reservation.getTickets()) {
+        System.out.println("- Typ: " + ticket.getTypeTicket() + ", Miejsce: " + ticket.getSeat() + ", Cena: " + ticket.getPriceTicket());
+    }
+    System.out.println("Łączna cena: " + reservation.calculateTotalPrice());
+
+    // Tworzymy okno z rezerwacją
+    SwingUtilities.invokeLater(() -> {
+        resFrame frame = new resFrame(reservation);
+        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    });
+    
+}
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        bg = new JPanel();
+        allPanel = new JPanel();
+        infoPanel = new JPanel();
+        titleLabel = new JLabel();
+        dateLabel = new JLabel();
+        hallLabel = new JLabel();
+        resLabel = new JLabel();
+        ticketsPanel = new JPanel();
+        sumPanel = new JPanel();
+        tpriceLabel = new JLabel();
+        jLabel3 = new JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        saveM = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        bg.setBackground(new Color(255, 255, 255));
+
+        allPanel.setLayout(new java.awt.BorderLayout());
+
+        infoPanel.setBackground(new Color(102, 0, 102));
+        infoPanel.setForeground(new Color(255, 255, 255));
+
+        titleLabel.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
+        titleLabel.setForeground(new Color(255, 255, 255));
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText("1999-12-12 | 16:37");
+
+        dateLabel.setFont(new Font("Segoe UI", 1, 16)); // NOI18N
+        dateLabel.setForeground(new Color(255, 255, 255));
+        dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dateLabel.setText("Title");
+
+        hallLabel.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
+        hallLabel.setForeground(new Color(255, 255, 255));
+        hallLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hallLabel.setText("Sala: 1");
+
+        resLabel.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
+        resLabel.setForeground(new Color(255, 255, 255));
+        resLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resLabel.setText("REZERWACJA: 00");
+        resLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
+
+        javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
+        infoPanel.setLayout(infoPanelLayout);
+        infoPanelLayout.setHorizontalGroup(
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(resLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hallLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        infoPanelLayout.setVerticalGroup(
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoPanelLayout.createSequentialGroup()
+                .addComponent(resLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hallLabel)
+                .addGap(19, 19, 19))
+        );
+
+        allPanel.add(infoPanel, java.awt.BorderLayout.NORTH);
+
+        ticketsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        ticketsPanel.setAutoscrolls(true);
+        ticketsPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ticketsPanel.setLayout(new javax.swing.BoxLayout(ticketsPanel, javax.swing.BoxLayout.LINE_AXIS));
+        allPanel.add(ticketsPanel, java.awt.BorderLayout.CENTER);
+        ticketsPanel.getAccessibleContext().setAccessibleDescription("");
+
+        sumPanel.setBackground(new Color(143, 68, 143));
+
+        tpriceLabel.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        tpriceLabel.setForeground(new Color(255, 255, 255));
+        tpriceLabel.setText("00,00 zl");
+
+        jLabel3.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new Color(255, 255, 255));
+        jLabel3.setText("Razem: ");
+
+        javax.swing.GroupLayout sumPanelLayout = new javax.swing.GroupLayout(sumPanel);
+        sumPanel.setLayout(sumPanelLayout);
+        sumPanelLayout.setHorizontalGroup(
+            sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sumPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tpriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        sumPanelLayout.setVerticalGroup(
+            sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sumPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tpriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addContainerGap())
+        );
+
+        allPanel.add(sumPanel, java.awt.BorderLayout.PAGE_END);
+
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(allPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+        );
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(allPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(bg, java.awt.BorderLayout.CENTER);
+
+        jMenu1.setText("File");
+
+        saveM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        saveM.setText("Save");
+        jMenu1.add(saveM);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JPanel allPanel;
+    private JPanel bg;
+    private JLabel dateLabel;
+    private JLabel hallLabel;
+    private JPanel infoPanel;
+    private JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private JLabel resLabel;
+    private javax.swing.JMenuItem saveM;
+    private JPanel sumPanel;
+    private JPanel ticketsPanel;
+    private JLabel titleLabel;
+    private JLabel tpriceLabel;
+    // End of variables declaration//GEN-END:variables
+}
