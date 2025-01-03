@@ -39,7 +39,6 @@ public class Administrator extends javax.swing.JFrame {
         setTitle("Katana - Panel administratora");
         ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
         setIconImage(icona.getImage());
-        // Utworzenie managerów dla filmów i pokazów
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         List<CMovie> allMovies = movieManager.getAll();
         updateTable(jTable1, allMovies,movieManager);
@@ -862,7 +861,7 @@ public class Administrator extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(0).setResizable(false);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(199);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(800);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(788);
         jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
         jTable1.getColumnModel().getColumn(3).setResizable(false);
@@ -1000,8 +999,9 @@ public class Administrator extends javax.swing.JFrame {
             }
         };
         jTable2.setModel(model);
+        jTable2.setFont(new Font("Arial", Font.PLAIN, 18));
 
-        jTable2.setRowHeight(277);
+        jTable2.setRowHeight(70);
         model.setRowCount(0);
 
         for (CShowing showing : allShowing) {
@@ -1149,12 +1149,12 @@ public class Administrator extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Ilosc biletow" , "Dochód", ""}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 5; // Tylko kolumna z przyciskami będzie edytowalna
+                return column == 5;
             }
         };
         jTable3.setModel(model);
-
-        jTable3.setRowHeight(277);
+        jTable3.setFont(new Font("Arial", Font.PLAIN, 18));
+        jTable3.setRowHeight(70);
         model.setRowCount(0);
 
         for (CReservation reservation : allReservation) {
@@ -1165,7 +1165,6 @@ public class Administrator extends javax.swing.JFrame {
             if (showing != null) {
                 String movieTitle = showing.getMovieTitle(allMovies);
 
-                // Dodaj wiersz do modelu
                 Object[] row = new Object[]{
                         reservation.getId(),
                         movieTitle,
@@ -1179,6 +1178,28 @@ public class Administrator extends javax.swing.JFrame {
                 System.err.println("Nie znaleziono seansu o ID: " + idShowing);
             }
         }
+        // Renderer dla panelu przycisków w ostatniej kolumnie
+        jTable3.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            JPanel panel3 = createButtonPanel3(jTable3, row, reservationManager);
+            if (isSelected) {
+                panel3.setBackground(table.getSelectionBackground());
+            } else {
+                panel3.setBackground(table.getBackground());
+            }
+            return panel3;
+        });
+
+        jTable3.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JTextField()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return createButtonPanel3(table, row, reservationManager);
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return null; // Wartość edytora nie jest używana
+            }
+        });
 
         // Centrowanie tekstu w kolumnach
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -1196,6 +1217,33 @@ public class Administrator extends javax.swing.JFrame {
         jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
 
     }
+    private JPanel createButtonPanel3(JTable table, int row, CManage<CReservation> reservationManage) {
+        JButton displayButton = new JButton("Wyswietl");
+        displayButton.setBackground(new Color(72, 61, 139));
+        displayButton.setForeground(Color.WHITE);
+        displayButton.setFocusPainted(false);
+        displayButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        displayButton.setFont(new Font("Arial", Font.BOLD, 16));
+        displayButton.setPreferredSize(new Dimension(150, 40));
+        displayButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // Poprawiamy ActionListener
+        displayButton.addActionListener(e -> {
+            int reservationId = (int) table.getModel().getValueAt(row, 0);
+            CReservation reservation = reservationManage.getById(reservationId);
+            resFrame resFrameWindow = new resFrame(reservation);
+            resFrameWindow.setVisible(true);
+        });
+
+        JPanel panel3 = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel3.add(displayButton, gbc);
+
+        return panel3;
+    }
+
     private void repertuar_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
        repertuar_m.setBackground(new java.awt.Color(106,90,205));
     }//GEN-LAST:event_repertuar_mMouseEntered

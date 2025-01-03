@@ -1,96 +1,101 @@
 
-import java.awt.AWTException;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GraphicsConfiguration;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.Robot;
+import java. awt. AlphaComposite;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 
 public class resFrame extends javax.swing.JFrame {
-private final CReservation reservation;
-   
+    private final CReservation reservation;
+
     public resFrame(CReservation reservation) {
         initComponents();
-        this.reservation=reservation;
-        
+        this.reservation = reservation;
+
         customComponents();
         menuOp();
     }
-    
-    private void menuOp()
-    {
-        saveM.addActionListener(e -> takeScreenshot());
+
+    private void menuOp() {
+        saveM.addActionListener(e -> sendPrint());
     }
-   public void takeScreenshot() {
-    try {
-        // Ensure the content is fully rendered before capturing
-        this.paint(this.getGraphics());
 
-        // Get GraphicsConfiguration to handle high DPI scaling
-        GraphicsConfiguration gc = this.getGraphicsConfiguration();
-        double scaleX = gc.getDefaultTransform().getScaleX();
-        double scaleY = gc.getDefaultTransform().getScaleY();
+    public void takeScreenshot() {
+        try {
+            // Tworzenie obrazu BufferedImage o rozmiarze komponentu
+            BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+            paint(img.getGraphics());
 
-        // Get the bounds of the JFrame content (excluding window decorations)
-        Rectangle contentBounds = SwingUtilities.convertRectangle(
-            this.getContentPane(),
-            this.getContentPane().getBounds(),
-            this
-        );
+            // Upewnienie się, że folder istnieje
+            File directory = new File("src/Image/Reservation");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
 
-        // Adjust bounds for scaling if needed
-        contentBounds.setBounds(
-            (int) (contentBounds.x * scaleX),
-            (int) (contentBounds.y * scaleY),
-            (int) (contentBounds.width * scaleX),
-            (int) (contentBounds.height * scaleY)
-        );
+            // Generowanie unikalnej nazwy pliku
+            String filename = "src/Image/Reservation/reservation" + System.currentTimeMillis() + ".png";
+            File outputfile = new File(filename);
 
-        // Create a Robot and capture the specified area
-        Robot robot = new Robot();
-        BufferedImage screenshot = robot.createScreenCapture(contentBounds);
+            // Zapis obrazu do pliku PNG
+            ImageIO.write(img, "png", outputfile);
 
-        // Ensure the output directory exists
-        File directory = new File("src/Image/Reservation");
-        if (!directory.exists()) {
-            directory.mkdirs();
+            // Informacja dla użytkownika
+            JOptionPane.showMessageDialog(this, "Zrzut ekranu zapisany: " + filename);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas zapisywania zrzutu ekranu.", "Błąd", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Generate a unique filename using timestamp
-        String filename = "src/Image/Reservation/reservation_" + System.currentTimeMillis() + ".png";
-        File screenshotFile = new File(filename);
-
-        // Save the screenshot as a PNG file
-        ImageIO.write(screenshot, "PNG", screenshotFile);
-
-        // Inform the user
-        JOptionPane.showMessageDialog(this, "Zrzut ekranu zapisany: " + filename);
-
-    } catch (AWTException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas tworzenia zrzutu ekranu.", "Błąd", JOptionPane.ERROR_MESSAGE);
-    } catch (IOException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas zapisywania zrzutu ekranu.", "Błąd", JOptionPane.ERROR_MESSAGE);
     }
-}
+    public void sendPrint() {
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setJobName("Print Ticket");
+
+        printerJob.setPrintable((graphics, pageFormat, pageIndex) -> {
+            if (pageIndex > 0) {
+                return Printable.NO_SUCH_PAGE;
+            }
+
+            Graphics2D g2d = (Graphics2D) graphics;
+            double leftMargin = 50;  // Margines z lewej strony
+            double topMargin = 50;   // Margines z góry
+
+            // Przesunięcie początkowe o topMargin, żeby obciąć 10 jednostek z góry
+            g2d.translate(pageFormat.getImageableX() + leftMargin, pageFormat.getImageableY() + topMargin);
+
+            // Obliczanie skali
+            double scaleX = pageFormat.getImageableWidth() / getWidth();
+            double scaleY = pageFormat.getImageableHeight() / getHeight();
+            double scale = Math.min(scaleX, scaleY) / 2;
+            g2d.scale(scale, scale);
+
+            // Tylko część interfejsu do wydrukowania - np. bilety
+            bg.paint(g2d);  // Rysowanie tylko panelu z biletami
+
+            return Printable.PAGE_EXISTS;
+        });
+
+        if (printerJob.printDialog()) {
+            try {
+                printerJob.print();
+            } catch (PrinterException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas drukowania.", "Błąd", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+
+
     private void customComponents()
     {
       // Podstawowe informacje
@@ -172,40 +177,7 @@ private final CReservation reservation;
 }
 
     
-    public static void main(String[] args) {
-    // Tworzymy rezerwację dla seansu o id 1
-    int idShowing = 2;
-    CReservation reservation = new CReservation(idShowing);
 
-    // Tworzymy dwa bilety
-    CTicket ticket1 = new CTicket(TypeTicket.STANDARD);
-    ticket1.setSeat("A1"); // Ustawiamy miejsce na A1
-
-    CTicket ticket2 = new CTicket(TypeTicket.STUDENT);
-    ticket2.setSeat("B2"); // Ustawiamy miejsce na B2
-
-    // Dodajemy bilety do rezerwacji
-    reservation.addTicket(ticket1);
-    reservation.addTicket(ticket2);
-
-
-    // Wyświetlenie podstawowych informacji o rezerwacji
-    System.out.println("ID seansu: " + reservation.getIdShowing());
-    System.out.println("Bilety:");
-    for (CTicket ticket : reservation.getTickets()) {
-        System.out.println("- Typ: " + ticket.getTypeTicket() + ", Miejsce: " + ticket.getSeat() + ", Cena: " + ticket.getPriceTicket());
-    }
-    System.out.println("Łączna cena: " + reservation.calculateTotalPrice());
-
-    // Tworzymy okno z rezerwacją
-    SwingUtilities.invokeLater(() -> {
-        resFrame frame = new resFrame(reservation);
-        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    });
-    
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,7 +203,7 @@ private final CReservation reservation;
         jMenu1 = new javax.swing.JMenu();
         saveM = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         bg.setBackground(new Color(255, 255, 255));
 
