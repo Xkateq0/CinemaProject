@@ -32,6 +32,10 @@ public class CReservation extends CBase{
         return tickets.stream().mapToDouble(CTicket::getPriceTicket).sum();
     }
 
+    public int ticketNumber(){
+        return tickets.size();
+    }
+
     @Override
     public String serialize() {
        StringBuilder result = new StringBuilder();

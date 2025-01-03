@@ -4,9 +4,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.classfile.components.CodeLocalsShifter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
@@ -44,6 +47,24 @@ public class Administrator extends javax.swing.JFrame {
         CManage<CShowing> showingManager = new CManage<>(CShowing.class);
         List<CShowing> allShowing = showingManager.getAll();
         updateTable2(jTable2, allShowing, allMovies,showingManager);
+
+        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
+        List<CReservation> allReservation = reservationManager.getAll();
+        updateTable3(jTable3 ,allShowing, allMovies, allReservation,reservationManager);
+
+        setExtendedState(Administrator.MAXIMIZED_BOTH);
+        setTitle("Katana - Panel administratora");
+        ImageIcon iconas = new ImageIcon(getClass().getResource("Image/katana.png"));
+        setIconImage(iconas.getImage());
+
+        logL.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new Login().setVisible(true);
+                JOptionPane.showMessageDialog(null, "Wylogowano");
+            }
+        });
     }
 
 
@@ -87,12 +108,16 @@ public class Administrator extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         RepertuarLabel = new javax.swing.JLabel();
         SeansLabel = new javax.swing.JLabel();
+        ReservationLabel = new javax.swing.JLabel();
         sidemenu = new javax.swing.JPanel();
+        logL = new javax.swing.JLabel();
         repertuar_m = new javax.swing.JPanel();
         TextRepertuar = new javax.swing.JLabel();
         seanse_m = new javax.swing.JPanel();
         TextSeanse = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        reservation_m = new javax.swing.JPanel();
+        TextReservation = new javax.swing.JLabel();
         PanelSR = new javax.swing.JPanel();
         PanelR = new javax.swing.JPanel();
         ButtonAddMovie = new javax.swing.JButton();
@@ -106,10 +131,13 @@ public class Administrator extends javax.swing.JFrame {
         ButtonSearch2 = new javax.swing.JButton();
         show = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        PanelRe = new javax.swing.JPanel();
+        FieldSearch3 = new javax.swing.JTextField();
+        ButtonSearch3 = new javax.swing.JButton();
+        reservation = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
-        AddMovie.setMaximumSize(new java.awt.Dimension(620, 380));
         AddMovie.setMinimumSize(new java.awt.Dimension(620, 380));
-        AddMovie.setPreferredSize(new java.awt.Dimension(610, 350));
         AddMovie.setResizable(false);
         AddMovie.getContentPane().setLayout(null);
 
@@ -135,21 +163,18 @@ public class Administrator extends javax.swing.JFrame {
 
         Title.setText("Wpisz tytuł filmu");
 
-
         LabelCast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelCast.setForeground(new java.awt.Color(0, 0, 0));
         LabelCast.setText("Obsada filmu");
 
         Cast.setText("Wpisz obsade filmu");
 
-
         LabelGenre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelGenre.setForeground(new java.awt.Color(0, 0, 0));
         LabelGenre.setText("Gatunek filmu");
 
         Genre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Akcja", "Animacja", "Biograficzny", "Dokumentalny" , "Dramat", "Familijne", "Fantasy", "Horror" ,
-            "Komedia" , "Komedia romatyczna" , "Kryminał" , "Musical" , "Przygodowy" , "Romans" , "Science Fiction" , "Thriller" , "Wojenny" , "Western"}));
-
+                "Komedia" , "Komedia romatyczna" , "Kryminał" , "Musical" , "Przygodowy" , "Romans" , "Science Fiction" , "Thriller" , "Wojenny" , "Western"}));
 
         LabelDuration.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelDuration.setForeground(new java.awt.Color(0, 0, 0));
@@ -159,6 +184,7 @@ public class Administrator extends javax.swing.JFrame {
         LabelMovieDescription.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelMovieDescription.setForeground(new java.awt.Color(0, 0, 0));
         LabelMovieDescription.setText("Opis Filmu");
+
         MovieDescription.setText("Wpisz opis filmu");
 
         FollowButton.setText(isEditing ? "Zapisz Zmiany" : "Zapisz Film");
@@ -261,7 +287,7 @@ public class Administrator extends javax.swing.JFrame {
         LabelHall.setForeground(new java.awt.Color(0, 0, 0));
         LabelHall.setText("Wybierz sale");
 
-        idHall.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        idHall.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1"}));
 
         LabelDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         LabelDate.setForeground(new java.awt.Color(0, 0, 0));
@@ -351,15 +377,24 @@ public class Administrator extends javax.swing.JFrame {
 
         RepertuarLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         RepertuarLabel.setText("REPERTUAR");
-        jPanel2.add(RepertuarLabel, "card1");
+        jPanel2.add(RepertuarLabel, "card2");
 
         SeansLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         SeansLabel.setText("SEANS");
         jPanel2.add(SeansLabel, "card2");
 
+        ReservationLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        ReservationLabel.setText("REZERWACJE");
+        jPanel2.add(ReservationLabel, "card2");
+
         sidemenu.setBackground(new java.awt.Color(75, 0, 130));
         sidemenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         sidemenu.setMaximumSize(new java.awt.Dimension(151, 428));
+
+        logL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logO.png"))); // NOI18N
+        logL.setMaximumSize(new java.awt.Dimension(50, 50));
+        logL.setMinimumSize(new java.awt.Dimension(50, 50));
+        logL.setPreferredSize(new java.awt.Dimension(50, 50));
 
         repertuar_m.setBackground(new java.awt.Color(72, 61, 139));
         repertuar_m.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -376,23 +411,18 @@ public class Administrator extends javax.swing.JFrame {
 
         TextRepertuar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TextRepertuar.setForeground(new java.awt.Color(255, 255, 255));
+        TextRepertuar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TextRepertuar.setText("REPERTUAR");
 
         javax.swing.GroupLayout repertuar_mLayout = new javax.swing.GroupLayout(repertuar_m);
         repertuar_m.setLayout(repertuar_mLayout);
         repertuar_mLayout.setHorizontalGroup(
             repertuar_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(repertuar_mLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(TextRepertuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+            .addComponent(TextRepertuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         repertuar_mLayout.setVerticalGroup(
             repertuar_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(repertuar_mLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(TextRepertuar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(TextRepertuar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         seanse_m.setBackground(new java.awt.Color(72, 61, 139));
@@ -410,32 +440,65 @@ public class Administrator extends javax.swing.JFrame {
 
         TextSeanse.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TextSeanse.setForeground(new java.awt.Color(255, 255, 255));
+        TextSeanse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TextSeanse.setText("SEANSE");
+        TextSeanse.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         javax.swing.GroupLayout seanse_mLayout = new javax.swing.GroupLayout(seanse_m);
         seanse_m.setLayout(seanse_mLayout);
         seanse_mLayout.setHorizontalGroup(
             seanse_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seanse_mLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(TextSeanse)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(TextSeanse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         seanse_mLayout.setVerticalGroup(
             seanse_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seanse_mLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(TextSeanse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TextSeanse, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        reservation_m.setBackground(new java.awt.Color(72, 61, 139));
+        reservation_m.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reservation_mMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reservation_mMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reservation_mMouseExited(evt);
+            }
+        });
+
+
+        TextReservation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TextReservation.setForeground(new java.awt.Color(255, 255, 255));
+        TextReservation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TextReservation.setText("REZERWACJE");
+
+        javax.swing.GroupLayout reservation_mLayout = new javax.swing.GroupLayout(reservation_m);
+        reservation_m.setLayout(reservation_mLayout);
+        reservation_mLayout.setHorizontalGroup(
+            reservation_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reservation_mLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TextReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        reservation_mLayout.setVerticalGroup(
+            reservation_mLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextReservation, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
 
         javax.swing.GroupLayout sidemenuLayout = new javax.swing.GroupLayout(sidemenu);
         sidemenu.setLayout(sidemenuLayout);
         sidemenuLayout.setHorizontalGroup(
             sidemenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(repertuar_m, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(seanse_m, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidemenuLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, sidemenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(seanse_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(reservation_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(sidemenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
@@ -445,15 +508,16 @@ public class Administrator extends javax.swing.JFrame {
             .addGroup(sidemenuLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(sidemenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidemenuLayout.createSequentialGroup()
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))
+                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidemenuLayout.createSequentialGroup()
                         .addComponent(repertuar_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seanse_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(187, 187, 187)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(seanse_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservation_m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         PanelSR.setLayout(new java.awt.CardLayout());
@@ -505,13 +569,13 @@ public class Administrator extends javax.swing.JFrame {
                 .addGroup(PanelRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRLayout.createSequentialGroup()
                         .addComponent(ButtonAddMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 590, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
                         .addComponent(FieldSerach, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtonSearch)
                         .addGap(12, 12, 12))
                     .addGroup(PanelRLayout.createSequentialGroup()
-                        .addComponent(movie, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addComponent(movie, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelRLayout.setVerticalGroup(
@@ -524,7 +588,7 @@ public class Administrator extends javax.swing.JFrame {
                         .addComponent(FieldSerach))
                     .addComponent(ButtonAddMovie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(movie, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
+                .addComponent(movie, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -575,13 +639,13 @@ public class Administrator extends javax.swing.JFrame {
                 .addGroup(PanelSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelSLayout.createSequentialGroup()
                         .addComponent(ButtonAddShow, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 590, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
                         .addComponent(FieldSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtonSearch2)
                         .addGap(12, 12, 12))
                     .addGroup(PanelSLayout.createSequentialGroup()
-                        .addComponent(show, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addComponent(show, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelSLayout.setVerticalGroup(
@@ -594,11 +658,68 @@ public class Administrator extends javax.swing.JFrame {
                         .addComponent(FieldSearch2))
                     .addComponent(ButtonAddShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(show, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
+                .addComponent(show, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         PanelSR.add(PanelS, "card3");
+
+        FieldSearch3.setText("Wyszukaj rezerwacje");
+
+        ButtonSearch3.setText("Szukaj");
+        ButtonSearch3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearch3ActionPerformed(evt);
+            }
+        });
+
+        reservation.setBackground(new java.awt.Color(255, 255, 255));
+        reservation.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable3.setToolTipText("");
+        reservation.setViewportView(jTable3);
+
+        javax.swing.GroupLayout PanelReLayout = new javax.swing.GroupLayout(PanelRe);
+        PanelRe.setLayout(PanelReLayout);
+        PanelReLayout.setHorizontalGroup(
+            PanelReLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelReLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelReLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelReLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(FieldSearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButtonSearch3)
+                        .addGap(12, 12, 12))
+                    .addGroup(PanelReLayout.createSequentialGroup()
+                        .addComponent(reservation, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        PanelReLayout.setVerticalGroup(
+            PanelReLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelReLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelReLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(ButtonSearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(FieldSearch3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservation, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PanelSR.add(PanelRe, "card3");
 
         javax.swing.GroupLayout repertuar_pLayout = new javax.swing.GroupLayout(repertuar_p);
         repertuar_p.setLayout(repertuar_pLayout);
@@ -610,7 +731,7 @@ public class Administrator extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(repertuar_pLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelSR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelSR, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE))
                 .addContainerGap())
         );
         repertuar_pLayout.setVerticalGroup(
@@ -1023,7 +1144,58 @@ public class Administrator extends javax.swing.JFrame {
         }
     }
      */
+    public void updateTable3(JTable jTable3, List<CShowing> allShowing, List<CMovie> allMovies, List<CReservation> allReservation ,CManage<CReservation> reservationManager) {
+        CManage<CShowing> showingManage = new CManage<>(CShowing.class);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Ilosc biletow" , "Dochód", ""}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5; // Tylko kolumna z przyciskami będzie edytowalna
+            }
+        };
+        jTable3.setModel(model);
 
+        jTable3.setRowHeight(277);
+        model.setRowCount(0);
+
+        for (CReservation reservation : allReservation) {
+            int idShowing = reservation.getIdShowing();
+
+            CShowing showing = showingManage.getById(idShowing);
+
+            if (showing != null) {
+                String movieTitle = showing.getMovieTitle(allMovies);
+
+                // Dodaj wiersz do modelu
+                Object[] row = new Object[]{
+                        reservation.getId(),
+                        movieTitle,
+                        showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        reservation.ticketNumber(),
+                        reservation.calculateTotalPrice(),
+                        " " // Pusta kolumna na przyciski
+                };
+                model.addRow(row);
+            } else {
+                System.err.println("Nie znaleziono seansu o ID: " + idShowing);
+            }
+        }
+
+        // Centrowanie tekstu w kolumnach
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < jTable3.getColumnCount()-1; i++) {
+            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Ustawienie szerokości kolumn
+        jTable3.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
+        jTable3.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
+        jTable3.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
+        jTable3.getColumnModel().getColumn(3).setPreferredWidth(50); // Ilosc Biletow
+        jTable3.getColumnModel().getColumn(4).setPreferredWidth(60);  // Dochod Biletow
+        jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+
+    }
     private void repertuar_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
        repertuar_m.setBackground(new java.awt.Color(106,90,205));
     }//GEN-LAST:event_repertuar_mMouseEntered
@@ -1039,6 +1211,14 @@ public class Administrator extends javax.swing.JFrame {
     private void seanse_mMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
        seanse_m.setBackground(new java.awt.Color(72,61,139));
     }//GEN-LAST:event_seanse_mMouseExited
+
+    private void reservation_mMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservation_mMouseEntered
+        reservation_m.setBackground(new java.awt.Color(106, 90, 205)); // Zmiana na reservation_m
+    }//GEN-LAST:event_reservation_mMouseEntered
+
+    private void reservation_mMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservation_mMouseExited
+        reservation_m.setBackground(new java.awt.Color(72, 61, 139)); // Zmiana na reservation_m
+    }//GEN-LAST:event_reservation_mMouseExited
 
     private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
         String searchQuery = FieldSerach.getText().trim().toLowerCase();
@@ -1243,29 +1423,62 @@ public class Administrator extends javax.swing.JFrame {
 
     private void ButtonSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
         String searchQuery = FieldSearch2.getText().trim().toLowerCase();
-
-        // Pobierz listę filmów (allMovies) przed rozpoczęciem filtracji
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         List<CMovie> allMovies = movieManager.getAll();
 
         if (searchQuery.isEmpty()) {
             CManage<CShowing> showManager = new CManage<>(CShowing.class);
-            updateTable2(jTable2, showManager.getAll(), allMovies,showManager); // Przekazujemy wszystkie filmy
+            updateTable2(jTable2, showManager.getAll(), allMovies,showManager);
         } else {
             CManage<CShowing> showManager = new CManage<>(CShowing.class);
             List<CShowing> filteredShows = new ArrayList<>();
 
-            // Wyszukiwanie po tytule filmu wśród pokazów
             for (CShowing showing : showManager.getAll()) {
-                String movieTitle = showing.getMovieTitle(allMovies); // Pobierz tytuł filmu
+                String movieTitle = showing.getMovieTitle(allMovies);
                 if (movieTitle.toLowerCase().contains(searchQuery)) {
                     filteredShows.add(showing);
                 }
             }
-
-            updateTable2(jTable2, filteredShows, allMovies,showManager); // Przekazujemy przefiltrowane pokazy i listę filmów
+            updateTable2(jTable2, filteredShows, allMovies,showManager);
         }
     }//GEN-LAST:event_ButtonSearch2ActionPerformed
+
+    private void ButtonSearch3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearch3ActionPerformed
+        String searchQuery = FieldSearch3.getText().trim();
+
+        // Pobieranie danych
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
+        List<CShowing> allShow = showManager.getAll();
+
+        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
+        List<CReservation> allReservation = reservationManager.getAll();
+
+        if (searchQuery.isEmpty()) {
+            updateTable3(jTable3, allShow, allMovies, allReservation, reservationManager);
+        } else {
+            try {
+                int searchId = Integer.parseInt(searchQuery);
+
+                List<CReservation> filteredReservations = allReservation.stream()
+                        .filter(reservation -> reservation.getId() == searchId)
+                        .toList();
+
+                if (filteredReservations.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Nie znaleziono rezerwacji o podanym ID.", "Brak wyników", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    updateTable3(jTable3, allShow, allMovies, filteredReservations, reservationManager);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Proszę wprowadzić poprawne ID (liczbę).", "Błąd wyszukiwania", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonSearch3ActionPerformed
+
+
+
 
     private void ButtonAddMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMovieActionPerformed
         setTitle("Dodaj Film");
@@ -1281,8 +1494,10 @@ public class Administrator extends javax.swing.JFrame {
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         PanelS.setVisible(false);
         PanelR.setVisible(true);
+        PanelRe.setVisible(false);
         SeansLabel.setVisible(false);
         RepertuarLabel.setVisible(true);
+        ReservationLabel.setVisible(false);
         updateTable(jTable1, movieManager.getAll(), movieManager);
     }//GEN-LAST:event_repertuar_mMouseClicked
 
@@ -1291,10 +1506,26 @@ public class Administrator extends javax.swing.JFrame {
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         PanelR.setVisible(false);
         PanelS.setVisible(true);
+        PanelRe.setVisible(false);
         SeansLabel.setVisible(true);
         RepertuarLabel.setVisible(false);
+        ReservationLabel.setVisible(false);
         updateTable2(jTable2, showManager.getAll(), movieManager.getAll(), showManager);
     }//GEN-LAST:event_seanse_mMouseClicked
+
+    private void reservation_mMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservation_mMouseClicked
+        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        PanelR.setVisible(false);
+        PanelS.setVisible(false);
+        PanelRe.setVisible(true);
+        ReservationLabel.setVisible(true);
+        RepertuarLabel.setVisible(false);
+        SeansLabel.setVisible(false);
+        updateTable3(jTable3, showManager.getAll(), movieManager.getAll(),reservationManager.getAll(), reservationManager);
+    }//GEN-LAST:event_reservation_mMouseClicked
+
 
 
     public void openEditWindow(CMovie currentMovie) {
@@ -1401,10 +1632,12 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JButton ButtonAddShow;
     private javax.swing.JButton ButtonSearch;
     private javax.swing.JButton ButtonSearch2;
+    private javax.swing.JButton ButtonSearch3;
     private javax.swing.JTextField Cast;
     private javax.swing.JFormattedTextField Date;
     private javax.swing.JSpinner Duration;
     private javax.swing.JTextField FieldSearch2;
+    private javax.swing.JTextField FieldSearch3;
     private javax.swing.JTextField FieldSerach;
     private javax.swing.JButton FollowButton;
     private javax.swing.JButton FollowButton2;
@@ -1421,13 +1654,16 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JLabel LabelTitle;
     private javax.swing.JTextField MovieDescription;
     private javax.swing.JPanel PanelR;
+    private javax.swing.JPanel PanelRe;
     private javax.swing.JPanel PanelS;
     private javax.swing.JPanel PanelSR;
     private javax.swing.JPanel Panel_AddMovie;
     private javax.swing.JPanel Panel_AddShow;
     private javax.swing.JLabel RepertuarLabel;
     private javax.swing.JLabel SeansLabel;
+    private javax.swing.JLabel ReservationLabel;
     private javax.swing.JLabel TextRepertuar;
+    private javax.swing.JLabel TextReservation;
     private javax.swing.JLabel TextSeanse;
     private javax.swing.JFormattedTextField Time;
     private javax.swing.JTextField Title;
@@ -1438,9 +1674,13 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JLabel logL;
     private javax.swing.JScrollPane movie;
     private javax.swing.JPanel repertuar_m;
     private javax.swing.JPanel repertuar_p;
+    private javax.swing.JScrollPane reservation;
+    private javax.swing.JPanel reservation_m;
     private javax.swing.JPanel seanse_m;
     private javax.swing.JScrollPane show;
     private javax.swing.JPanel sidemenu;

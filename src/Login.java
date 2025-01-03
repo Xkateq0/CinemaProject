@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setForeground(new java.awt.Color(72, 61, 139));
         jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1080));
+        jPanel1.setLayout(new GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(72, 61, 139));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -141,6 +142,7 @@ public class Login extends javax.swing.JFrame {
         TextCashier1.getAccessibleContext().setAccessibleName("");
         TextCashier1.getAccessibleContext().setAccessibleParent(Cashier1);
 
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,6 +167,16 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        jPanel1.add(jPanel4, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        jPanel1.add(jPanel2, gbc);
     }// </editor-fold>//GEN-END:initComponents
 
 
