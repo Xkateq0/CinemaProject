@@ -867,6 +867,7 @@ public class Administrator extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(3).setResizable(false);
 
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable1.getTableHeader().setReorderingAllowed(false);
     }
 
     // Metoda pomocnicza do tworzenia panelu z przyciskami
@@ -1048,25 +1049,34 @@ public class Administrator extends javax.swing.JFrame {
         }
 
         // Ustawienie szerokości kolumn
-        jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
-        jTable2.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
-        jTable2.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
-        jTable2.getColumnModel().getColumn(3).setPreferredWidth(120); // Godzina
-        jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);  // Sala
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(150);  // ID
+        jTable2.getColumnModel().getColumn(0).setResizable(false);
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(400); // Tytuł Filmu
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(300); // Data
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(200); // Godzina
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(85);  // Sala
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
         jTable2.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable2.getTableHeader().setReorderingAllowed(false);
     }
 
     // Metoda pomocnicza do tworzenia panelu z przyciskami
-                private JPanel createButtonPanel2(JTable table, int row, CManage<CShowing> showManager) {
-                    JButton deleteButton = new JButton("Usuń Seans");
-                    deleteButton.setBackground(new Color(72, 61, 139));
-                    deleteButton.setForeground(Color.WHITE);
-                    deleteButton.setFocusPainted(false);
-                    deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-                    deleteButton.setFont(new Font("Arial", Font.BOLD, 16));
-                    deleteButton.setPreferredSize(new Dimension(150, 40));
-                    deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    deleteButton.addActionListener(e -> handle2DeleteAction(table, row, showManager));
+    private JPanel createButtonPanel2(JTable table, int row, CManage<CShowing> showManager) {
+        JButton deleteButton = new JButton("Usuń Seans");
+        deleteButton.setBackground(new Color(72, 61, 139));
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 16));
+        deleteButton.setPreferredSize(new Dimension(150, 40));
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deleteButton.addActionListener(e -> handle2DeleteAction(table, row, showManager));
 
                     /*
                     JButton editButton = new JButton("Edytuj Seans");
@@ -1079,17 +1089,17 @@ public class Administrator extends javax.swing.JFrame {
                     editButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
                     editButton.addActionListener(e -> handle2EditAction(table, row, showManager));
                     */
-                    JPanel panel2 = new JPanel(new GridBagLayout());
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.insets = new Insets(5, 0, 5, 0);
-                    gbc.gridx = 0;
-                    gbc.gridy = 0;
-                    panel2.add(deleteButton, gbc);
+        JPanel panel2 = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel2.add(deleteButton, gbc);
 
-                    return panel2;
+        return panel2;
 
 
-                }
+    }
     private void handle2DeleteAction(JTable table, int row, CManage<CShowing> showManager) {
         CManage<CMovie> movieManager = new CManage<>(CMovie.class);
         int showId = (int) table.getModel().getValueAt(row, 0);
@@ -1209,12 +1219,21 @@ public class Administrator extends javax.swing.JFrame {
         }
 
         // Ustawienie szerokości kolumn
-        jTable3.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
-        jTable3.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
-        jTable3.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
-        jTable3.getColumnModel().getColumn(3).setPreferredWidth(50); // Ilosc Biletow
-        jTable3.getColumnModel().getColumn(4).setPreferredWidth(60);  // Dochod Biletow
+        jTable3.getColumnModel().getColumn(0).setPreferredWidth(150);  // ID
+        jTable3.getColumnModel().getColumn(0).setResizable(false);
+        jTable3.getColumnModel().getColumn(1).setPreferredWidth(385); // Tytuł Filmu
+        jTable3.getColumnModel().getColumn(1).setResizable(false);
+        jTable3.getColumnModel().getColumn(2).setPreferredWidth(300); // Data
+        jTable3.getColumnModel().getColumn(2).setResizable(false);
+        jTable3.getColumnModel().getColumn(3).setPreferredWidth(150); // Ilosc Biletow
+        jTable3.getColumnModel().getColumn(3).setResizable(false);
+        jTable3.getColumnModel().getColumn(4).setPreferredWidth(150);  // Dochod Biletow
+        jTable3.getColumnModel().getColumn(4).setResizable(false);
         jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable3.getColumnModel().getColumn(5).setResizable(false);
+
+        jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable3.getTableHeader().setReorderingAllowed(false);
 
     }
     private JPanel createButtonPanel3(JTable table, int row, CManage<CReservation> reservationManage) {
