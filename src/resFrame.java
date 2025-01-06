@@ -13,8 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-
-public class resFrame extends javax.swing.JFrame {
+public class resFrame extends JFrame {
     private final CReservation reservation;
 
     public resFrame(CReservation reservation) {
@@ -26,7 +25,8 @@ public class resFrame extends javax.swing.JFrame {
     }
 
     private void menuOp() {
-        saveM.addActionListener(e -> sendPrint());
+        saveM.addActionListener(e -> takeScreenshot());
+        printM.addActionListener(e->sendPrint());
     }
 
     public void takeScreenshot() {
@@ -116,7 +116,7 @@ public class resFrame extends javax.swing.JFrame {
 
     // Bilety
     ticketsPanel.removeAll(); // Czyszczenie panelu
-    ticketsPanel.setLayout(new javax.swing.BoxLayout(ticketsPanel, javax.swing.BoxLayout.Y_AXIS));  // BoxLayout w pionie
+    ticketsPanel.setLayout(new BoxLayout(ticketsPanel, BoxLayout.Y_AXIS));  // BoxLayout w pionie
 
     for(CTicket ticket : reservation.getTickets()) {
         JPanel ticketPanel = new JPanel();
@@ -199,73 +199,74 @@ public class resFrame extends javax.swing.JFrame {
         sumPanel = new JPanel();
         tpriceLabel = new JLabel();
         jLabel3 = new JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        saveM = new javax.swing.JMenuItem();
+        jMenuBar1 = new JMenuBar();
+        jMenu1 = new JMenu();
+        saveM = new JMenuItem();
+        printM = new JMenuItem();
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         bg.setBackground(new Color(255, 255, 255));
 
-        allPanel.setLayout(new java.awt.BorderLayout());
+        allPanel.setLayout(new BorderLayout());
 
         infoPanel.setBackground(new Color(102, 0, 102));
         infoPanel.setForeground(new Color(255, 255, 255));
 
         titleLabel.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
         titleLabel.setForeground(new Color(255, 255, 255));
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setText("1999-12-12 | 16:37");
 
         dateLabel.setFont(new Font("Segoe UI", 1, 16)); // NOI18N
         dateLabel.setForeground(new Color(255, 255, 255));
-        dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dateLabel.setText("Title");
 
         hallLabel.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
         hallLabel.setForeground(new Color(255, 255, 255));
-        hallLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hallLabel.setHorizontalAlignment(SwingConstants.CENTER);
         hallLabel.setText("Sala: 1");
 
         resLabel.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
         resLabel.setForeground(new Color(255, 255, 255));
-        resLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resLabel.setText("REZERWACJA: 00");
         resLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
 
-        javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
+        GroupLayout infoPanelLayout = new GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
-            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(resLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            infoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(titleLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(resLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hallLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(infoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(dateLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hallLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         infoPanelLayout.setVerticalGroup(
-            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoPanelLayout.createSequentialGroup()
-                .addComponent(resLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            infoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, infoPanelLayout.createSequentialGroup()
+                .addComponent(resLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(hallLabel)
                 .addGap(19, 19, 19))
         );
 
-        allPanel.add(infoPanel, java.awt.BorderLayout.NORTH);
+        allPanel.add(infoPanel, BorderLayout.NORTH);
 
         ticketsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         ticketsPanel.setAutoscrolls(true);
-        ticketsPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ticketsPanel.setLayout(new javax.swing.BoxLayout(ticketsPanel, javax.swing.BoxLayout.LINE_AXIS));
-        allPanel.add(ticketsPanel, java.awt.BorderLayout.CENTER);
+        ticketsPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        ticketsPanel.setLayout(new BoxLayout(ticketsPanel, BoxLayout.LINE_AXIS));
+        allPanel.add(ticketsPanel, BorderLayout.CENTER);
         ticketsPanel.getAccessibleContext().setAccessibleDescription("");
 
         sumPanel.setBackground(new Color(143, 68, 143));
@@ -278,46 +279,50 @@ public class resFrame extends javax.swing.JFrame {
         jLabel3.setForeground(new Color(255, 255, 255));
         jLabel3.setText("Razem: ");
 
-        javax.swing.GroupLayout sumPanelLayout = new javax.swing.GroupLayout(sumPanel);
+        GroupLayout sumPanelLayout = new GroupLayout(sumPanel);
         sumPanel.setLayout(sumPanelLayout);
         sumPanelLayout.setHorizontalGroup(
-            sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sumPanelLayout.createSequentialGroup()
+            sumPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, sumPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tpriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tpriceLabel, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
         );
         sumPanelLayout.setVerticalGroup(
-            sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            sumPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(sumPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(sumPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tpriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addGroup(sumPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(tpriceLabel, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
 
-        allPanel.add(sumPanel, java.awt.BorderLayout.PAGE_END);
+        allPanel.add(sumPanel, BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        GroupLayout bgLayout = new GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(allPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(allPanel, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
         bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(allPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(allPanel, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
 
-        getContentPane().add(bg, java.awt.BorderLayout.CENTER);
+        getContentPane().add(bg, BorderLayout.CENTER);
 
         jMenu1.setText("File");
 
-        saveM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        saveM.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         saveM.setText("Save");
         jMenu1.add(saveM);
+
+        printM.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        printM.setText("Print");
+        jMenu1.add(printM);
 
         jMenuBar1.add(jMenu1);
 
@@ -338,10 +343,11 @@ public class resFrame extends javax.swing.JFrame {
     private JLabel hallLabel;
     private JPanel infoPanel;
     private JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private JMenu jMenu1;
+    private JMenuBar jMenuBar1;
+    private JMenuItem printM;
     private JLabel resLabel;
-    private javax.swing.JMenuItem saveM;
+    private JMenuItem saveM;
     private JPanel sumPanel;
     private JPanel ticketsPanel;
     private JLabel titleLabel;

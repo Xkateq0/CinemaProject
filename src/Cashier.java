@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import javax.swing.table.TableCellEditor;
 import javax.swing.text.MaskFormatter;
 /**
  *
@@ -67,107 +68,78 @@ public class Cashier extends JFrame {
     }
     
 
-    public void updateTable(JTable jTable1, List<CMovie> allMovies) {
-        DefaultTableModel model = new DefaultTableModel(new String[]{" ", "Tytuł","Obsada","Opis","Gatunek"}, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Blokuje edycję wszystkich komórek
-            }
-        };
-        jTable1.setModel(model);
-
-        
-        jTable1.setRowHeight(277);
-
-        model.setRowCount(0);
-
-        for (CMovie movie : allMovies) {
-            Object[] row = new Object[]{
-                    new ImageIcon(scaleImage(movie.getImagePath(), 190, 270)),
-                    movie.getTitle(),
-                    movie.getCast(),
-                    movie.getMovieDescription(),
-                    movie.getGenre()
-            };
-
-            model.addRow(row);
+public void updateTable(JTable jTable1, List<CMovie> allMovies) {
+    DefaultTableModel model = new DefaultTableModel(new String[]{" ", "Tytuł", "Obsada", "Opis", "Gatunek"}, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Blokuje edycję wszystkich komórek
         }
+    };
+    jTable1.setModel(model);
+    jTable1.setFont(new Font("Arial", Font.PLAIN, 18));
+    jTable1.getTableHeader().setReorderingAllowed(false);
 
-        //Obraz
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(new TableCellRenderer() {
+    model.setRowCount(0);
+
+    for (CMovie movie : allMovies) {
+        Object[] row = new Object[]{
+                new ImageIcon(scaleImage(movie.getImagePath(), 190, 270)),
+                movie.getTitle(),
+                movie.getCast(),
+                movie.getMovieDescription(),
+                movie.getGenre()
+        };
+
+        model.addRow(row);
+    }
+
+    // Renderer dla obrazów
+    jTable1.getColumnModel().getColumn(0).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+        if (value instanceof ImageIcon) {
+            JLabel label = new JLabel((ImageIcon) value);
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setVerticalAlignment(JLabel.CENTER);
+            if (isSelected) {
+                label.setBackground(table.getSelectionBackground());
+                label.setOpaque(true);
+            }
+            return label;
+        }
+        return new JLabel();
+    });
+
+    // Ustawienie wyśrodkowania tekstu i zawijania w kolumnach 1-4
+    for (int i = 1; i <= 4; i++) {
+        // Renderer dla wyśrodkowanego i zawijającego tekstu
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);  // Wyśrodkowanie w poziomie
+        centerRenderer.setVerticalAlignment(JLabel.CENTER);    // Wyśrodkowanie w pionie
+        jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+
+        // Tworzenie JLabel dla zawijania tekstu
+        JLabel label = new JLabel();
+        label.setOpaque(true);
+        label.setBackground(new Color(255,255,255));
+        label.setFont(new Font("Arial", Font.PLAIN, 18));
+        label.setHorizontalAlignment(JLabel.CENTER);  // Wyśrodkowanie w poziomie
+        label.setVerticalAlignment(JLabel.CENTER);    // Wyśrodkowanie w pionie
+        label.setText(" ");  // Domyślny tekst (później ustawimy właściwy tekst w tabeli)
+
+        // Ustawienie zawijania tekstu
+        label.setText("<html><div style='width: 150px;'>" + label.getText() + "</div></html>");
+
+        // Ustawienie renderera dla komórki
+        jTable1.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value instanceof ImageIcon) {
-                    JLabel label = new JLabel((ImageIcon) value);
-                    label.setText("");
-                    label.setHorizontalAlignment(JLabel.CENTER);
-                    label.setVerticalAlignment(JLabel.CENTER);
-                    return label;
-                }
-                return new JLabel();
+                label.setText("<html><div style='width: 150px;'>" + value.toString() + "</div></html>");
+                return label;
             }
         });
-        
-        
-        
-     DefaultTableCellRenderer wrappingAndCenterRenderer = new DefaultTableCellRenderer() {
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        // Wywołujemy standardową funkcję renderera, żeby otrzymać standardowy komponent (np. JLabel)
-        Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        // Jeżeli to jest JTextArea
-        if (comp instanceof JLabel) {
-            JLabel label = (JLabel) comp;
-
-            // Ustawiamy wyśrodkowanie tekstu poziome i pionowe
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-        } else if (comp instanceof JTextArea) { // Jeśli to jest JTextArea
-            JTextArea textArea = (JTextArea) comp;
-            textArea.setLineWrap(true); // Włączenie zawijania tekstu
-            textArea.setWrapStyleWord(true); // Zawijanie całych słów
-            textArea.setOpaque(true);
-            textArea.setBorder(null);
-            textArea.setFont(new Font("Arial", Font.PLAIN, 30)); // Czcionka i rozmiar tekstu
-            textArea.setAlignmentX(Component.CENTER_ALIGNMENT); // Wyrównanie poziome
-            textArea.setAlignmentY(Component.CENTER_ALIGNMENT); // Wyrównanie pionowe
-
-            // Jeśli komórka jest wybrana, ustawiamy tło na kolor selekcji
-            if (isSelected) {
-                textArea.setBackground(table.getSelectionBackground());
-                textArea.setForeground(table.getSelectionForeground());
-            } else {
-                textArea.setBackground(table.getBackground());
-                textArea.setForeground(table.getForeground());
-            }
-        }
-
-        return comp;
     }
-};
-     
-     
 
-    // Ustawienie rendererów dla kolumn "Tytuł", "Obsada", "Opis" i "Gatunek"
-    jTable1.getColumnModel().getColumn(1).setCellRenderer(wrappingAndCenterRenderer); // "Tytuł"
-    jTable1.getColumnModel().getColumn(2).setCellRenderer(wrappingAndCenterRenderer); // "Obsada"
-    jTable1.getColumnModel().getColumn(3).setCellRenderer(wrappingAndCenterRenderer); // "Opis"
-    jTable1.getColumnModel().getColumn(4).setCellRenderer(wrappingAndCenterRenderer); // "Gatunek"
-
-    // Ustawienie szerokości kolumn i zablokowanie ich zmiany rozmiaru
-    jTable1.getColumnModel().getColumn(0).setPreferredWidth(199);
-    jTable1.getColumnModel().getColumn(0).setResizable(false);
-    jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-    jTable1.getColumnModel().getColumn(1).setResizable(false);
-    jTable1.getColumnModel().getColumn(2).setPreferredWidth(300);
-    jTable1.getColumnModel().getColumn(2).setResizable(false);
-    jTable1.getColumnModel().getColumn(3).setPreferredWidth(300);
-    jTable1.getColumnModel().getColumn(3).setResizable(false);
-    jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
-    jTable1.getColumnModel().getColumn(4).setResizable(false);
-
-    jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    // Ustawienie wysokości wierszy na 277 pikseli
+    jTable1.setRowHeight(277);  // Ustaw wysokość wierszy na 277
 }
 
 
@@ -192,137 +164,116 @@ public class Cashier extends JFrame {
             return null;
         }
     }
+    
+    
 
-    public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // Tylko ostatnia kolumna (przycisk) jest interaktywna
-                return column == 5;
-            }
-        };
-
-        model.setColumnIdentifiers(new String[]{
-                "ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala", "Akcja"
-        });
-
-        model.setRowCount(0);
-
-        for (CShowing showing : allShowing) {
-            String movieTitle = showing.getMovieTitle(allMovies);
-
-            LocalDateTime showingDateTime = LocalDateTime.of(showing.getDate(), showing.getTime());
-
-
-            if (showingDateTime.isBefore(LocalDateTime.now())) {
-                continue; // Pominięcie seansu, jeśli data i godzina już minęły
-            }
-
-            Object[] row = new Object[]{
-                    showing.getId(),
-                    movieTitle,
-                    showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
-                    showing.getIdHall(),
-                    "WYBIERZ" // Placeholder tekstowy dla przycisku
-            };
-
-
-
-            model.addRow(row);
-        }
-
-        jTable2.setModel(model);
-        jTable2.setRowHeight(50);
-
-        // Centrowanie tekstu w kolumnach
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < jTable2.getColumnCount(); i++) {
-            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-
-        // Ustawienie szerokości kolumn
-        jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
-        jTable2.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
-        jTable2.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
-        jTable2.getColumnModel().getColumn(3).setPreferredWidth(120); // Godzina
-        jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);  // Sala
-        jTable2.getColumnModel().getColumn(5).setPreferredWidth(100); // Przycisk
-
-
-    // Renderer dla przycisku
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setOpaque(true);
-            setBackground(new Color(72, 61, 139));
-            setForeground(Color.WHITE);
-            setFocusPainted(false);
-            setFont(new Font("Arial", Font.BOLD, 12));
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-        }
-
+public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
+    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala", ""}, 0) {
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setText(value == null ? "" : value.toString());
-            return this;
+        public boolean isCellEditable(int row, int column) {
+            return column == 5;
         }
+    };
+
+    jTable2.setModel(model);
+    jTable2.setFont(new Font("Arial", Font.PLAIN, 18));
+    jTable2.setRowHeight(70);
+    model.setRowCount(0);
+
+    for (CShowing showing : allShowing) {
+        String movieTitle = showing.getMovieTitle(allMovies);
+
+        LocalDateTime showingDateTime = LocalDateTime.of(showing.getDate(), showing.getTime());
+
+        if (showingDateTime.isBefore(LocalDateTime.now())) {
+            continue; // Pominięcie seansu, jeśli data i godzina już minęły
+        }
+
+        Object[] row = new Object[]{
+                showing.getId(),
+                movieTitle,
+                showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
+                showing.getIdHall(),
+                " " // Pusta kolumna na przyciski
+        };
+        model.addRow(row);
     }
 
-    // Editor dla przycisku
-    class ButtonEditor extends DefaultCellEditor {
-        private JButton button;
-        private boolean clicked;
-        private CShowing showing;
-
-        public ButtonEditor(JCheckBox checkBox, List<CShowing> allShowing) {
-            super(checkBox);
-            button = new JButton();
-            button.setOpaque(true);
-            button.setBackground(new Color(72, 61, 139));
-            button.setForeground(Color.WHITE);
-            button.setFocusPainted(false);
-            button.setFont(new Font("Arial", Font.BOLD, 12));
-            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-            button.addActionListener(e -> {
-                if (clicked) {
-                    // Uruchomienie SeatSelection z odpowiednim showing
-                    SeatSelection seatSelection = new SeatSelection(showing);
-                    seatSelection.setVisible(true);
-                }
-            });
+    // Renderer dla panelu przycisków w ostatniej kolumnie
+    jTable2.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+        JPanel panel = createButtonPanel2(jTable2, row, allShowing);
+        if (isSelected) {
+            panel.setBackground(table.getSelectionBackground());
+        } else {
+            panel.setBackground(table.getBackground());
         }
+        return panel;
+    });
 
+    jTable2.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JTextField()) {
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            // Pobranie obiektu CShowing na podstawie wiersza
-            showing = allShowing.stream()
-                    .filter(s -> s.getId() == (int) table.getValueAt(row, 0))
-                    .findFirst()
-                    .orElse(null);
-
-            button.setText(value == null ? "" : value.toString());
-            clicked = true;
-            return button;
+            return createButtonPanel2(table, row, allShowing);
         }
 
         @Override
         public Object getCellEditorValue() {
-            clicked = false;
-            return button.getText();
+            return null; // Wartość edytora nie jest używana
         }
+    });
 
-        @Override
-        public boolean stopCellEditing() {
-            clicked = false;
-            return super.stopCellEditing();
+    // Centrowanie tekstu w kolumnach
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    for (int i = 0; i < jTable2.getColumnCount() - 1; i++) {
+        jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
+
+    // Ustawienie szerokości kolumn
+    jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
+    jTable2.getColumnModel().getColumn(1).setPreferredWidth(200); // Tytuł Filmu
+    jTable2.getColumnModel().getColumn(2).setPreferredWidth(100); // Data
+    jTable2.getColumnModel().getColumn(3).setPreferredWidth(120); // Godzina
+    jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);  // Sala
+    jTable2.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+}
+
+private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowing) {
+    JButton selectButton = new JButton("WYBIERZ");
+    selectButton.setBackground(new Color(72, 61, 139));
+    selectButton.setForeground(Color.WHITE);
+    selectButton.setFocusPainted(false);
+    selectButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+    selectButton.setFont(new Font("Arial", Font.BOLD, 16));
+    selectButton.setPreferredSize(new Dimension(150, 40));
+    selectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+    // Dodanie ActionListener
+    selectButton.addActionListener(e -> {
+        int showingId = (int) table.getModel().getValueAt(row, 0);
+        CShowing selectedShowing = allShowing.stream()
+                .filter(showing -> showing.getId() == showingId)
+                .findFirst()
+                .orElse(null);
+
+        if (selectedShowing != null) {
+            SeatSelection seatSelection = new SeatSelection(selectedShowing);
+            seatSelection.setVisible(true);
+        } else {
+            System.err.println("Nie znaleziono seansu o ID: " + showingId);
         }
-    }
-        // Dodanie przycisku do kolumny "Akcja"
-        jTable2.getColumn("Akcja").setCellRenderer(new ButtonRenderer());
-        jTable2.getColumn("Akcja").setCellEditor(new ButtonEditor(new JCheckBox(), allShowing));
-    }
+    });
+
+    JPanel panel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 0, 5, 0);
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    panel.add(selectButton, gbc);
+
+    return panel;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -337,11 +288,14 @@ public class Cashier extends JFrame {
         jPanel2 = new JPanel();
         RepertuarLabel = new JLabel();
         SeansLabel = new JLabel();
+        RezerwacjaLabel = new JLabel();
         sidemenu = new JPanel();
         repertuar_m = new JPanel();
         TextRepertuar = new JLabel();
         seanse_m = new JPanel();
         TextSeanse = new JLabel();
+        rezerwacje_m = new JPanel();
+        TextRezerwacje = new JLabel();
         filler1 = new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(0, 32767));
         logL = new JLabel();
         PanelSR = new JPanel();
@@ -357,6 +311,11 @@ public class Cashier extends JFrame {
         jTable2 = new JTable();
         dateSearch = new JFormattedTextField();
         DateSeatchBtn = new JButton();
+        PanelRe = new JPanel();
+        FieldSerach1 = new JTextField();
+        ButtonSearch1 = new JButton();
+        reservation = new JScrollPane();
+        jTable3 = new JTable();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(255, 255, 255));
@@ -378,6 +337,10 @@ public class Cashier extends JFrame {
         SeansLabel.setFont(new Font("Segoe UI", 0, 36)); // NOI18N
         SeansLabel.setText("SEANS");
         jPanel2.add(SeansLabel, "card2");
+
+        RezerwacjaLabel.setFont(new Font("Segoe UI", 0, 36)); // NOI18N
+        RezerwacjaLabel.setText("REZERWACJE");
+        jPanel2.add(RezerwacjaLabel, "card2");
 
         sidemenu.setBackground(new Color(75, 0, 130));
         sidemenu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -447,8 +410,37 @@ public class Cashier extends JFrame {
             seanse_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(seanse_mLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(TextSeanse, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(TextSeanse, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        rezerwacje_m.setBackground(new Color(72, 61, 139));
+        rezerwacje_m.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                rezerwacje_mMouseClicked(evt);
+            }
+            public void mouseEntered(MouseEvent evt) {
+                rezerwacje_mMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                rezerwacje_mMouseExited(evt);
+            }
+        });
+
+        TextRezerwacje.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        TextRezerwacje.setForeground(new Color(255, 255, 255));
+        TextRezerwacje.setHorizontalAlignment(SwingConstants.CENTER);
+        TextRezerwacje.setText("REZERWACJE");
+
+        GroupLayout rezerwacje_mLayout = new GroupLayout(rezerwacje_m);
+        rezerwacje_m.setLayout(rezerwacje_mLayout);
+        rezerwacje_mLayout.setHorizontalGroup(
+            rezerwacje_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(TextRezerwacje, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        rezerwacje_mLayout.setVerticalGroup(
+            rezerwacje_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(TextRezerwacje, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         logL.setIcon(new ImageIcon(getClass().getResource("/Image/logO.png"))); // NOI18N
@@ -458,13 +450,16 @@ public class Cashier extends JFrame {
         sidemenuLayout.setHorizontalGroup(
             sidemenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(repertuar_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(GroupLayout.Alignment.CENTER, sidemenuLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+            .addComponent(seanse_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidemenuLayout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
+            .addComponent(rezerwacje_m, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(sidemenuLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidemenuLayout.setVerticalGroup(
             sidemenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -476,7 +471,9 @@ public class Cashier extends JFrame {
                         .addComponent(repertuar_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 664, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rezerwacje_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -497,6 +494,7 @@ public class Cashier extends JFrame {
         movie.setBackground(new Color(255, 255, 255));
         movie.setForeground(new Color(255, 255, 255));
 
+        jTable1.setFont(new Font("Arial", 0, 18)); // NOI18N
         jTable1.setModel(new DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -507,8 +505,17 @@ public class Cashier extends JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setToolTipText("");
+        jTable1.setRowHeight(277);
         movie.setViewportView(jTable1);
 
         GroupLayout PanelRLayout = new GroupLayout(PanelR);
@@ -525,7 +532,7 @@ public class Cashier extends JFrame {
                         .addComponent(ButtonSearch)
                         .addGap(12, 12, 12))
                     .addGroup(PanelRLayout.createSequentialGroup()
-                        .addComponent(movie, GroupLayout.DEFAULT_SIZE, 1773, Short.MAX_VALUE)
+                        .addComponent(movie, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelRLayout.setVerticalGroup(
@@ -595,7 +602,7 @@ public class Cashier extends JFrame {
                         .addComponent(ButtonSearch2)
                         .addGap(12, 12, 12))
                     .addGroup(PanelSLayout.createSequentialGroup()
-                        .addComponent(show, GroupLayout.DEFAULT_SIZE, 1773, Short.MAX_VALUE)
+                        .addComponent(show, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelSLayout.setVerticalGroup(
@@ -608,11 +615,75 @@ public class Cashier extends JFrame {
                     .addComponent(dateSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(DateSeatchBtn, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(show, GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                .addComponent(show, GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         PanelSR.add(PanelS, "card3");
+
+        PanelRe.setForeground(new Color(245, 245, 245));
+
+        FieldSerach1.setText("Wyszukaj rezerwację");
+        FieldSerach1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                FieldSerach1ActionPerformed(evt);
+            }
+        });
+
+        ButtonSearch1.setText("Szukaj");
+        ButtonSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                ButtonSearch1ActionPerformed(evt);
+            }
+        });
+
+        reservation.setBackground(new Color(255, 255, 255));
+        reservation.setForeground(new Color(255, 255, 255));
+
+        jTable3.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable3.setToolTipText("");
+        reservation.setViewportView(jTable3);
+
+        GroupLayout PanelReLayout = new GroupLayout(PanelRe);
+        PanelRe.setLayout(PanelReLayout);
+        PanelReLayout.setHorizontalGroup(
+            PanelReLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(PanelReLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelReLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelReLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(FieldSerach1, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButtonSearch1)
+                        .addGap(12, 12, 12))
+                    .addGroup(PanelReLayout.createSequentialGroup()
+                        .addComponent(reservation, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        PanelReLayout.setVerticalGroup(
+            PanelReLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(PanelReLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelReLayout.createParallelGroup(GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(ButtonSearch1, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(FieldSerach1))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservation, GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PanelSR.add(PanelRe, "card3");
 
         GroupLayout repertuar_pLayout = new GroupLayout(repertuar_p);
         repertuar_p.setLayout(repertuar_pLayout);
@@ -687,17 +758,21 @@ public class Cashier extends JFrame {
     private void repertuar_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
         PanelS.setVisible(false);
         PanelR.setVisible(true);
+        PanelRe.setVisible(false);
         updateTable(jTable1,allMovies);
         SeansLabel.setVisible(false);
         RepertuarLabel.setVisible(true);
+        RezerwacjaLabel.setVisible(false);
     }//GEN-LAST:event_repertuar_mMouseClicked
 
     private void seanse_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
         PanelR.setVisible(false);
+        PanelRe.setVisible(false);
         PanelS.setVisible(true);
         updateTable2(jTable2,allShowing, allMovies);
         SeansLabel.setVisible(true);
         RepertuarLabel.setVisible(false);
+        RezerwacjaLabel.setVisible(false);
     }//GEN-LAST:event_seanse_mMouseClicked
 
     private void DateSeatchBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_DateSeatchBtnActionPerformed
@@ -728,6 +803,32 @@ public class Cashier extends JFrame {
     }
     }//GEN-LAST:event_DateSeatchBtnActionPerformed
 
+    private void rezerwacje_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseClicked
+        PanelR.setVisible(false);
+        PanelRe.setVisible(true);
+        PanelS.setVisible(false);
+        //updateTable2(jTable2,allShowing, allMovies);
+        SeansLabel.setVisible(false);
+        RepertuarLabel.setVisible(false);
+        RezerwacjaLabel.setVisible(true);
+    }//GEN-LAST:event_rezerwacje_mMouseClicked
+
+    private void rezerwacje_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseEntered
+         rezerwacje_m.setBackground(new Color(106,90,205));
+    }//GEN-LAST:event_rezerwacje_mMouseEntered
+
+    private void rezerwacje_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseExited
+         rezerwacje_m.setBackground(new Color(72,61,139));
+    }//GEN-LAST:event_rezerwacje_mMouseExited
+
+    private void ButtonSearch1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonSearch1ActionPerformed
+
+    private void FieldSerach1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_FieldSerach1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldSerach1ActionPerformed
+
     public static void main(String[] args) {
         // Uruchomienie aplikacji Cashier1
        EventQueue.invokeLater(new Runnable() {
@@ -738,16 +839,21 @@ public class Cashier extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton ButtonSearch;
+    private JButton ButtonSearch1;
     private JButton ButtonSearch2;
     private JButton DateSeatchBtn;
     private JTextField FieldSearch2;
     private JTextField FieldSerach;
+    private JTextField FieldSerach1;
     private JPanel PanelR;
+    private JPanel PanelRe;
     private JPanel PanelS;
     private JPanel PanelSR;
     private JLabel RepertuarLabel;
+    private JLabel RezerwacjaLabel;
     private JLabel SeansLabel;
     private JLabel TextRepertuar;
+    private JLabel TextRezerwacje;
     private JLabel TextSeanse;
     private JPanel bg;
     private JFormattedTextField dateSearch;
@@ -755,10 +861,13 @@ public class Cashier extends JFrame {
     private JPanel jPanel2;
     private JTable jTable1;
     private JTable jTable2;
+    private JTable jTable3;
     private JLabel logL;
     private JScrollPane movie;
     private JPanel repertuar_m;
     private JPanel repertuar_p;
+    private JScrollPane reservation;
+    private JPanel rezerwacje_m;
     private JPanel seanse_m;
     private JScrollPane show;
     private JPanel sidemenu;
