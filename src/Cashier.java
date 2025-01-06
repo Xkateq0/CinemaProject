@@ -28,6 +28,8 @@ public class Cashier extends JFrame {
     private List<CMovie> allMovies;
     private CManage<CShowing> showingMenager;
     private List<CShowing> allShowing;
+    private CManage<CReservation> reservationManager;
+    private List<CReservation> allReservation;
     public Cashier() {
         initComponents();    
      //Wczytanie baz danych
@@ -35,6 +37,8 @@ public class Cashier extends JFrame {
         allMovies =movieManager.getAll();
         showingMenager = new CManage<> (CShowing.class);
         allShowing =showingMenager.getAll();
+        reservationManager=new CManage<>(CReservation.class);
+        allReservation=reservationManager.getAll();
         
      customComponents();
         
@@ -57,6 +61,7 @@ public class Cashier extends JFrame {
         });
         updateTable(jTable1,allMovies);
         updateTable2(jTable2,allShowing, allMovies);
+        updateTable3(jTable3,allShowing,allMovies,allReservation, reservationManager);
         
          try {
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
@@ -193,7 +198,7 @@ public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie>
                 showing.getId(),
                 movieTitle,
                 showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                showing.getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
+                showing.getTime().format(DateTimeFormatter.ofPattern("HH:mm")),
                 showing.getIdHall(),
                 " " // Pusta kolumna na przyciski
         };
@@ -274,6 +279,114 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
 
     return panel;
 }
+    public void updateTable3(JTable jTable3, List<CShowing> allShowing, List<CMovie> allMovies, List<CReservation> allReservation ,CManage<CReservation> reservationManager) {
+        CManage<CShowing> showingManage = new CManage<>(CShowing.class);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Ilosc biletow" , "Dochód", ""}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5;
+            }
+        };
+        jTable3.setModel(model);
+        jTable3.setFont(new Font("Arial", Font.PLAIN, 18));
+        jTable3.setRowHeight(70);
+        model.setRowCount(0);
+
+        for (CReservation reservation : allReservation) {
+            int idShowing = reservation.getIdShowing();
+
+            CShowing showing = showingManage.getById(idShowing);
+
+            if (showing != null) {
+                String movieTitle = showing.getMovieTitle(allMovies);
+
+                Object[] row = new Object[]{
+                        reservation.getId(),
+                        movieTitle,
+                        showing.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        reservation.ticketNumber(),
+                        reservation.calculateTotalPrice(),
+                        " " // Pusta kolumna na przyciski
+                };
+                model.addRow(row);
+            } else {
+                System.err.println("Nie znaleziono seansu o ID: " + idShowing);
+            }
+        }
+        // Renderer dla panelu przycisków w ostatniej kolumnie
+        jTable3.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            JPanel panel3 = createButtonPanel3(jTable3, row, reservationManager);
+            if (isSelected) {
+                panel3.setBackground(table.getSelectionBackground());
+            } else {
+                panel3.setBackground(table.getBackground());
+            }
+            return panel3;
+        });
+
+        jTable3.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JTextField()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                return createButtonPanel3(table, row, reservationManager);
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return null; // Wartość edytora nie jest używana
+            }
+        });
+
+        // Centrowanie tekstu w kolumnach
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < jTable3.getColumnCount()-1; i++) {
+            jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Ustawienie szerokości kolumn
+        jTable3.getColumnModel().getColumn(0).setPreferredWidth(150);  // ID
+        jTable3.getColumnModel().getColumn(0).setResizable(false);
+        jTable3.getColumnModel().getColumn(1).setPreferredWidth(385); // Tytuł Filmu
+        jTable3.getColumnModel().getColumn(1).setResizable(false);
+        jTable3.getColumnModel().getColumn(2).setPreferredWidth(300); // Data
+        jTable3.getColumnModel().getColumn(2).setResizable(false);
+        jTable3.getColumnModel().getColumn(3).setPreferredWidth(150); // Ilosc Biletow
+        jTable3.getColumnModel().getColumn(3).setResizable(false);
+        jTable3.getColumnModel().getColumn(4).setPreferredWidth(150);  // Dochod Biletow
+        jTable3.getColumnModel().getColumn(4).setResizable(false);
+        jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable3.getColumnModel().getColumn(5).setResizable(false);
+
+        jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable3.getTableHeader().setReorderingAllowed(false);
+
+    }
+    private JPanel createButtonPanel3(JTable table, int row, CManage<CReservation> reservationManage) {
+        JButton displayButton = new JButton("Wyswietl");
+        displayButton.setBackground(new Color(72, 61, 139));
+        displayButton.setForeground(Color.WHITE);
+        displayButton.setFocusPainted(false);
+        displayButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        displayButton.setFont(new Font("Arial", Font.BOLD, 16));
+        displayButton.setPreferredSize(new Dimension(150, 40));
+        displayButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // Poprawiamy ActionListener
+        displayButton.addActionListener(e -> {
+            int reservationId = (int) table.getModel().getValueAt(row, 0);
+            CReservation reservation = reservationManage.getById(reservationId);
+            resFrame resFrameWindow = new resFrame(reservation);
+            resFrameWindow.setVisible(true);
+        });
+
+        JPanel panel3 = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel3.add(displayButton, gbc);
+
+        return panel3;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -345,6 +458,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         sidemenu.setBackground(new Color(75, 0, 130));
         sidemenu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         sidemenu.setMaximumSize(new Dimension(151, 428));
+        sidemenu.setMinimumSize(new Dimension(151, 428));
 
         repertuar_m.setBackground(new Color(72, 61, 139));
         repertuar_m.addMouseListener(new MouseAdapter() {
@@ -752,8 +866,27 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
 
 
     private void ButtonSearch2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearch2ActionPerformed
-        // TODO add your handling code here:
+        String searchQuery = FieldSearch2.getText().trim().toLowerCase();
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+
+        if (searchQuery.isEmpty()) {
+            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+            updateTable2(jTable2, allShowing, allMovies);
+        } else {
+            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+            List<CShowing> filteredShows = new ArrayList<>();
+
+            for (CShowing showing : showManager.getAll()) {
+                String movieTitle = showing.getMovieTitle(allMovies);
+                if (movieTitle.toLowerCase().contains(searchQuery)) {
+                    filteredShows.add(showing);
+                }
+            }
+            updateTable2(jTable2, filteredShows, allMovies);
+        }
     }//GEN-LAST:event_ButtonSearch2ActionPerformed
+
 
     private void repertuar_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
         PanelS.setVisible(false);
@@ -822,7 +955,37 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
     }//GEN-LAST:event_rezerwacje_mMouseExited
 
     private void ButtonSearch1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearch1ActionPerformed
-        // TODO add your handling code here:
+        String searchQuery = FieldSerach1.getText().trim();
+
+        // Pobieranie danych
+        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
+        List<CMovie> allMovies = movieManager.getAll();
+
+        CManage<CShowing> showManager = new CManage<>(CShowing.class);
+        List<CShowing> allShow = showManager.getAll();
+
+        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
+        List<CReservation> allReservation = reservationManager.getAll();
+
+        if (searchQuery.isEmpty()) {
+            updateTable3(jTable3, allShow, allMovies, allReservation, reservationManager);
+        } else {
+            try {
+                int searchId = Integer.parseInt(searchQuery);
+
+                List<CReservation> filteredReservations = allReservation.stream()
+                        .filter(reservation -> reservation.getId() == searchId)
+                        .toList();
+
+                if (filteredReservations.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Nie znaleziono rezerwacji o podanym ID.", "Brak wyników", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    updateTable3(jTable3, allShow, allMovies, filteredReservations, reservationManager);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Proszę wprowadzić poprawne ID (liczbę).", "Błąd wyszukiwania", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_ButtonSearch1ActionPerformed
 
     private void FieldSerach1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_FieldSerach1ActionPerformed

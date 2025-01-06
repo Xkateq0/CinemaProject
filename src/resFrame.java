@@ -204,7 +204,7 @@ public class resFrame extends JFrame {
         saveM = new JMenuItem();
         printM = new JMenuItem();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         bg.setBackground(new Color(255, 255, 255));
 
