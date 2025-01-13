@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class CMovie extends CBase {
     private String imagePath ;
     private String title;

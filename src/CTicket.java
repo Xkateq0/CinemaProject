@@ -2,7 +2,7 @@ public class CTicket{
     private TypeTicket typeTicket;
     String seat;
 
-    public CTicket(){};
+    public CTicket(){}
     public CTicket(TypeTicket typeTicket) {
         this.typeTicket = typeTicket;
     }

@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.Map;
 
 class CCashier extends CUser{
-    private CManage<CReservation> reservationManager;
     public CCashier(String username, String password) {
         super(username, password);
     }
@@ -13,34 +12,42 @@ class CCashier extends CUser{
     }
 
 
-//    public void finalizeReservation(CShowing seans, Map<String, CTicket> ticketsMap) throws IOException {
-//        if (ticketsMap.isEmpty()) {
-//            throw new IllegalArgumentException("Nie wybrano żadnych biletów.");
-//        }
-//
-//        // Tworzenie rezerwacji
+//    public void finalizeReservation(CShowing seans, Map<String, CTicket> ticketsMap, JButton[] seatButtons) {
+//        // Tworzymy obiekt CReservation dla danego seansu
 //        CReservation reservation = new CReservation(seans.getId());
 //
-//        for (CTicket ticket : ticketsMap.values()) {
+//        // Dodajemy wszystkie wybrane bilety do rezerwacji
+//        for (Map.Entry<String, CTicket> entry : ticketsMap.entrySet()) {
+//            CTicket ticket = entry.getValue();
 //            reservation.addTicket(ticket);
+//
+//            String seat = ticket.getSeat();
+//            for (int i = 0; i < seans.getSeats().length; i++) {
+//                if (seatButtons[i].getText().equals(seat)) {
+//                    seans.getSeats()[i].setOccupied(true);
+//                    break;
+//                }
+//            }
 //        }
 //
-//        // Zapisanie rezerwacji do bazy danych
+//        // Zapisujemy rezerwację w bazie danych
+//        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
 //        reservationManager.save(reservation);
-//        reservationManager.close(); // Zapis do pliku
-//    }
-
-//    public void setTicket(CTicket ticket, int idTicket,TypeTicket typeTicket){
-//        ticket.setTypeTicket(typeTicket);
-//        ticket.setPriceByType();
-//    }
 //
-//    public void setReservation(CReservation reservation, int idReservation , int idTicket,int idShowing, int idMovie, int idSeat){
-//        reservation.setIdTicket(idTicket);
-//        reservation.setIdShowing(idShowing);
-//        reservation.setIdMovie(idMovie);
-//        reservation.setIdSeat(idSeat);
+//        CManage<CShowing> showingManager = new CManage<>(CShowing.class);
+//        showingManager.save(seans);
+//
+//        try {
+//            reservationManager.close(); // Zapisujemy zmiany w pliku
+//            showingManager.close();
+//            new resFrame(reservation).setVisible(true);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Wystąpił błąd podczas zapisywania rezerwacji.", "Błąd", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        // Informacja o sukcesie
+//        JOptionPane.showMessageDialog(null, "Rezerwacja została pomyślnie zapisana!", "Sukces", JOptionPane.INFORMATION_MESSAGE);
 //    }
-
-
 }

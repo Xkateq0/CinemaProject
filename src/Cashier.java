@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -16,7 +15,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import javax.swing.table.TableCellEditor;
+import java.util.Objects;
 import javax.swing.text.MaskFormatter;
 /**
  *
@@ -24,11 +23,11 @@ import javax.swing.text.MaskFormatter;
  */
 public class Cashier extends JFrame {
 
-    private  CManage<CMovie> movieManager;
-    private List<CMovie> allMovies;
-    private CManage<CShowing> showingMenager;
-    private List<CShowing> allShowing;
-    private CManage<CReservation> reservationManager;
+    private  final CManage<CMovie> movieManager;
+    private final List<CMovie> allMovies;
+    private final CManage<CShowing> showingMenager;
+    private final List<CShowing> allShowing;
+    private  CManage<CReservation> reservationManager;
     private List<CReservation> allReservation;
     public Cashier() {
         initComponents();    
@@ -48,7 +47,7 @@ public class Cashier extends JFrame {
     {
         setExtendedState(Cashier.MAXIMIZED_BOTH);
         setTitle("Katana - Panel kasjera");
-        ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
+        ImageIcon icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         setIconImage(icona.getImage());
         
          logL.addMouseListener(new MouseAdapter() {
@@ -61,7 +60,7 @@ public class Cashier extends JFrame {
         });
         updateTable(jTable1,allMovies);
         updateTable2(jTable2,allShowing, allMovies);
-        updateTable3(jTable3,allShowing,allMovies,allReservation, reservationManager);
+        updateTable3(jTable3, allMovies,allReservation);
         
          try {
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
@@ -72,7 +71,7 @@ public class Cashier extends JFrame {
     }
     }
     
-
+// Tabela z repertuarami
 public void updateTable(JTable jTable1, List<CMovie> allMovies) {
     DefaultTableModel model = new DefaultTableModel(new String[]{" ", "Tytuł", "Obsada", "Opis", "Gatunek"}, 0) {
         @Override
@@ -88,7 +87,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
 
     for (CMovie movie : allMovies) {
         Object[] row = new Object[]{
-                new ImageIcon(scaleImage(movie.getImagePath(), 190, 270)),
+                new ImageIcon(Objects.requireNonNull(scaleImage(movie.getImagePath(), 190, 270))),
                 movie.getTitle(),
                 movie.getCast(),
                 movie.getMovieDescription(),
@@ -99,7 +98,8 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
     }
 
     // Renderer dla obrazów
-    jTable1.getColumnModel().getColumn(0).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+
+    jTable1.getColumnModel().getColumn(0).setCellRenderer((table, value, isSelected, _, _, _) -> {
         if (value instanceof ImageIcon) {
             JLabel label = new JLabel((ImageIcon) value);
             label.setHorizontalAlignment(JLabel.CENTER);
@@ -115,7 +115,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
 
     // Ustawienie wyśrodkowania tekstu i zawijania w kolumnach 1-4
     for (int i = 1; i <= 4; i++) {
-        // Renderer dla wyśrodkowanego i zawijającego tekstu
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);  // Wyśrodkowanie w poziomie
         centerRenderer.setVerticalAlignment(JLabel.CENTER);    // Wyśrodkowanie w pionie
@@ -128,12 +128,10 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
         label.setFont(new Font("Arial", Font.PLAIN, 18));
         label.setHorizontalAlignment(JLabel.CENTER);  // Wyśrodkowanie w poziomie
         label.setVerticalAlignment(JLabel.CENTER);    // Wyśrodkowanie w pionie
-        label.setText(" ");  // Domyślny tekst (później ustawimy właściwy tekst w tabeli)
+        label.setText(" ");
 
-        // Ustawienie zawijania tekstu
         label.setText("<html><div style='width: 150px;'>" + label.getText() + "</div></html>");
 
-        // Ustawienie renderera dla komórki
         jTable1.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -143,8 +141,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
         });
     }
 
-    // Ustawienie wysokości wierszy na 277 pikseli
-    jTable1.setRowHeight(277);  // Ustaw wysokość wierszy na 277
+    jTable1.setRowHeight(277);
 }
 
 
@@ -171,7 +168,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
     }
     
     
-
+// Tabela z seansami
 public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie> allMovies) {
     DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Godzina rozpoczęcia", "Sala", ""}, 0) {
         @Override
@@ -206,7 +203,7 @@ public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie>
     }
 
     // Renderer dla panelu przycisków w ostatniej kolumnie
-    jTable2.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+    jTable2.getColumnModel().getColumn(5).setCellRenderer((table, _, isSelected, _, row, _) -> {
         JPanel panel = createButtonPanel2(jTable2, row, allShowing);
         if (isSelected) {
             panel.setBackground(table.getSelectionBackground());
@@ -279,8 +276,10 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
 
     return panel;
 }
-    public void updateTable3(JTable jTable3, List<CShowing> allShowing, List<CMovie> allMovies, List<CReservation> allReservation ,CManage<CReservation> reservationManager) {
-        CManage<CShowing> showingManage = new CManage<>(CShowing.class);
+
+// Tabela z rezerwacjami
+public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservation> allReservation) {
+
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Tytuł Filmu", "Data", "Ilosc biletow" , "Dochód", ""}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -295,7 +294,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         for (CReservation reservation : allReservation) {
             int idShowing = reservation.getIdShowing();
 
-            CShowing showing = showingManage.getById(idShowing);
+            CShowing showing = showingMenager.getById(idShowing);
 
             if (showing != null) {
                 String movieTitle = showing.getMovieTitle(allMovies);
@@ -314,7 +313,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
             }
         }
         // Renderer dla panelu przycisków w ostatniej kolumnie
-        jTable3.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+        jTable3.getColumnModel().getColumn(5).setCellRenderer((table, _, isSelected, _, row, _) -> {
             JPanel panel3 = createButtonPanel3(jTable3, row, reservationManager);
             if (isSelected) {
                 panel3.setBackground(table.getSelectionBackground());
@@ -458,7 +457,6 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         sidemenu.setBackground(new Color(75, 0, 130));
         sidemenu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         sidemenu.setMaximumSize(new Dimension(151, 428));
-        sidemenu.setMinimumSize(new Dimension(151, 428));
 
         repertuar_m.setBackground(new Color(72, 61, 139));
         repertuar_m.addMouseListener(new MouseAdapter() {
@@ -509,23 +507,18 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
 
         TextSeanse.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
         TextSeanse.setForeground(new Color(255, 255, 255));
+        TextSeanse.setHorizontalAlignment(SwingConstants.CENTER);
         TextSeanse.setText("SEANSE");
 
         GroupLayout seanse_mLayout = new GroupLayout(seanse_m);
         seanse_m.setLayout(seanse_mLayout);
         seanse_mLayout.setHorizontalGroup(
             seanse_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, seanse_mLayout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TextSeanse)
-                .addGap(33, 33, 33))
+            .addComponent(TextSeanse, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         seanse_mLayout.setVerticalGroup(
             seanse_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(seanse_mLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(TextSeanse, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(TextSeanse, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         rezerwacje_m.setBackground(new Color(72, 61, 139));
@@ -554,7 +547,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         );
         rezerwacje_mLayout.setVerticalGroup(
             rezerwacje_mLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(TextRezerwacje, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(TextRezerwacje, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         logL.setIcon(new ImageIcon(getClass().getResource("/Image/logO.png"))); // NOI18N
@@ -564,12 +557,13 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         sidemenuLayout.setHorizontalGroup(
             sidemenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(repertuar_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(seanse_m, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(GroupLayout.Alignment.CENTER, sidemenuLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rezerwacje_m, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(sidemenuLayout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
-            .addComponent(rezerwacje_m, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidemenuLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(logL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
@@ -584,7 +578,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                     .addGroup(sidemenuLayout.createSequentialGroup()
                         .addComponent(repertuar_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seanse_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(seanse_m, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rezerwacje_m, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -646,7 +640,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                         .addComponent(ButtonSearch)
                         .addGap(12, 12, 12))
                     .addGroup(PanelRLayout.createSequentialGroup()
-                        .addComponent(movie, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addComponent(movie, GroupLayout.DEFAULT_SIZE, 1773, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelRLayout.setVerticalGroup(
@@ -706,7 +700,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                 .addContainerGap()
                 .addGroup(PanelSLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(PanelSLayout.createSequentialGroup()
-                        .addGap(0, 549, Short.MAX_VALUE)
+                        .addGap(0, 1247, Short.MAX_VALUE)
                         .addComponent(dateSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(DateSeatchBtn)
@@ -716,7 +710,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                         .addComponent(ButtonSearch2)
                         .addGap(12, 12, 12))
                     .addGroup(PanelSLayout.createSequentialGroup()
-                        .addComponent(show, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addComponent(show, GroupLayout.DEFAULT_SIZE, 1773, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelSLayout.setVerticalGroup(
@@ -782,7 +776,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                         .addComponent(ButtonSearch1)
                         .addGap(12, 12, 12))
                     .addGroup(PanelReLayout.createSequentialGroup()
-                        .addComponent(reservation, GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                        .addComponent(reservation, GroupLayout.DEFAULT_SIZE, 1773, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         PanelReLayout.setVerticalGroup(
@@ -830,22 +824,6 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void repertuar_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
-       repertuar_m.setBackground(new Color(106,90,205));
-    }//GEN-LAST:event_repertuar_mMouseEntered
-
-    private void repertuar_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseExited
-        repertuar_m.setBackground(new Color(72,61,139));
-    }//GEN-LAST:event_repertuar_mMouseExited
-
-    private void seanse_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseEntered
-        seanse_m.setBackground(new Color(106,90,205));
-    }//GEN-LAST:event_seanse_mMouseEntered
-
-    private void seanse_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
-       seanse_m.setBackground(new Color(72,61,139));
-    }//GEN-LAST:event_seanse_mMouseExited
-
     private void ButtonSearchActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
         String searchQuery = FieldSerach.getText().trim().toLowerCase();
 
@@ -871,13 +849,13 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         List<CMovie> allMovies = movieManager.getAll();
 
         if (searchQuery.isEmpty()) {
-            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+
             updateTable2(jTable2, allShowing, allMovies);
         } else {
-            CManage<CShowing> showManager = new CManage<>(CShowing.class);
+
             List<CShowing> filteredShows = new ArrayList<>();
 
-            for (CShowing showing : showManager.getAll()) {
+            for (CShowing showing : showingMenager.getAll()) {
                 String movieTitle = showing.getMovieTitle(allMovies);
                 if (movieTitle.toLowerCase().contains(searchQuery)) {
                     filteredShows.add(showing);
@@ -887,26 +865,6 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         }
     }//GEN-LAST:event_ButtonSearch2ActionPerformed
 
-
-    private void repertuar_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
-        PanelS.setVisible(false);
-        PanelR.setVisible(true);
-        PanelRe.setVisible(false);
-        updateTable(jTable1,allMovies);
-        SeansLabel.setVisible(false);
-        RepertuarLabel.setVisible(true);
-        RezerwacjaLabel.setVisible(false);
-    }//GEN-LAST:event_repertuar_mMouseClicked
-
-    private void seanse_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
-        PanelR.setVisible(false);
-        PanelRe.setVisible(false);
-        PanelS.setVisible(true);
-        updateTable2(jTable2,allShowing, allMovies);
-        SeansLabel.setVisible(true);
-        RepertuarLabel.setVisible(false);
-        RezerwacjaLabel.setVisible(false);
-    }//GEN-LAST:event_seanse_mMouseClicked
 
     private void DateSeatchBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_DateSeatchBtnActionPerformed
        String searchDate = dateSearch.getText();
@@ -936,39 +894,11 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
     }
     }//GEN-LAST:event_DateSeatchBtnActionPerformed
 
-    private void rezerwacje_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseClicked
-        PanelR.setVisible(false);
-        PanelRe.setVisible(true);
-        PanelS.setVisible(false);
-        //updateTable2(jTable2,allShowing, allMovies);
-        SeansLabel.setVisible(false);
-        RepertuarLabel.setVisible(false);
-        RezerwacjaLabel.setVisible(true);
-    }//GEN-LAST:event_rezerwacje_mMouseClicked
-
-    private void rezerwacje_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseEntered
-         rezerwacje_m.setBackground(new Color(106,90,205));
-    }//GEN-LAST:event_rezerwacje_mMouseEntered
-
-    private void rezerwacje_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseExited
-         rezerwacje_m.setBackground(new Color(72,61,139));
-    }//GEN-LAST:event_rezerwacje_mMouseExited
-
     private void ButtonSearch1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonSearch1ActionPerformed
         String searchQuery = FieldSerach1.getText().trim();
 
-        // Pobieranie danych
-        CManage<CMovie> movieManager = new CManage<>(CMovie.class);
-        List<CMovie> allMovies = movieManager.getAll();
-
-        CManage<CShowing> showManager = new CManage<>(CShowing.class);
-        List<CShowing> allShow = showManager.getAll();
-
-        CManage<CReservation> reservationManager = new CManage<>(CReservation.class);
-        List<CReservation> allReservation = reservationManager.getAll();
-
         if (searchQuery.isEmpty()) {
-            updateTable3(jTable3, allShow, allMovies, allReservation, reservationManager);
+            updateTable3(jTable3, allMovies, allReservation);
         } else {
             try {
                 int searchId = Integer.parseInt(searchQuery);
@@ -980,7 +910,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                 if (filteredReservations.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Nie znaleziono rezerwacji o podanym ID.", "Brak wyników", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    updateTable3(jTable3, allShow, allMovies, filteredReservations, reservationManager);
+                    updateTable3(jTable3, allMovies, filteredReservations);
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Proszę wprowadzić poprawne ID (liczbę).", "Błąd wyszukiwania", JOptionPane.ERROR_MESSAGE);
@@ -992,13 +922,63 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
         // TODO add your handling code here:
     }//GEN-LAST:event_FieldSerach1ActionPerformed
 
-    public static void main(String[] args) {
-        // Uruchomienie aplikacji Cashier1
-       EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Cashier().setVisible(true);
-            } });
-    }
+    private void rezerwacje_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseExited
+        rezerwacje_m.setBackground(new Color(72,61,139));
+    }//GEN-LAST:event_rezerwacje_mMouseExited
+
+    private void rezerwacje_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseEntered
+        rezerwacje_m.setBackground(new Color(106,90,205));
+    }//GEN-LAST:event_rezerwacje_mMouseEntered
+
+    private void rezerwacje_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_rezerwacje_mMouseClicked
+        PanelR.setVisible(false);
+        PanelRe.setVisible(true);
+        PanelS.setVisible(false);
+        reservationManager = new CManage<>(CReservation.class);
+        allReservation=reservationManager.getAll();
+        updateTable3(jTable3, allMovies, allReservation);
+        SeansLabel.setVisible(false);
+        RepertuarLabel.setVisible(false);
+        RezerwacjaLabel.setVisible(true);
+    }//GEN-LAST:event_rezerwacje_mMouseClicked
+
+    private void seanse_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseExited
+        seanse_m.setBackground(new Color(72,61,139));
+    }//GEN-LAST:event_seanse_mMouseExited
+
+    private void seanse_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseEntered
+        seanse_m.setBackground(new Color(106,90,205));
+    }//GEN-LAST:event_seanse_mMouseEntered
+
+    private void seanse_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_seanse_mMouseClicked
+        PanelR.setVisible(false);
+        PanelRe.setVisible(false);
+        PanelS.setVisible(true);
+        updateTable2(jTable2,allShowing, allMovies);
+        SeansLabel.setVisible(true);
+        RepertuarLabel.setVisible(false);
+        RezerwacjaLabel.setVisible(false);
+    }//GEN-LAST:event_seanse_mMouseClicked
+
+    private void repertuar_mMouseExited(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseExited
+        repertuar_m.setBackground(new Color(72,61,139));
+    }//GEN-LAST:event_repertuar_mMouseExited
+
+    private void repertuar_mMouseEntered(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseEntered
+        repertuar_m.setBackground(new Color(106,90,205));
+    }//GEN-LAST:event_repertuar_mMouseEntered
+
+    private void repertuar_mMouseClicked(MouseEvent evt) {//GEN-FIRST:event_repertuar_mMouseClicked
+        PanelS.setVisible(false);
+        PanelR.setVisible(true);
+        PanelRe.setVisible(false);
+        updateTable(jTable1,allMovies);
+        SeansLabel.setVisible(false);
+        RepertuarLabel.setVisible(true);
+        RezerwacjaLabel.setVisible(false);
+    }//GEN-LAST:event_repertuar_mMouseClicked
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton ButtonSearch;

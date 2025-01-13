@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class CManage<T extends CBase> {
 
-    private Map<Integer, T> baza = new HashMap<>();
-    private String fileName;
+    private final Map<Integer, T> baza = new HashMap<>();
+    private final String fileName;
 
     // Konstruktor wczytuje dane z pliku, jeśli istnieje
     public CManage(Class<T> clazz) {

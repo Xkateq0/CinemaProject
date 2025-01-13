@@ -33,7 +33,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
     private void customComponents()
     {
         CManage<CMovie> movieManager= new CManage<> (CMovie.class);
-        CMovie movie = (CMovie) movieManager.getById(seans.getIdMovie());
+        CMovie movie = movieManager.getById(seans.getIdMovie());
         if(movie!=null)
         {titleTxt.setText(movie.getTitle());}
         dateTxt.setText(seans.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
@@ -66,6 +66,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
         }
     }
 
+    //Zaktualizuj stan siedzen na podstawie tabeli z CShowing
     private void updateSeats()
     {
         next_btn.setEnabled(false);
@@ -110,6 +111,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
     next_btn.setEnabled(isAnySeatSelected());
 }
 //WYBOR BILETOW
+
 private void addTicket(String seat, String ticketType) {
     // Tworzenie obiektu CTicket z typu ticketType
     TypeTicket type = TypeTicket.valueOf(ticketType.toUpperCase());
@@ -268,6 +270,7 @@ private void removeTicket(String seat) {
         try {
             reservationManager.close(); // Zapisujemy zmiany w pliku
             showingManager.close();
+            new resFrame(reservation).setVisible(true);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Wystąpił błąd podczas zapisywania rezerwacji.", "Błąd", JOptionPane.ERROR_MESSAGE);

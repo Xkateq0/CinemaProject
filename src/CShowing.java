@@ -32,6 +32,7 @@ public class CShowing extends CBase {
 
   }
 
+//Klasa wewnetrzna
   public class CSeat {
     private boolean isOccupied;
 
