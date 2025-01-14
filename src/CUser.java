@@ -1,4 +1,4 @@
-abstract class CUser {
+abstract class CUser implements IUser {
     protected String username;
     protected String password;
 
@@ -7,21 +7,13 @@ abstract class CUser {
         this.password=password;
     }
 
-    public String getUsername(){
-        return username;
-    }
+    public CUser(){};
 
+    @Override
     public String getPassword(){
         return password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public abstract void displayOptions();
 }

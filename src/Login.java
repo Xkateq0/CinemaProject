@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 /**
  *
@@ -66,7 +67,7 @@ public class Login extends javax.swing.JFrame {
 
         Admin.setBackground(new java.awt.Color(72, 61, 139));
         Admin.setForeground(new java.awt.Color(72, 61, 139));
-        Admin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/administrator.jpg"))); // NOI18N
+        Admin.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/Image/administrator.jpg")))); // NOI18N
         Admin.setAlignmentX(0.5F);
         Admin.setAutoscrolls(true);
         Admin.setBorder(null);
@@ -108,7 +109,7 @@ public class Login extends javax.swing.JFrame {
 
         Cashier1.setBackground(new java.awt.Color(72, 61, 139));
         Cashier1.setForeground(new java.awt.Color(72, 61, 139));
-        Cashier1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Kasjer.jpg"))); // NOI18N
+        Cashier1.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/Image/Kasjer.jpg")))); // NOI18N
         Cashier1.setAlignmentX(0.5F);
         Cashier1.setAutoscrolls(true);
         Cashier1.setBorder(null);
@@ -195,7 +196,7 @@ public class Login extends javax.swing.JFrame {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Wpisz hasło dla: " + userType));
         panel.add(passwordField);
-
+        CUser uzytkownik;
         int option = JOptionPane.showConfirmDialog(null, panel, userType + " Logowanie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -204,11 +205,13 @@ public class Login extends javax.swing.JFrame {
 
                 if (validatePassword(userType, passwordText)) {
                     if (userType.equals("Admin")) {
-                        Administrator adminWindow = new Administrator();
+                       uzytkownik=new CAdministrator();
+                        Administrator adminWindow = new Administrator(uzytkownik);
                         adminWindow.setVisible(true);
                         dispose();
                     } else if (userType.equals("Kasjer")) {
-                        Cashier cashierWindow = new Cashier();
+                        uzytkownik= new CCashier();
+                        Cashier cashierWindow = new Cashier(uzytkownik);
                         cashierWindow.setVisible(true);
                         dispose();
                     }

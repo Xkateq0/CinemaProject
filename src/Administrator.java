@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.MaskFormatter;
 import java.awt.Image;
+import java.util.Objects;
 
 public class Administrator extends javax.swing.JFrame {
     private boolean isEditing;
@@ -34,9 +35,11 @@ public class Administrator extends javax.swing.JFrame {
     private List<CReservation> allReservation;
     private CMovie currentMovie = new CMovie();
     private CShowing currentShow = new CShowing();
+    private CUser uzytkownik;
 
-    public Administrator() {
+    public Administrator(CUser uzytkownik) {
         initComponents();
+        this.uzytkownik=uzytkownik;
         movieManager= new CManage<> (CMovie.class);
         allMovies =movieManager.getAll();
         showingManager = new CManage<> (CShowing.class);
@@ -50,7 +53,7 @@ public class Administrator extends javax.swing.JFrame {
     {
         setExtendedState(Administrator.MAXIMIZED_BOTH);
         setTitle("Katana - Panel administratora");
-        ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
+        ImageIcon icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         setIconImage(icona.getImage());
 
         updateTable(jTable1, allMovies,movieManager);
@@ -61,7 +64,7 @@ public class Administrator extends javax.swing.JFrame {
 
         setExtendedState(Administrator.MAXIMIZED_BOTH);
         setTitle("Katana - Panel administratora");
-        ImageIcon iconas = new ImageIcon(getClass().getResource("Image/katana.png"));
+        ImageIcon iconas = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         setIconImage(iconas.getImage());
 
         logL.addMouseListener(new MouseAdapter() {
@@ -780,7 +783,7 @@ public class Administrator extends javax.swing.JFrame {
         for (CMovie movie : allMovies) {
             Object[] row = new Object[]{
                     movie.getId(),
-                    new ImageIcon(scaleImage(movie.getImagePath(), 190, 270)),
+                    new ImageIcon(Objects.requireNonNull(scaleImage(movie.getImagePath(), 190, 270))),
                     movie.getTitle(),
                     " ",
             };
@@ -941,12 +944,14 @@ public class Administrator extends javax.swing.JFrame {
                 for (CShowing showToRemove : showsToRemove) {
                     showManager.remove(showToRemove);
                     showManager.close();
-                    movieManager.remove(movieToRemove);
-                    movieManager.close();
-                    updateTable(table, movieManager.getAll(), movieManager);
+                    Logger.log(uzytkownik.getName()+" usunal seans o id "+ showToRemove.getId());
+                    //movieManager.remove(movieToRemove);
+                    //movieManager.close();
+                    //updateTable(table, movieManager.getAll(), movieManager);
                 }
                 movieManager.remove(movieToRemove);
                 movieManager.close();
+                Logger.log(uzytkownik.getName()+" usunal film o id "+ movieToRemove.getId());
                 updateTable(table, movieManager.getAll(), movieManager);
 
             } catch (Exception ex) {
@@ -1138,6 +1143,7 @@ public class Administrator extends javax.swing.JFrame {
 
             if (response == JOptionPane.YES_OPTION) {
                 showManager.remove(showToRemove);
+                Logger.log("Usunieto seans o id: " + showId);
                 showManager.close();
                 updateTable2(table, showManager.getAll(), movieManager.getAll(), showManager);
             }
@@ -1411,11 +1417,13 @@ public class Administrator extends javax.swing.JFrame {
 
             movieManager.save(currentMovie);
             JOptionPane.showMessageDialog(this, "Film został zaktualizowany!");
+            Logger.log(uzytkownik.getName()+ " zaktualizowal film o id "+ currentMovie.getId());
         } else {
             String imagePath = currentMovie.getImagePath();
             CMovie newMovie = new CMovie(title, cast, genre, duration,imagePath,movieDescription);
             movieManager.save(newMovie);
             JOptionPane.showMessageDialog(this, "Film został dodany!");
+            Logger.log(uzytkownik.getName()+" dodał film o id "+ currentMovie.getId());
         }
 
         try {
@@ -1423,6 +1431,7 @@ public class Administrator extends javax.swing.JFrame {
             updateTable(jTable1, movieManager.getAll(), movieManager);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Nie można zapisać filmu");
+            Logger.log("Bład podczas zapisywania pliku z filmami, nie dodano filmu do bazy sprawdz poprzedni log");
             e.printStackTrace();
         }
 
@@ -1541,16 +1550,29 @@ public class Administrator extends javax.swing.JFrame {
             }
         }
 
+        LocalDateTime dateTime = LocalDateTime.of(showDate, showTime);
+        if(dateTime.isBefore(LocalDateTime.now()))
+        {
+            JOptionPane.showMessageDialog(this, "Nie można dodać seansu w przeszłości!");
+            return;
+        }
+
+
         int hallId = Integer.parseInt(selectedHall);
         CShowing newShow = new CShowing(showDate, showTime, movieId, hallId);
         showingManager.save(newShow);
         JOptionPane.showMessageDialog(this, "Seans został dodany!");
+        Logger.log(uzytkownik.getName()+ " dodał seans o id"+ newShow.getId());
 
         try {
+
             showingManager.close();
+            showingManager= new CManage<>(CShowing.class);
+            allShowing = showingManager.getAll();
             updateTable2(jTable2, allShowing, allMovies, showingManager);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Nie można zapisać seansu");
+            Logger.log("Bład podczas zapisywania pliku z filmami, nie dodano filmu do bazy sprawdz poprzedni log");
             e.printStackTrace();
         }
 

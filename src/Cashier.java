@@ -29,7 +29,8 @@ public class Cashier extends JFrame {
     private final List<CShowing> allShowing;
     private  CManage<CReservation> reservationManager;
     private List<CReservation> allReservation;
-    public Cashier() {
+    private CUser uzytkownik;
+    public Cashier(CUser uzytkownik) {
         initComponents();    
      //Wczytanie baz danych
         movieManager= new CManage<> (CMovie.class);
@@ -38,6 +39,9 @@ public class Cashier extends JFrame {
         allShowing =showingMenager.getAll();
         reservationManager=new CManage<>(CReservation.class);
         allReservation=reservationManager.getAll();
+        this.uzytkownik=uzytkownik;
+
+
         
      customComponents();
         
@@ -260,7 +264,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
                 .orElse(null);
 
         if (selectedShowing != null) {
-            SeatSelection seatSelection = new SeatSelection(selectedShowing);
+            SeatSelection seatSelection = new SeatSelection(selectedShowing, uzytkownik);
             seatSelection.setVisible(true);
         } else {
             System.err.println("Nie znaleziono seansu o ID: " + showingId);

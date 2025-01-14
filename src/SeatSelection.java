@@ -7,11 +7,12 @@ import java.util.Map;
 import javax.swing.*;
 public class SeatSelection extends JFrame {
 
+    private CUser uzytkownik;
 private final CShowing seans;
 private JToggleButton[] seatButtons;
 private Map<String, CTicket> ticketsMap = new HashMap<>();
 
-    public SeatSelection(CShowing seans) {
+    public SeatSelection(CShowing seans,CUser uzytkownik) {
         this.seans=seans;
         initComponents();
         seatButtons = new JToggleButton[] {
@@ -21,6 +22,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
                 seatD1, seatD2, seatD3, seatD4, seatD5, seatD6, seatD7, seatD8, seatD9, seatD10, seatD11, 
                 seatE1, seatE2, seatE3, seatE4, seatE5, seatE6, seatE7, seatE8, seatE9, seatE10, seatE11
         };
+        this.uzytkownik=uzytkownik;
         customComponents();
         updateSeats();
         jPanel2.setVisible(true);
@@ -270,6 +272,7 @@ private void removeTicket(String seat) {
         try {
             reservationManager.close(); // Zapisujemy zmiany w pliku
             showingManager.close();
+            Logger.log(uzytkownik.getName()+ " dodał rezerwacje "+ reservation.getId());
             new resFrame(reservation).setVisible(true);
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,6 +287,16 @@ private void removeTicket(String seat) {
         // Zamykamy okno wyboru miejsc
         this.dispose();
     }
+
+//    private void finalizeReservation() {
+//        try {
+//            cashier.finalizeReservation(seans, ticketsMap); // cashier to instancja CCashier
+//            JOptionPane.showMessageDialog(this, "Rezerwacja została pomyślnie zapisana!", "Sukces", JOptionPane.INFORMATION_MESSAGE);
+//            this.dispose();
+//        } catch (RuntimeException e) {
+//            JOptionPane.showMessageDialog(this, e.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 
 
     /**

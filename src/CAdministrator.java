@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-class CAdministrator extends CUser {
+public class CAdministrator extends CUser {
     public CAdministrator(String username, String password) {
         super(username, password);
     }
@@ -12,6 +12,8 @@ class CAdministrator extends CUser {
         System.out.println("3. Set movie times");
         System.out.println("4. Assign halls to a movie");
     }
+
+    public CAdministrator() {};
 
     public void setMovie(CMovie movie,String title,String cast,int duration,String genre){
         movie.setTitle(title);
@@ -24,6 +26,11 @@ class CAdministrator extends CUser {
         show.setTime(time);
         show.setIdMovie(idMovie);
         show.setIdHall(idHall);
+    }
+    @Override
+    public String getName()
+    {
+        return "Administrator";
     }
 
 
