@@ -25,8 +25,8 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        setTitle("Cinema Project");
-        ImageIcon icona = new ImageIcon(getClass().getResource("Image/katana.png"));
+        setTitle("Katana");
+        ImageIcon icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         setIconImage(icona.getImage());
         setExtendedState(Login.MAXIMIZED_BOTH);
         userDatabase = loadUserDatabase("src/BazaDannych/User.txt");

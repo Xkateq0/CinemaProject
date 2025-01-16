@@ -36,8 +36,10 @@ public class Administrator extends javax.swing.JFrame {
     private CMovie currentMovie = new CMovie();
     private CShowing currentShow = new CShowing();
     private CUser uzytkownik;
+    ImageIcon icona;
 
     public Administrator(CUser uzytkownik) {
+        icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         initComponents();
         this.uzytkownik=uzytkownik;
         movieManager= new CManage<> (CMovie.class);
@@ -53,7 +55,6 @@ public class Administrator extends javax.swing.JFrame {
     {
         setExtendedState(Administrator.MAXIMIZED_BOTH);
         setTitle("Katana - Panel administratora");
-        ImageIcon icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         setIconImage(icona.getImage());
 
         updateTable(jTable1, allMovies,movieManager);
@@ -151,6 +152,7 @@ public class Administrator extends javax.swing.JFrame {
         AddMovie.setMinimumSize(new java.awt.Dimension(620, 380));
         AddMovie.setResizable(false);
         AddMovie.getContentPane().setLayout(null);
+        AddMovie.setIconImage(icona.getImage());
 
         Panel_AddMovie.setBackground(new java.awt.Color(245, 245, 245));
         Panel_AddMovie.setForeground(new java.awt.Color(245, 245, 245));
@@ -277,6 +279,7 @@ public class Administrator extends javax.swing.JFrame {
         AddShow.setMinimumSize(new java.awt.Dimension(570, 330));
         AddShow.setResizable(false);
         AddShow.getContentPane().setLayout(null);
+        AddShow.setIconImage(icona.getImage());
 
         Panel_AddShow.setBackground(new java.awt.Color(245, 245, 245));
         Panel_AddShow.setForeground(new java.awt.Color(245, 245, 245));
@@ -1423,7 +1426,7 @@ public class Administrator extends javax.swing.JFrame {
             CMovie newMovie = new CMovie(title, cast, genre, duration,imagePath,movieDescription);
             movieManager.save(newMovie);
             JOptionPane.showMessageDialog(this, "Film został dodany!");
-            Logger.log(uzytkownik.getName()+" dodał film o id "+ currentMovie.getId());
+            Logger.log(uzytkownik.getName()+" dodał film o id "+ newMovie.getId());
         }
 
         try {

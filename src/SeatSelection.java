@@ -308,192 +308,192 @@ private void removeTicket(String seat) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bg = new JPanel();
-        sideInfo = new JPanel();
-        jPanel1 = new JPanel();
-        cover_l = new JLabel();
-        titleLabel = new JLabel();
-        titleTxt = new JLabel();
-        dateLabel = new JLabel();
-        dateTxt = new JLabel();
-        ticket_op = new JPanel();
-        jLabel1 = new JLabel();
-        ticketScrlPane = new JScrollPane();
-        ticketsPanel = new JPanel();
-        confirmBtn = new JButton();
-        backBtn = new JButton();
-        totalTicketsLabel = new JLabel();
-        totalPriceLabel = new JLabel();
-        jPanel2 = new JPanel();
-        jPanel3 = new JPanel();
-        seatsPanel = new JPanel();
-        seatA1 = new JToggleButton();
-        seatA2 = new JToggleButton();
-        seatA3 = new JToggleButton();
-        seatA4 = new JToggleButton();
-        seatA5 = new JToggleButton();
-        seatA6 = new JToggleButton();
-        seatA7 = new JToggleButton();
-        seatA9 = new JToggleButton();
-        seatA8 = new JToggleButton();
-        seatA10 = new JToggleButton();
-        seatA11 = new JToggleButton();
-        seatB1 = new JToggleButton();
-        seatB2 = new JToggleButton();
-        seatB3 = new JToggleButton();
-        seatB4 = new JToggleButton();
-        seatB6 = new JToggleButton();
-        seatB5 = new JToggleButton();
-        seatB7 = new JToggleButton();
-        seatB9 = new JToggleButton();
-        seatB8 = new JToggleButton();
-        seatB10 = new JToggleButton();
-        seatB11 = new JToggleButton();
-        seatC1 = new JToggleButton();
-        seatC2 = new JToggleButton();
-        seatC3 = new JToggleButton();
-        seatC4 = new JToggleButton();
-        seatC5 = new JToggleButton();
-        seatC6 = new JToggleButton();
-        seatC7 = new JToggleButton();
-        seatC8 = new JToggleButton();
-        seatC9 = new JToggleButton();
-        seatC10 = new JToggleButton();
-        seatC11 = new JToggleButton();
-        seatD1 = new JToggleButton();
-        seatD2 = new JToggleButton();
-        seatD3 = new JToggleButton();
-        seatD4 = new JToggleButton();
-        seatD5 = new JToggleButton();
-        seatD6 = new JToggleButton();
-        seatD7 = new JToggleButton();
-        seatD8 = new JToggleButton();
-        seatD9 = new JToggleButton();
-        seatD10 = new JToggleButton();
-        seatD11 = new JToggleButton();
-        seatE1 = new JToggleButton();
-        seatE2 = new JToggleButton();
-        seatE3 = new JToggleButton();
-        seatE4 = new JToggleButton();
-        seatE5 = new JToggleButton();
-        seatE6 = new JToggleButton();
-        seatE7 = new JToggleButton();
-        seatE8 = new JToggleButton();
-        seatE9 = new JToggleButton();
-        seatE10 = new JToggleButton();
-        seatE11 = new JToggleButton();
-        seatNumber1 = new JPanel();
-        jLabel3 = new JLabel();
-        jLabel4 = new JLabel();
-        jLabel5 = new JLabel();
-        jLabel6 = new JLabel();
-        jLabel7 = new JLabel();
-        jLabel8 = new JLabel();
-        jLabel9 = new JLabel();
-        jLabel10 = new JLabel();
-        jLabel11 = new JLabel();
-        jLabel12 = new JLabel();
-        jLabel13 = new JLabel();
-        seatNumber2 = new JPanel();
-        jLabel14 = new JLabel();
-        jLabel15 = new JLabel();
-        jLabel16 = new JLabel();
-        jLabel17 = new JLabel();
-        jLabel18 = new JLabel();
-        jLabel19 = new JLabel();
-        next_btn = new JButton();
+        bg = new javax.swing.JPanel();
+        sideInfo = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        cover_l = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        titleTxt = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        dateTxt = new javax.swing.JLabel();
+        ticket_op = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        ticketScrlPane = new javax.swing.JScrollPane();
+        ticketsPanel = new javax.swing.JPanel();
+        confirmBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
+        totalTicketsLabel = new javax.swing.JLabel();
+        totalPriceLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        seatsPanel = new javax.swing.JPanel();
+        seatA1 = new javax.swing.JToggleButton();
+        seatA2 = new javax.swing.JToggleButton();
+        seatA3 = new javax.swing.JToggleButton();
+        seatA4 = new javax.swing.JToggleButton();
+        seatA5 = new javax.swing.JToggleButton();
+        seatA6 = new javax.swing.JToggleButton();
+        seatA7 = new javax.swing.JToggleButton();
+        seatA9 = new javax.swing.JToggleButton();
+        seatA8 = new javax.swing.JToggleButton();
+        seatA10 = new javax.swing.JToggleButton();
+        seatA11 = new javax.swing.JToggleButton();
+        seatB1 = new javax.swing.JToggleButton();
+        seatB2 = new javax.swing.JToggleButton();
+        seatB3 = new javax.swing.JToggleButton();
+        seatB4 = new javax.swing.JToggleButton();
+        seatB6 = new javax.swing.JToggleButton();
+        seatB5 = new javax.swing.JToggleButton();
+        seatB7 = new javax.swing.JToggleButton();
+        seatB9 = new javax.swing.JToggleButton();
+        seatB8 = new javax.swing.JToggleButton();
+        seatB10 = new javax.swing.JToggleButton();
+        seatB11 = new javax.swing.JToggleButton();
+        seatC1 = new javax.swing.JToggleButton();
+        seatC2 = new javax.swing.JToggleButton();
+        seatC3 = new javax.swing.JToggleButton();
+        seatC4 = new javax.swing.JToggleButton();
+        seatC5 = new javax.swing.JToggleButton();
+        seatC6 = new javax.swing.JToggleButton();
+        seatC7 = new javax.swing.JToggleButton();
+        seatC8 = new javax.swing.JToggleButton();
+        seatC9 = new javax.swing.JToggleButton();
+        seatC10 = new javax.swing.JToggleButton();
+        seatC11 = new javax.swing.JToggleButton();
+        seatD1 = new javax.swing.JToggleButton();
+        seatD2 = new javax.swing.JToggleButton();
+        seatD3 = new javax.swing.JToggleButton();
+        seatD4 = new javax.swing.JToggleButton();
+        seatD5 = new javax.swing.JToggleButton();
+        seatD6 = new javax.swing.JToggleButton();
+        seatD7 = new javax.swing.JToggleButton();
+        seatD8 = new javax.swing.JToggleButton();
+        seatD9 = new javax.swing.JToggleButton();
+        seatD10 = new javax.swing.JToggleButton();
+        seatD11 = new javax.swing.JToggleButton();
+        seatE1 = new javax.swing.JToggleButton();
+        seatE2 = new javax.swing.JToggleButton();
+        seatE3 = new javax.swing.JToggleButton();
+        seatE4 = new javax.swing.JToggleButton();
+        seatE5 = new javax.swing.JToggleButton();
+        seatE6 = new javax.swing.JToggleButton();
+        seatE7 = new javax.swing.JToggleButton();
+        seatE8 = new javax.swing.JToggleButton();
+        seatE9 = new javax.swing.JToggleButton();
+        seatE10 = new javax.swing.JToggleButton();
+        seatE11 = new javax.swing.JToggleButton();
+        seatNumber1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        seatNumber2 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        next_btn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        bg.setBackground(new Color(255, 255, 255));
+        bg.setBackground(new java.awt.Color(255, 255, 255));
 
-        sideInfo.setBackground(new Color(75, 0, 130));
+        sideInfo.setBackground(new java.awt.Color(75, 0, 130));
 
-        jPanel1.setBackground(new Color(74, 85, 199));
+        jPanel1.setBackground(new java.awt.Color(74, 85, 199));
 
-        cover_l.setBackground(new Color(204, 204, 255));
-        cover_l.setHorizontalAlignment(SwingConstants.CENTER);
+        cover_l.setBackground(new java.awt.Color(204, 204, 255));
+        cover_l.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cover_l, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(cover_l, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cover_l, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cover_l, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        titleLabel.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
-        titleLabel.setForeground(new Color(255, 255, 255));
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
         titleLabel.setText("TITLE");
 
-        titleTxt.setForeground(new Color(255, 255, 255));
-        titleTxt.setHorizontalAlignment(SwingConstants.CENTER);
+        titleTxt.setForeground(new java.awt.Color(255, 255, 255));
+        titleTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleTxt.setText("jLabel3");
 
-        dateLabel.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
-        dateLabel.setForeground(new Color(255, 255, 255));
+        dateLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        dateLabel.setForeground(new java.awt.Color(255, 255, 255));
         dateLabel.setText("DATE");
 
-        dateTxt.setForeground(new Color(255, 255, 255));
-        dateTxt.setHorizontalAlignment(SwingConstants.CENTER);
+        dateTxt.setForeground(new java.awt.Color(255, 255, 255));
+        dateTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dateTxt.setText("jLabel3");
 
-        GroupLayout sideInfoLayout = new GroupLayout(sideInfo);
+        javax.swing.GroupLayout sideInfoLayout = new javax.swing.GroupLayout(sideInfo);
         sideInfo.setLayout(sideInfoLayout);
         sideInfoLayout.setHorizontalGroup(
-            sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            sideInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideInfoLayout.createSequentialGroup()
-                .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(titleTxt, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(sideInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sideInfoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(dateTxt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(sideInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(sideInfoLayout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addComponent(dateLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(sideInfoLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(sideInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(titleLabel)
-                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         sideInfoLayout.setVerticalGroup(
-            sideInfoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            sideInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideInfoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118)
                 .addComponent(titleLabel)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(titleTxt, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateLabel)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateTxt, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ticket_op.setBackground(new Color(255, 255, 255));
+        ticket_op.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("WYBÓR BILETÓW");
 
-        ticketScrlPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ticketScrlPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         ticketScrlPane.setToolTipText("");
 
-        ticketsPanel.setLayout(new BoxLayout(ticketsPanel, BoxLayout.Y_AXIS));
+        ticketsPanel.setLayout(new javax.swing.BoxLayout(ticketsPanel, javax.swing.BoxLayout.Y_AXIS));
         ticketScrlPane.setViewportView(ticketsPanel);
 
         confirmBtn.setText("ZATWIERDŹ");
@@ -507,57 +507,58 @@ private void removeTicket(String seat) {
 
         totalTicketsLabel.setText("0");
 
-        totalPriceLabel.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        totalPriceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         totalPriceLabel.setText("0,00 zł");
 
-        GroupLayout ticket_opLayout = new GroupLayout(ticket_op);
+        javax.swing.GroupLayout ticket_opLayout = new javax.swing.GroupLayout(ticket_op);
         ticket_op.setLayout(ticket_opLayout);
         ticket_opLayout.setHorizontalGroup(
-            ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            ticket_opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ticket_opLayout.createSequentialGroup()
                 .addContainerGap(541, Short.MAX_VALUE)
-                .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                        .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+                .addGroup(ticket_opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(388, 388, 388))
-                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addGroup(ticket_opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(440, 440, 440))
-                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                        .addGroup(ticket_opLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(totalTicketsLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                            .addComponent(totalPriceLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addGroup(ticket_opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(totalTicketsLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(totalPriceLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                         .addGap(475, 475, 475))
-                    .addGroup(GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
-                        .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticket_opLayout.createSequentialGroup()
+                        .addComponent(ticketScrlPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(326, 326, 326))))
         );
         ticket_opLayout.setVerticalGroup(
-            ticket_opLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            ticket_opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ticket_opLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(ticketScrlPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalTicketsLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ticketScrlPane, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalTicketsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalPriceLabel)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(confirmBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
 
-        jPanel2.setBackground(new Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        seatsPanel.setBackground(new Color(255, 255, 255));
+        seatsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        seatA1.setBackground(new Color(186, 216, 153));
-        seatA1.setForeground(new Color(186, 216, 153));
+        seatA1.setBackground(new java.awt.Color(186, 216, 153));
+        seatA1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA1.setForeground(new java.awt.Color(186, 216, 153));
         seatA1.setText("A1");
         seatA1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,8 +566,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA2.setBackground(new Color(186, 216, 153));
-        seatA2.setForeground(new Color(186, 216, 153));
+        seatA2.setBackground(new java.awt.Color(186, 216, 153));
+        seatA2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA2.setForeground(new java.awt.Color(186, 216, 153));
         seatA2.setText("A2");
         seatA2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,8 +576,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA3.setBackground(new Color(186, 216, 153));
-        seatA3.setForeground(new Color(186, 216, 153));
+        seatA3.setBackground(new java.awt.Color(186, 216, 153));
+        seatA3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA3.setForeground(new java.awt.Color(186, 216, 153));
         seatA3.setText("A3");
         seatA3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,8 +586,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA4.setBackground(new Color(186, 216, 153));
-        seatA4.setForeground(new Color(186, 216, 153));
+        seatA4.setBackground(new java.awt.Color(186, 216, 153));
+        seatA4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA4.setForeground(new java.awt.Color(186, 216, 153));
         seatA4.setText("A4");
         seatA4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,8 +596,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA5.setBackground(new Color(186, 216, 153));
-        seatA5.setForeground(new Color(186, 216, 153));
+        seatA5.setBackground(new java.awt.Color(186, 216, 153));
+        seatA5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA5.setForeground(new java.awt.Color(186, 216, 153));
         seatA5.setText("A5");
         seatA5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -601,8 +606,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA6.setBackground(new Color(186, 216, 153));
-        seatA6.setForeground(new Color(186, 216, 153));
+        seatA6.setBackground(new java.awt.Color(186, 216, 153));
+        seatA6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA6.setForeground(new java.awt.Color(186, 216, 153));
         seatA6.setText("A6");
         seatA6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -610,8 +616,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA7.setBackground(new Color(186, 216, 153));
-        seatA7.setForeground(new Color(186, 216, 153));
+        seatA7.setBackground(new java.awt.Color(186, 216, 153));
+        seatA7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA7.setForeground(new java.awt.Color(186, 216, 153));
         seatA7.setText("A7");
         seatA7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,8 +626,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA9.setBackground(new Color(186, 216, 153));
-        seatA9.setForeground(new Color(186, 216, 153));
+        seatA9.setBackground(new java.awt.Color(186, 216, 153));
+        seatA9.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA9.setForeground(new java.awt.Color(186, 216, 153));
         seatA9.setText("A9");
         seatA9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -628,8 +636,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA8.setBackground(new Color(186, 216, 153));
-        seatA8.setForeground(new Color(186, 216, 153));
+        seatA8.setBackground(new java.awt.Color(186, 216, 153));
+        seatA8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA8.setForeground(new java.awt.Color(186, 216, 153));
         seatA8.setText("A8");
         seatA8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,8 +646,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA10.setBackground(new Color(186, 216, 153));
-        seatA10.setForeground(new Color(186, 216, 153));
+        seatA10.setBackground(new java.awt.Color(186, 216, 153));
+        seatA10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA10.setForeground(new java.awt.Color(186, 216, 153));
         seatA10.setText("A10");
         seatA10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -646,8 +656,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatA11.setBackground(new Color(186, 216, 153));
-        seatA11.setForeground(new Color(186, 216, 153));
+        seatA11.setBackground(new java.awt.Color(186, 216, 153));
+        seatA11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatA11.setForeground(new java.awt.Color(186, 216, 153));
         seatA11.setText("A11");
         seatA11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -655,8 +666,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB1.setBackground(new Color(186, 216, 153));
-        seatB1.setForeground(new Color(186, 216, 153));
+        seatB1.setBackground(new java.awt.Color(186, 216, 153));
+        seatB1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB1.setForeground(new java.awt.Color(186, 216, 153));
         seatB1.setText("B1");
         seatB1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,8 +676,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB2.setBackground(new Color(186, 216, 153));
-        seatB2.setForeground(new Color(186, 216, 153));
+        seatB2.setBackground(new java.awt.Color(186, 216, 153));
+        seatB2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB2.setForeground(new java.awt.Color(186, 216, 153));
         seatB2.setText("B2");
         seatB2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -673,8 +686,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB3.setBackground(new Color(186, 216, 153));
-        seatB3.setForeground(new Color(186, 216, 153));
+        seatB3.setBackground(new java.awt.Color(186, 216, 153));
+        seatB3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB3.setForeground(new java.awt.Color(186, 216, 153));
         seatB3.setText("B3");
         seatB3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -682,8 +696,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB4.setBackground(new Color(186, 216, 153));
-        seatB4.setForeground(new Color(186, 216, 153));
+        seatB4.setBackground(new java.awt.Color(186, 216, 153));
+        seatB4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB4.setForeground(new java.awt.Color(186, 216, 153));
         seatB4.setText("B4");
         seatB4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -691,8 +706,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB6.setBackground(new Color(186, 216, 153));
-        seatB6.setForeground(new Color(186, 216, 153));
+        seatB6.setBackground(new java.awt.Color(186, 216, 153));
+        seatB6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB6.setForeground(new java.awt.Color(186, 216, 153));
         seatB6.setText("B6");
         seatB6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,8 +716,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB5.setBackground(new Color(186, 216, 153));
-        seatB5.setForeground(new Color(186, 216, 153));
+        seatB5.setBackground(new java.awt.Color(186, 216, 153));
+        seatB5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB5.setForeground(new java.awt.Color(186, 216, 153));
         seatB5.setText("B5");
         seatB5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -709,8 +726,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB7.setBackground(new Color(186, 216, 153));
-        seatB7.setForeground(new Color(186, 216, 153));
+        seatB7.setBackground(new java.awt.Color(186, 216, 153));
+        seatB7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB7.setForeground(new java.awt.Color(186, 216, 153));
         seatB7.setText("B7");
         seatB7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -718,8 +736,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB9.setBackground(new Color(186, 216, 153));
-        seatB9.setForeground(new Color(186, 216, 153));
+        seatB9.setBackground(new java.awt.Color(186, 216, 153));
+        seatB9.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB9.setForeground(new java.awt.Color(186, 216, 153));
         seatB9.setText("B9");
         seatB9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -727,8 +746,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB8.setBackground(new Color(186, 216, 153));
-        seatB8.setForeground(new Color(186, 216, 153));
+        seatB8.setBackground(new java.awt.Color(186, 216, 153));
+        seatB8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB8.setForeground(new java.awt.Color(186, 216, 153));
         seatB8.setText("B8");
         seatB8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,8 +756,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB10.setBackground(new Color(186, 216, 153));
-        seatB10.setForeground(new Color(186, 216, 153));
+        seatB10.setBackground(new java.awt.Color(186, 216, 153));
+        seatB10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB10.setForeground(new java.awt.Color(186, 216, 153));
         seatB10.setText("B10");
         seatB10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -745,8 +766,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatB11.setBackground(new Color(186, 216, 153));
-        seatB11.setForeground(new Color(186, 216, 153));
+        seatB11.setBackground(new java.awt.Color(186, 216, 153));
+        seatB11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatB11.setForeground(new java.awt.Color(186, 216, 153));
         seatB11.setText("B11");
         seatB11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -754,8 +776,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC1.setBackground(new Color(186, 216, 153));
-        seatC1.setForeground(new Color(186, 216, 153));
+        seatC1.setBackground(new java.awt.Color(186, 216, 153));
+        seatC1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC1.setForeground(new java.awt.Color(186, 216, 153));
         seatC1.setText("C1");
         seatC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -763,8 +786,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC2.setBackground(new Color(186, 216, 153));
-        seatC2.setForeground(new Color(186, 216, 153));
+        seatC2.setBackground(new java.awt.Color(186, 216, 153));
+        seatC2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC2.setForeground(new java.awt.Color(186, 216, 153));
         seatC2.setText("C2");
         seatC2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -772,8 +796,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC3.setBackground(new Color(186, 216, 153));
-        seatC3.setForeground(new Color(186, 216, 153));
+        seatC3.setBackground(new java.awt.Color(186, 216, 153));
+        seatC3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC3.setForeground(new java.awt.Color(186, 216, 153));
         seatC3.setText("C3");
         seatC3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -781,8 +806,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC4.setBackground(new Color(186, 216, 153));
-        seatC4.setForeground(new Color(186, 216, 153));
+        seatC4.setBackground(new java.awt.Color(186, 216, 153));
+        seatC4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC4.setForeground(new java.awt.Color(186, 216, 153));
         seatC4.setText("C4");
         seatC4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -790,8 +816,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC5.setBackground(new Color(186, 216, 153));
-        seatC5.setForeground(new Color(186, 216, 153));
+        seatC5.setBackground(new java.awt.Color(186, 216, 153));
+        seatC5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC5.setForeground(new java.awt.Color(186, 216, 153));
         seatC5.setText("C5");
         seatC5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -799,8 +826,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC6.setBackground(new Color(186, 216, 153));
-        seatC6.setForeground(new Color(186, 216, 153));
+        seatC6.setBackground(new java.awt.Color(186, 216, 153));
+        seatC6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC6.setForeground(new java.awt.Color(186, 216, 153));
         seatC6.setText("C6");
         seatC6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -808,8 +836,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC7.setBackground(new Color(186, 216, 153));
-        seatC7.setForeground(new Color(186, 216, 153));
+        seatC7.setBackground(new java.awt.Color(186, 216, 153));
+        seatC7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC7.setForeground(new java.awt.Color(186, 216, 153));
         seatC7.setText("C7");
         seatC7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -817,8 +846,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC8.setBackground(new Color(186, 216, 153));
-        seatC8.setForeground(new Color(186, 216, 153));
+        seatC8.setBackground(new java.awt.Color(186, 216, 153));
+        seatC8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC8.setForeground(new java.awt.Color(186, 216, 153));
         seatC8.setText("C8");
         seatC8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -826,8 +856,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC9.setBackground(new Color(186, 216, 153));
-        seatC9.setForeground(new Color(186, 216, 153));
+        seatC9.setBackground(new java.awt.Color(186, 216, 153));
+        seatC9.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC9.setForeground(new java.awt.Color(186, 216, 153));
         seatC9.setText("C9");
         seatC9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -835,8 +866,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC10.setBackground(new Color(186, 216, 153));
-        seatC10.setForeground(new Color(186, 216, 153));
+        seatC10.setBackground(new java.awt.Color(186, 216, 153));
+        seatC10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC10.setForeground(new java.awt.Color(186, 216, 153));
         seatC10.setText("C10");
         seatC10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -844,8 +876,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatC11.setBackground(new Color(186, 216, 153));
-        seatC11.setForeground(new Color(186, 216, 153));
+        seatC11.setBackground(new java.awt.Color(186, 216, 153));
+        seatC11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatC11.setForeground(new java.awt.Color(186, 216, 153));
         seatC11.setText("C11");
         seatC11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -853,8 +886,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD1.setBackground(new Color(186, 216, 153));
-        seatD1.setForeground(new Color(186, 216, 153));
+        seatD1.setBackground(new java.awt.Color(186, 216, 153));
+        seatD1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD1.setForeground(new java.awt.Color(186, 216, 153));
         seatD1.setText("D1");
         seatD1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -862,8 +896,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD2.setBackground(new Color(186, 216, 153));
-        seatD2.setForeground(new Color(186, 216, 153));
+        seatD2.setBackground(new java.awt.Color(186, 216, 153));
+        seatD2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD2.setForeground(new java.awt.Color(186, 216, 153));
         seatD2.setText("D2");
         seatD2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -871,8 +906,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD3.setBackground(new Color(186, 216, 153));
-        seatD3.setForeground(new Color(186, 216, 153));
+        seatD3.setBackground(new java.awt.Color(186, 216, 153));
+        seatD3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD3.setForeground(new java.awt.Color(186, 216, 153));
         seatD3.setText("D3");
         seatD3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -880,8 +916,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD4.setBackground(new Color(186, 216, 153));
-        seatD4.setForeground(new Color(186, 216, 153));
+        seatD4.setBackground(new java.awt.Color(186, 216, 153));
+        seatD4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD4.setForeground(new java.awt.Color(186, 216, 153));
         seatD4.setText("D4");
         seatD4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -889,8 +926,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD5.setBackground(new Color(186, 216, 153));
-        seatD5.setForeground(new Color(186, 216, 153));
+        seatD5.setBackground(new java.awt.Color(186, 216, 153));
+        seatD5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD5.setForeground(new java.awt.Color(186, 216, 153));
         seatD5.setText("D5");
         seatD5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -898,8 +936,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD6.setBackground(new Color(186, 216, 153));
-        seatD6.setForeground(new Color(186, 216, 153));
+        seatD6.setBackground(new java.awt.Color(186, 216, 153));
+        seatD6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD6.setForeground(new java.awt.Color(186, 216, 153));
         seatD6.setText("D6");
         seatD6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -907,8 +946,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD7.setBackground(new Color(186, 216, 153));
-        seatD7.setForeground(new Color(186, 216, 153));
+        seatD7.setBackground(new java.awt.Color(186, 216, 153));
+        seatD7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD7.setForeground(new java.awt.Color(186, 216, 153));
         seatD7.setText("D7");
         seatD7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -916,8 +956,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD8.setBackground(new Color(186, 216, 153));
-        seatD8.setForeground(new Color(186, 216, 153));
+        seatD8.setBackground(new java.awt.Color(186, 216, 153));
+        seatD8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD8.setForeground(new java.awt.Color(186, 216, 153));
         seatD8.setText("D8");
         seatD8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -925,8 +966,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD9.setBackground(new Color(186, 216, 153));
-        seatD9.setForeground(new Color(186, 216, 153));
+        seatD9.setBackground(new java.awt.Color(186, 216, 153));
+        seatD9.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD9.setForeground(new java.awt.Color(186, 216, 153));
         seatD9.setText("D9");
         seatD9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -934,8 +976,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD10.setBackground(new Color(186, 216, 153));
-        seatD10.setForeground(new Color(186, 216, 153));
+        seatD10.setBackground(new java.awt.Color(186, 216, 153));
+        seatD10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD10.setForeground(new java.awt.Color(186, 216, 153));
         seatD10.setText("D10");
         seatD10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -943,8 +986,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatD11.setBackground(new Color(186, 216, 153));
-        seatD11.setForeground(new Color(186, 216, 153));
+        seatD11.setBackground(new java.awt.Color(186, 216, 153));
+        seatD11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatD11.setForeground(new java.awt.Color(186, 216, 153));
         seatD11.setText("D11");
         seatD11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -952,8 +996,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE1.setBackground(new Color(186, 216, 153));
-        seatE1.setForeground(new Color(186, 216, 153));
+        seatE1.setBackground(new java.awt.Color(186, 216, 153));
+        seatE1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE1.setForeground(new java.awt.Color(186, 216, 153));
         seatE1.setText("E1");
         seatE1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -961,8 +1006,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE2.setBackground(new Color(186, 216, 153));
-        seatE2.setForeground(new Color(186, 216, 153));
+        seatE2.setBackground(new java.awt.Color(186, 216, 153));
+        seatE2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE2.setForeground(new java.awt.Color(186, 216, 153));
         seatE2.setText("E2");
         seatE2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -970,8 +1016,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE3.setBackground(new Color(186, 216, 153));
-        seatE3.setForeground(new Color(186, 216, 153));
+        seatE3.setBackground(new java.awt.Color(186, 216, 153));
+        seatE3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE3.setForeground(new java.awt.Color(186, 216, 153));
         seatE3.setText("E3");
         seatE3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -979,8 +1026,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE4.setBackground(new Color(186, 216, 153));
-        seatE4.setForeground(new Color(186, 216, 153));
+        seatE4.setBackground(new java.awt.Color(186, 216, 153));
+        seatE4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE4.setForeground(new java.awt.Color(186, 216, 153));
         seatE4.setText("E4");
         seatE4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -988,8 +1036,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE5.setBackground(new Color(186, 216, 153));
-        seatE5.setForeground(new Color(186, 216, 153));
+        seatE5.setBackground(new java.awt.Color(186, 216, 153));
+        seatE5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE5.setForeground(new java.awt.Color(186, 216, 153));
         seatE5.setText("E5");
         seatE5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -997,8 +1046,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE6.setBackground(new Color(186, 216, 153));
-        seatE6.setForeground(new Color(186, 216, 153));
+        seatE6.setBackground(new java.awt.Color(186, 216, 153));
+        seatE6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE6.setForeground(new java.awt.Color(186, 216, 153));
         seatE6.setText("E6");
         seatE6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1006,8 +1056,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE7.setBackground(new Color(186, 216, 153));
-        seatE7.setForeground(new Color(186, 216, 153));
+        seatE7.setBackground(new java.awt.Color(186, 216, 153));
+        seatE7.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE7.setForeground(new java.awt.Color(186, 216, 153));
         seatE7.setText("E7");
         seatE7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1015,8 +1066,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE8.setBackground(new Color(186, 216, 153));
-        seatE8.setForeground(new Color(186, 216, 153));
+        seatE8.setBackground(new java.awt.Color(186, 216, 153));
+        seatE8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE8.setForeground(new java.awt.Color(186, 216, 153));
         seatE8.setText("E8");
         seatE8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1024,8 +1076,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE9.setBackground(new Color(186, 216, 153));
-        seatE9.setForeground(new Color(186, 216, 153));
+        seatE9.setBackground(new java.awt.Color(186, 216, 153));
+        seatE9.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE9.setForeground(new java.awt.Color(186, 216, 153));
         seatE9.setText("E9");
         seatE9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1033,8 +1086,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE10.setBackground(new Color(186, 216, 153));
-        seatE10.setForeground(new Color(186, 216, 153));
+        seatE10.setBackground(new java.awt.Color(186, 216, 153));
+        seatE10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE10.setForeground(new java.awt.Color(186, 216, 153));
         seatE10.setText("E10");
         seatE10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1042,8 +1096,9 @@ private void removeTicket(String seat) {
             }
         });
 
-        seatE11.setBackground(new Color(186, 216, 153));
-        seatE11.setForeground(new Color(186, 216, 153));
+        seatE11.setBackground(new java.awt.Color(186, 216, 153));
+        seatE11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        seatE11.setForeground(new java.awt.Color(186, 216, 153));
         seatE11.setText("E11");
         seatE11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1051,274 +1106,274 @@ private void removeTicket(String seat) {
             }
         });
 
-        GroupLayout seatsPanelLayout = new GroupLayout(seatsPanel);
+        javax.swing.GroupLayout seatsPanelLayout = new javax.swing.GroupLayout(seatsPanel);
         seatsPanel.setLayout(seatsPanelLayout);
         seatsPanelLayout.setHorizontalGroup(
-            seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatsPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(seatsPanelLayout.createSequentialGroup()
-                        .addComponent(seatA1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatA10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatA11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seatA11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(seatsPanelLayout.createSequentialGroup()
-                        .addComponent(seatB1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatB10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatB11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seatB11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(seatsPanelLayout.createSequentialGroup()
-                        .addComponent(seatC1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatC10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatC11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seatC11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(seatsPanelLayout.createSequentialGroup()
-                        .addComponent(seatD1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatD10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatD11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seatD11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(seatsPanelLayout.createSequentialGroup()
-                        .addComponent(seatE1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatE10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(seatE11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(seatE11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         seatsPanelLayout.setVerticalGroup(
-            seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatsPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(seatA1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatA10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(seatB1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatB10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seatA1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatA10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seatB1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatB10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(seatC1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatC10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seatC1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatC10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(seatD1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatD10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seatD1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatD10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(seatsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(seatE1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE4, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE9, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE8, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE11, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seatE10, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                .addGroup(seatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seatE1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seatE10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("1");
 
-        jLabel4.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("2");
 
-        jLabel5.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("4");
 
-        jLabel6.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("3");
 
-        jLabel7.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("5");
 
-        jLabel8.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("6");
 
-        jLabel9.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("7");
 
-        jLabel10.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("8");
 
-        jLabel11.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("9");
 
-        jLabel12.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("10");
 
-        jLabel13.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("11");
 
-        GroupLayout seatNumber1Layout = new GroupLayout(seatNumber1);
+        javax.swing.GroupLayout seatNumber1Layout = new javax.swing.GroupLayout(seatNumber1);
         seatNumber1.setLayout(seatNumber1Layout);
         seatNumber1Layout.setHorizontalGroup(
-            seatNumber1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatNumber1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatNumber1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
-                .addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(jLabel9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jLabel10, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(jLabel11, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
-                .addComponent(jLabel12, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jLabel13, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
         seatNumber1Layout.setVerticalGroup(
-            seatNumber1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatNumber1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatNumber1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(seatNumber1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addGroup(seatNumber1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
@@ -1333,43 +1388,43 @@ private void removeTicket(String seat) {
                 .addContainerGap())
         );
 
-        jLabel14.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel14.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("B");
 
-        jLabel15.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel15.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("A");
 
-        jLabel16.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel16.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("D");
 
-        jLabel17.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("C");
 
-        jLabel18.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel18.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("E");
 
-        GroupLayout seatNumber2Layout = new GroupLayout(seatNumber2);
+        javax.swing.GroupLayout seatNumber2Layout = new javax.swing.GroupLayout(seatNumber2);
         seatNumber2.setLayout(seatNumber2Layout);
         seatNumber2Layout.setHorizontalGroup(
-            seatNumber2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatNumber2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatNumber2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(seatNumber2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(seatNumber2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel14, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel17, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+                .addGroup(seatNumber2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(seatNumber2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         seatNumber2Layout.setVerticalGroup(
-            seatNumber2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            seatNumber2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(seatNumber2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel15)
@@ -1384,38 +1439,38 @@ private void removeTicket(String seat) {
                 .addContainerGap(76, Short.MAX_VALUE))
         );
 
-        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(seatNumber2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(seatNumber1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(seatsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(seatNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(seatNumber1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(seatsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(seatNumber1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(seatNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(seatNumber2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seatNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 6, Short.MAX_VALUE))
-                    .addComponent(seatsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(seatsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jLabel19.setIcon(new ImageIcon(getClass().getResource("/Image/ekran1.png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ekran1.png"))); // NOI18N
 
-        next_btn.setBackground(new Color(72, 61, 139));
-        next_btn.setFont(new Font("Arial", 1, 14)); // NOI18N
-        next_btn.setForeground(new Color(255, 255, 255));
+        next_btn.setBackground(new java.awt.Color(72, 61, 139));
+        next_btn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        next_btn.setForeground(new java.awt.Color(255, 255, 255));
         next_btn.setText("DALEJ");
         next_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1423,69 +1478,69 @@ private void removeTicket(String seat) {
             }
         });
 
-        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(139, 139, 139)
-                        .addComponent(next_btn, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(next_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(next_btn, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(next_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel19)
                         .addGap(10, 10, 10)))
-                .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        GroupLayout bgLayout = new GroupLayout(bg);
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(sideInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(sideInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(ticket_op, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ticket_op, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(sideInfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sideInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(ticket_op, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(ticket_op, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(bg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1728,99 +1783,99 @@ private void removeTicket(String seat) {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton backBtn;
-    private JPanel bg;
-    private JButton confirmBtn;
-    private JLabel cover_l;
-    private JLabel dateLabel;
-    private JLabel dateTxt;
-    private JLabel jLabel1;
-    private JLabel jLabel10;
-    private JLabel jLabel11;
-    private JLabel jLabel12;
-    private JLabel jLabel13;
-    private JLabel jLabel14;
-    private JLabel jLabel15;
-    private JLabel jLabel16;
-    private JLabel jLabel17;
-    private JLabel jLabel18;
-    private JLabel jLabel19;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JLabel jLabel8;
-    private JLabel jLabel9;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JButton next_btn;
-    private JToggleButton seatA1;
-    private JToggleButton seatA10;
-    private JToggleButton seatA11;
-    private JToggleButton seatA2;
-    private JToggleButton seatA3;
-    private JToggleButton seatA4;
-    private JToggleButton seatA5;
-    private JToggleButton seatA6;
-    private JToggleButton seatA7;
-    private JToggleButton seatA8;
-    private JToggleButton seatA9;
-    private JToggleButton seatB1;
-    private JToggleButton seatB10;
-    private JToggleButton seatB11;
-    private JToggleButton seatB2;
-    private JToggleButton seatB3;
-    private JToggleButton seatB4;
-    private JToggleButton seatB5;
-    private JToggleButton seatB6;
-    private JToggleButton seatB7;
-    private JToggleButton seatB8;
-    private JToggleButton seatB9;
-    private JToggleButton seatC1;
-    private JToggleButton seatC10;
-    private JToggleButton seatC11;
-    private JToggleButton seatC2;
-    private JToggleButton seatC3;
-    private JToggleButton seatC4;
-    private JToggleButton seatC5;
-    private JToggleButton seatC6;
-    private JToggleButton seatC7;
-    private JToggleButton seatC8;
-    private JToggleButton seatC9;
-    private JToggleButton seatD1;
-    private JToggleButton seatD10;
-    private JToggleButton seatD11;
-    private JToggleButton seatD2;
-    private JToggleButton seatD3;
-    private JToggleButton seatD4;
-    private JToggleButton seatD5;
-    private JToggleButton seatD6;
-    private JToggleButton seatD7;
-    private JToggleButton seatD8;
-    private JToggleButton seatD9;
-    private JToggleButton seatE1;
-    private JToggleButton seatE10;
-    private JToggleButton seatE11;
-    private JToggleButton seatE2;
-    private JToggleButton seatE3;
-    private JToggleButton seatE4;
-    private JToggleButton seatE5;
-    private JToggleButton seatE6;
-    private JToggleButton seatE7;
-    private JToggleButton seatE8;
-    private JToggleButton seatE9;
-    private JPanel seatNumber1;
-    private JPanel seatNumber2;
-    private JPanel seatsPanel;
-    private JPanel sideInfo;
-    private JScrollPane ticketScrlPane;
-    private JPanel ticket_op;
-    private JPanel ticketsPanel;
-    private JLabel titleLabel;
-    private JLabel titleTxt;
-    private JLabel totalPriceLabel;
-    private JLabel totalTicketsLabel;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JPanel bg;
+    private javax.swing.JButton confirmBtn;
+    private javax.swing.JLabel cover_l;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel dateTxt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton next_btn;
+    private javax.swing.JToggleButton seatA1;
+    private javax.swing.JToggleButton seatA10;
+    private javax.swing.JToggleButton seatA11;
+    private javax.swing.JToggleButton seatA2;
+    private javax.swing.JToggleButton seatA3;
+    private javax.swing.JToggleButton seatA4;
+    private javax.swing.JToggleButton seatA5;
+    private javax.swing.JToggleButton seatA6;
+    private javax.swing.JToggleButton seatA7;
+    private javax.swing.JToggleButton seatA8;
+    private javax.swing.JToggleButton seatA9;
+    private javax.swing.JToggleButton seatB1;
+    private javax.swing.JToggleButton seatB10;
+    private javax.swing.JToggleButton seatB11;
+    private javax.swing.JToggleButton seatB2;
+    private javax.swing.JToggleButton seatB3;
+    private javax.swing.JToggleButton seatB4;
+    private javax.swing.JToggleButton seatB5;
+    private javax.swing.JToggleButton seatB6;
+    private javax.swing.JToggleButton seatB7;
+    private javax.swing.JToggleButton seatB8;
+    private javax.swing.JToggleButton seatB9;
+    private javax.swing.JToggleButton seatC1;
+    private javax.swing.JToggleButton seatC10;
+    private javax.swing.JToggleButton seatC11;
+    private javax.swing.JToggleButton seatC2;
+    private javax.swing.JToggleButton seatC3;
+    private javax.swing.JToggleButton seatC4;
+    private javax.swing.JToggleButton seatC5;
+    private javax.swing.JToggleButton seatC6;
+    private javax.swing.JToggleButton seatC7;
+    private javax.swing.JToggleButton seatC8;
+    private javax.swing.JToggleButton seatC9;
+    private javax.swing.JToggleButton seatD1;
+    private javax.swing.JToggleButton seatD10;
+    private javax.swing.JToggleButton seatD11;
+    private javax.swing.JToggleButton seatD2;
+    private javax.swing.JToggleButton seatD3;
+    private javax.swing.JToggleButton seatD4;
+    private javax.swing.JToggleButton seatD5;
+    private javax.swing.JToggleButton seatD6;
+    private javax.swing.JToggleButton seatD7;
+    private javax.swing.JToggleButton seatD8;
+    private javax.swing.JToggleButton seatD9;
+    private javax.swing.JToggleButton seatE1;
+    private javax.swing.JToggleButton seatE10;
+    private javax.swing.JToggleButton seatE11;
+    private javax.swing.JToggleButton seatE2;
+    private javax.swing.JToggleButton seatE3;
+    private javax.swing.JToggleButton seatE4;
+    private javax.swing.JToggleButton seatE5;
+    private javax.swing.JToggleButton seatE6;
+    private javax.swing.JToggleButton seatE7;
+    private javax.swing.JToggleButton seatE8;
+    private javax.swing.JToggleButton seatE9;
+    private javax.swing.JPanel seatNumber1;
+    private javax.swing.JPanel seatNumber2;
+    private javax.swing.JPanel seatsPanel;
+    private javax.swing.JPanel sideInfo;
+    private javax.swing.JScrollPane ticketScrlPane;
+    private javax.swing.JPanel ticket_op;
+    private javax.swing.JPanel ticketsPanel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel titleTxt;
+    private javax.swing.JLabel totalPriceLabel;
+    private javax.swing.JLabel totalTicketsLabel;
     // End of variables declaration//GEN-END:variables
 }
