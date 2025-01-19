@@ -865,7 +865,7 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
             List<CMovie> filteredMovies = new ArrayList<>();
 
             for (CMovie movie : movieManager.getAll()) {
-                if (movie.getTitle().toLowerCase().contains(searchQuery)) {
+                if (movie.getTitle().toLowerCase().trim().contains(searchQuery)) {
                     filteredMovies.add(movie);
                 }
             }
@@ -889,7 +889,7 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
 
             for (CShowing showing : showingMenager.getAll()) {
                 String movieTitle = showing.getMovieTitle(allMovies);
-                if (movieTitle.toLowerCase().contains(searchQuery)) {
+                if (movieTitle.toLowerCase().trim().contains(searchQuery)) {
                     filteredShows.add(showing);
                 }
             }

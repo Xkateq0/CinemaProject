@@ -1008,7 +1008,7 @@ public class Administrator extends javax.swing.JFrame {
             List<CMovie> filteredMovies = new ArrayList<>();
 
             for (CMovie movie : movieManager.getAll()) {
-                if (movie.getTitle().toLowerCase().contains(searchQuery)) {
+                if (movie.getTitle().toLowerCase().trim().contains(searchQuery)) {
                     filteredMovies.add(movie);
                 }
             }
@@ -1181,7 +1181,7 @@ public class Administrator extends javax.swing.JFrame {
 
             for (CShowing showing : showManager.getAll()) {
                 String movieTitle = showing.getMovieTitle(allMovies);
-                if (movieTitle.toLowerCase().contains(searchQuery)) {
+                if (movieTitle.toLowerCase().trim().contains(searchQuery)) {
                     filteredShows.add(showing);
                 }
             }
