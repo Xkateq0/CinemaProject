@@ -950,9 +950,6 @@ public class Administrator extends javax.swing.JFrame {
                     showManager.remove(showToRemove);
                     showManager.close();
                     Logger.log(uzytkownik.getName()+" usunal seans o id "+ showToRemove.getId());
-                    //movieManager.remove(movieToRemove);
-                    //movieManager.close();
-                    //updateTable(table, movieManager.getAll(), movieManager);
                 }
                 movieManager.remove(movieToRemove);
                 movieManager.close();
