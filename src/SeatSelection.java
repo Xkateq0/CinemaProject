@@ -29,6 +29,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
         ticket_op.setVisible(false);
         ImageIcon icona = new ImageIcon(getClass().getResource("Image/sofa.png"));
         setIconImage(icona.getImage());
+        setResizable(false);
         
     }
 

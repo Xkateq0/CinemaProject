@@ -16,3 +16,40 @@ Administrator usunal film o id 4
 Administrator dodał film o id 4
 Administrator usunal film o id 4
 Kasjer dodał rezerwacje 27
+Administrator dodał film o id 4
+Administrator dodał film o id 5
+Administrator dodał film o id 6
+Administrator zaktualizowal film o id 1
+Administrator zaktualizowal film o id 2
+Administrator dodał seans o id13
+Administrator dodał seans o id14
+Administrator dodał seans o id15
+Administrator dodał seans o id16
+Administrator dodał seans o id17
+Administrator dodał seans o id1
+Administrator dodał seans o id2
+Administrator dodał seans o id3
+Kasjer dodał rezerwacje 1
+Kasjer dodał rezerwacje 2
+Kasjer dodał rezerwacje 3
+Kasjer dodał rezerwacje 4
+Kasjer dodał rezerwacje 5
+Kasjer dodał rezerwacje 6
+Kasjer dodał rezerwacje 7
+Kasjer dodał rezerwacje 8
+Kasjer dodał rezerwacje 9
+Kasjer dodał rezerwacje 10
+Kasjer dodał rezerwacje 11
+Kasjer dodał rezerwacje 12
+Kasjer dodał rezerwacje 13
+Kasjer dodał rezerwacje 14
+Kasjer dodał rezerwacje 15
+Kasjer dodał rezerwacje 16
+Kasjer dodał rezerwacje 17
+Kasjer dodał rezerwacje 18
+Kasjer dodał rezerwacje 19
+Kasjer dodał rezerwacje 20
+Administrator dodał seans o id4
+Administrator dodał seans o id5
+Administrator dodał seans o id6
+Administrator dodał seans o id7

@@ -39,6 +39,7 @@ public class Administrator extends javax.swing.JFrame {
     ImageIcon icona;
 
     public Administrator(CUser uzytkownik) {
+        setTitle("Katana - Panel administratora");
         icona = new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/katana.png")));
         initComponents();
         this.uzytkownik=uzytkownik;
@@ -54,7 +55,6 @@ public class Administrator extends javax.swing.JFrame {
     private void customComponents()
     {
         setExtendedState(Administrator.MAXIMIZED_BOTH);
-        setTitle("Katana - Panel administratora");
         setIconImage(icona.getImage());
 
         updateTable(jTable1, allMovies,movieManager);
@@ -1399,7 +1399,7 @@ public class Administrator extends javax.swing.JFrame {
     //--------------------------------------------------------------------------------------
     //Przycisk dodania Filmu
     private void ButtonAddMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMovieActionPerformed
-        setTitle("Dodaj Film");
+        AddMovie.setTitle("Dodaj Film");
         openAddMovieWindow();
     }//GEN-LAST:event_ButtonAddMovieActionPerformed
 
@@ -1498,7 +1498,7 @@ public class Administrator extends javax.swing.JFrame {
     //--------------------------------------------------------------------------------------
     //Przycisk dodania Seansu
     private void ButtonAddShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddShowActionPerformed
-        setTitle("Dodaj Seans");
+        AddShow.setTitle("Dodaj Seans");
         openAddShowWindow();
     }//GEN-LAST:event_ButtonAddShowActionPerformed
 
