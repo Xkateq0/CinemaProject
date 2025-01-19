@@ -4,3 +4,15 @@ Administrator usunal film o id 5
 Kasjer dodał rezerwacje 24
 Kasjer dodał rezerwacje 25
 Kasjer dodał rezerwacje 26
+Administrator usunal film o id 4
+Administrator dodał film o id 4
+Administrator zaktualizowal film o id 4
+Administrator zaktualizowal film o id 4
+Administrator zaktualizowal film o id 4
+Usunieto seans o id: 15
+Administrator usunal film o id 4
+Administrator dodał film o id 4
+Administrator usunal film o id 4
+Administrator dodał film o id 4
+Administrator usunal film o id 4
+Kasjer dodał rezerwacje 27

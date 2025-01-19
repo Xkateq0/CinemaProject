@@ -108,6 +108,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
             JLabel label = new JLabel((ImageIcon) value);
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
+            label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
             if (isSelected) {
                 label.setBackground(table.getSelectionBackground());
                 label.setOpaque(true);
@@ -140,6 +141,7 @@ public void updateTable(JTable jTable1, List<CMovie> allMovies) {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 label.setText("<html><div style='width: 150px;'>" + value.toString() + "</div></html>");
+                label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 return label;
             }
         });
@@ -186,6 +188,7 @@ public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie>
     jTable2.setRowHeight(70);
     model.setRowCount(0);
 
+
     for (CShowing showing : allShowing) {
         String movieTitle = showing.getMovieTitle(allMovies);
 
@@ -230,8 +233,18 @@ public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie>
     });
 
     // Centrowanie tekstu w kolumnach
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Ustawienie obramowania dla tekstu
+            label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+            return label;
+        }
+    };
     for (int i = 0; i < jTable2.getColumnCount() - 1; i++) {
         jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
@@ -243,7 +256,9 @@ public void updateTable2(JTable jTable2, List<CShowing> allShowing, List<CMovie>
     jTable2.getColumnModel().getColumn(3).setPreferredWidth(120); // Godzina
     jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);  // Sala
     jTable2.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
-}
+
+
+    }
 
 private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowing) {
     JButton selectButton = new JButton("WYBIERZ");
@@ -278,6 +293,7 @@ private JPanel createButtonPanel2(JTable table, int row, List<CShowing> allShowi
     gbc.gridy = 0;
     panel.add(selectButton, gbc);
 
+    panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     return panel;
 }
 
@@ -340,8 +356,18 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
         });
 
         // Centrowanie tekstu w kolumnach
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Ustawienie obramowania dla tekstu
+            label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+            return label;
+        }
+    };
         for (int i = 0; i < jTable3.getColumnCount()-1; i++) {
             jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
@@ -357,7 +383,7 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
         jTable3.getColumnModel().getColumn(3).setResizable(false);
         jTable3.getColumnModel().getColumn(4).setPreferredWidth(150);  // Dochod Biletow
         jTable3.getColumnModel().getColumn(4).setResizable(false);
-        jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable3.getColumnModel().getColumn(5).setPreferredWidth(250); // Przycisk
         jTable3.getColumnModel().getColumn(5).setResizable(false);
 
         jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -387,6 +413,8 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel3.add(displayButton, gbc);
+
+        panel3.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         return panel3;
     }
@@ -871,11 +899,10 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
 
 
     private void DateSeatchBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_DateSeatchBtnActionPerformed
-       String searchDate = dateSearch.getText();
-       
+       String searchDate = dateSearch.getText().trim();
         if (searchDate.isEmpty()) {
-        updateTable2(jTable2, showingMenager.getAll(), allMovies); // Odśwież tabelę z wszystkimi wynikami
-    } else {
+            updateTable2(jTable2, showingMenager.getAll(),  allMovies); // Odśwież tabelę z wszystkimi wynikami
+        } else {
         try {
             // Używamy DateTimeFormatter do parsowania i formatowania daty
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

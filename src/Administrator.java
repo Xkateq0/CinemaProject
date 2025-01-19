@@ -802,6 +802,7 @@ public class Administrator extends javax.swing.JFrame {
                     label.setText("");
                     label.setHorizontalAlignment(JLabel.CENTER);
                     label.setVerticalAlignment(JLabel.CENTER);
+                    label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                     return label;
                 }
                 return new JLabel();
@@ -841,6 +842,7 @@ public class Administrator extends javax.swing.JFrame {
                     JLabel label = (JLabel) comp;
                     label.setHorizontalAlignment(SwingConstants.CENTER);
                     label.setVerticalAlignment(SwingConstants.CENTER);
+                    label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
                 } else if (comp instanceof JTextArea) {
                     JTextArea textArea = (JTextArea) comp;
@@ -875,7 +877,7 @@ public class Administrator extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(1).setResizable(false);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(788);
         jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(3).setResizable(false);
 
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -913,7 +915,7 @@ public class Administrator extends javax.swing.JFrame {
         panel.add(deleteButton, gbc);
         gbc.gridy++;
         panel.add(editButton, gbc);
-
+        panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         return panel;
     }
 
@@ -1072,8 +1074,18 @@ public class Administrator extends javax.swing.JFrame {
         });
 
         // Centrowanie tekstu w kolumnach
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Ustawienie obramowania dla tekstu
+                label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                return label;
+            }
+        };
         for (int i = 0; i < jTable2.getColumnCount()-1; i++) {
             jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
@@ -1089,7 +1101,7 @@ public class Administrator extends javax.swing.JFrame {
         jTable2.getColumnModel().getColumn(3).setResizable(false);
         jTable2.getColumnModel().getColumn(4).setPreferredWidth(85);  // Sala
         jTable2.getColumnModel().getColumn(4).setResizable(false);
-        jTable2.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(250); // Przycisk
         jTable2.getColumnModel().getColumn(5).setResizable(false);
 
         jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1113,6 +1125,8 @@ public class Administrator extends javax.swing.JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel2.add(deleteButton, gbc);
+
+        panel2.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         return panel2;
     }
@@ -1240,8 +1254,18 @@ public class Administrator extends javax.swing.JFrame {
         });
 
         // Centrowanie tekstu w kolumnach
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Ustawienie obramowania dla tekstu
+                label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                return label;
+            }
+        };
         for (int i = 0; i < jTable3.getColumnCount()-1; i++) {
             jTable3.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
@@ -1257,7 +1281,7 @@ public class Administrator extends javax.swing.JFrame {
         jTable3.getColumnModel().getColumn(3).setResizable(false);
         jTable3.getColumnModel().getColumn(4).setPreferredWidth(150);  // Dochod Biletow
         jTable3.getColumnModel().getColumn(4).setResizable(false);
-        jTable3.getColumnModel().getColumn(5).setPreferredWidth(200); // Przycisk
+        jTable3.getColumnModel().getColumn(5).setPreferredWidth(250); // Przycisk
         jTable3.getColumnModel().getColumn(5).setResizable(false);
 
         jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1287,6 +1311,8 @@ public class Administrator extends javax.swing.JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel3.add(displayButton, gbc);
+
+        panel3.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
         return panel3;
     }
@@ -1517,7 +1543,8 @@ public class Administrator extends javax.swing.JFrame {
         }
 
         int movieId = -1;
-        List<CMovie> allMovies = movieManager.getAll();
+
+        allMovies = movieManager.getAll();
         for (CMovie movie : allMovies) {
             if (movie.getTitle().equals(selectedMovieTitle)) {
                 movieId = movie.getId();
@@ -1568,7 +1595,6 @@ public class Administrator extends javax.swing.JFrame {
         Logger.log(uzytkownik.getName()+ " dodał seans o id"+ newShow.getId());
 
         try {
-
             showingManager.close();
             showingManager= new CManage<>(CShowing.class);
             allShowing = showingManager.getAll();
@@ -1584,7 +1610,8 @@ public class Administrator extends javax.swing.JFrame {
 
     //Okienka Seansu
     public void openAddShowWindow() {
-
+        movieManager = new CManage<> (CMovie.class);
+        allMovies = movieManager.getAll();
         String[] movieTitles = new String[allMovies.size()];
         for (int i = 0; i < allMovies.size(); i++) {
             movieTitles[i] = allMovies.get(i).getTitle();
