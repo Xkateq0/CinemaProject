@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.swing.*;
 public class SeatSelection extends JFrame {
 
@@ -41,7 +42,7 @@ private Map<String, CTicket> ticketsMap = new HashMap<>();
         {titleTxt.setText(movie.getTitle());}
         dateTxt.setText(seans.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
     + " " + seans.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-        ImageIcon cover = new ImageIcon(scaleImage(movie.getImagePath(),190,300));
+        ImageIcon cover = new ImageIcon(Objects.requireNonNull(scaleImage(Objects.requireNonNull(movie).getImagePath(), 190, 270)));
         cover_l.setIcon(cover);
         confirmBtn.addActionListener(e -> finalizeReservation());
 
@@ -438,6 +439,7 @@ private void removeTicket(String seat) {
         titleTxt.setForeground(new java.awt.Color(255, 255, 255));
         titleTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleTxt.setText("jLabel3");
+        titleTxt.setFont(new java.awt.Font("Segoe UI", 1, 16));
 
         dateLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -446,6 +448,7 @@ private void removeTicket(String seat) {
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));
         dateTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dateTxt.setText("jLabel3");
+        dateTxt.setFont(new java.awt.Font("Segoe UI", 1, 16));
 
         javax.swing.GroupLayout sideInfoLayout = new javax.swing.GroupLayout(sideInfo);
         sideInfo.setLayout(sideInfoLayout);

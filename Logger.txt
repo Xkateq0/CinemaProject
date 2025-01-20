@@ -53,3 +53,8 @@ Administrator dodał seans o id4
 Administrator dodał seans o id5
 Administrator dodał seans o id6
 Administrator dodał seans o id7
+Administrator dodał film o id 7
+Kasjer dodał rezerwacje 21
+Kasjer dodał rezerwacje 22
+Kasjer dodał rezerwacje 23
+Kasjer dodał rezerwacje 24

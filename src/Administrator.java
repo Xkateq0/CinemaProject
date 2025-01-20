@@ -1474,10 +1474,11 @@ public class Administrator extends javax.swing.JFrame {
         Duration.setValue(currentMovie.getDuration());
 
         if (currentMovie.getImagePath() != null) {
-            Image.setIcon(new ImageIcon(scaleImage(currentMovie.getImagePath(), 100, 100)));
+            Image.setIcon(new ImageIcon(Objects.requireNonNull(scaleImage(currentMovie.getImagePath(), 150, 270))));
         }
         isEditing = true;
         AddMovie.setVisible(true);
+        AddMovie.setTitle("Edycja filmu");
     }
 
     public void openAddMovieWindow() {
@@ -1488,7 +1489,7 @@ public class Administrator extends javax.swing.JFrame {
         MovieDescription.setText("");
         Genre.setSelectedIndex(0);
         Duration.setValue(0);
-        Image.setIcon(new ImageIcon(getClass().getResource("/Image/111_preview.png")));
+        Image.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Image/111_preview.png"))));
 
         isEditing = false;
         AddMovie.setVisible(true);
