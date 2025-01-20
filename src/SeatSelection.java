@@ -143,7 +143,7 @@ private void addTicket(String seat, String ticketType) {
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     // Ikona biletu
-    JLabel iconLabel = new JLabel(new ImageIcon(getClass().getResource("Image/ticket.png")));
+    JLabel iconLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/ticket.png"))));
     gbc.gridx = 0;
     gbc.gridy = 0;
     gbc.gridheight = 2;

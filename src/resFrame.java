@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -69,16 +70,13 @@ public class resFrame extends JFrame {
             double leftMargin = 50;  // Margines z lewej strony
             double topMargin = 50;   // Margines z góry
 
-            // Przesunięcie początkowe o topMargin, żeby obciąć 10 jednostek z góry
             g2d.translate(pageFormat.getImageableX() + leftMargin, pageFormat.getImageableY() + topMargin);
 
-            // Obliczanie skali
             double scaleX = pageFormat.getImageableWidth() / getWidth();
             double scaleY = pageFormat.getImageableHeight() / getHeight();
             double scale = Math.min(scaleX, scaleY) / 2;
             g2d.scale(scale, scale);
 
-            // Tylko część interfejsu do wydrukowania - np. bilety
             bg.paint(g2d);  // Rysowanie tylko panelu z biletami
 
             return Printable.PAGE_EXISTS;
@@ -136,7 +134,7 @@ public class resFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Ikona biletu
-        JLabel iconLabel = new JLabel(new ImageIcon(getClass().getResource("Image/ticket.png")));
+        JLabel iconLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("Image/ticket.png"))));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;

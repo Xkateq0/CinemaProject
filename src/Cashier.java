@@ -399,7 +399,7 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
         displayButton.setFont(new Font("Arial", Font.BOLD, 16));
         displayButton.setPreferredSize(new Dimension(150, 40));
         displayButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        // Poprawiamy ActionListener
+
         displayButton.addActionListener(e -> {
             int reservationId = (int) table.getModel().getValueAt(row, 0);
             CReservation reservation = reservationManage.getById(reservationId);
@@ -904,7 +904,7 @@ public void updateTable3(JTable jTable3, List<CMovie> allMovies, List<CReservati
             updateTable2(jTable2, showingMenager.getAll(),  allMovies); // Odśwież tabelę z wszystkimi wynikami
         } else {
         try {
-            // Używamy DateTimeFormatter do parsowania i formatowania daty
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate searchLocalDate = LocalDate.parse(searchDate, formatter);
 
