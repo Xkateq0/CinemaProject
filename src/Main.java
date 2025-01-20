@@ -4,6 +4,8 @@ import javax.swing.*;
 
 public static void main(String args[]) {
 
+    Runtime.getRuntime().addShutdownHook(new Thread(Logger::close));
+
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             try {
